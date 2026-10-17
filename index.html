@@ -4,43 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ÖZEN OTO | Renault & Dacia Orijinal Yedek Parça</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.tr.css" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Font/Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg-dark: #121416;
             --bg-card: #1c1f24;
-            --bg-panel: #242830;
             --brand-yellow: #ffcc00;
             --brand-yellow-hover: #e6b800;
             --text-light: #f8f9fa;
-            --text-muted: #a0a5b1;
             --border-color: #2f3542;
         }
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
             font-family: 'Work Sans', sans-serif;
+            min-height: 100vh;
         }
-        .bg-custom-card { background-color: var(--bg-card); border: 1px solid var(--border-color); }
+        .bg-custom-card { 
+            background-color: var(--bg-card); 
+            border: 1px solid var(--border-color); 
+        }
         .text-yellow { color: var(--brand-yellow) !important; }
         .btn-yellow {
             background-color: var(--brand-yellow);
             color: #000;
             font-weight: 700;
             border: none;
+            transition: all 0.2s ease-in-out;
         }
         .btn-yellow:hover {
             background-color: var(--brand-yellow-hover);
             color: #000;
+            transform: translateY(-2px);
         }
         .brand-logo {
             font-family: 'Teko', sans-serif;
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             letter-spacing: 1px;
             color: var(--brand-yellow);
             text-transform: uppercase;
+        }
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--brand-yellow);
         }
         .modal-content {
             background-color: var(--bg-card);
@@ -51,58 +69,154 @@
 </head>
 <body>
 
-    <!-- ÜST BİLGİ VE LOGO -->
-    <nav class="navbar navbar-dark bg-custom-card py-3 border-bottom border-warning">
+    <!-- ÜST MENÜ VE LOGO -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-card py-3 border-bottom border-warning sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 <i class="fa-solid fa-gears text-yellow fs-2"></i>
                 <span class="brand-logo mb-0">ÖZEN OTO <small class="fs-6 text-white fw-normal">| RENAULT & DACIA</small></span>
             </a>
-            <button class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#vinModal">
-                <i class="fa-solid fa-id-card me-1"></i> Şasi No ile Parça Sorgula
+            <button class="btn btn-yellow ms-auto" data-bs-toggle="modal" data-bs-target="#vinModal">
+                <i class="fa-solid fa-id-card me-1"></i> Şasi No ile Sorgula
             </button>
         </div>
     </nav>
 
-    <!-- KARŞILAMA VE ARAMA -->
-    <div class="container my-5 text-center">
-        <h1 class="display-5 fw-bold text-yellow">RENAULT & DACIA ORİJİNAL YEDEK PARÇA</h1>
-        <p class="lead text-muted">Kumluca / Antalya - Şasi Numarası ile %100 Doğru Parça Garantisi</p>
+    <!-- BANNER VE ARAMA -->
+    <section class="container my-5 text-center">
+        <h1 class="display-5 fw-bold text-yellow mb-2">RENAULT & DACIA YEDEK PARÇA</h1>
+        <p class="lead text-secondary mb-4">Kumluca / Antalya — Şasi Numarası ile %100 Uyum Garantisi</p>
         
-        <div class="row justify-content-center mt-4">
+        <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control bg-dark text-light border-warning" placeholder="Parça Adı veya OEM Kodu Giriniz (Örn: 152095084R)...">
-                    <button class="btn btn-yellow px-4" type="button"><i class="fa-solid fa-magnifying-glass"></i> Ara</button>
+                    <input type="text" id="searchInput" class="form-control bg-dark text-light border-warning fs-6" placeholder="Parça adı veya OEM kodu giriniz (Örn: Yağ Filtresi, 152095084R)...">
+                    <button class="btn btn-yellow px-4" type="button" onclick="searchParts()">
+                        <i class="fa-solid fa-magnifying-glass"></i> Ara
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- DÜKKAN İLETİŞİM / WHATSAPP -->
-    <div class="container text-center my-4">
-        <a href="https://wa.me/905000000000?text=Merhaba,%20Özen%20Oto%20yedek%20parça%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-outline-warning btn-lg px-4">
-            <i class="fa-brands fa-whatsapp fs-4 align-middle me-2"></i> WhatsApp Destek & Sipariş Hattı
-        </a>
-    </div>
+    <!-- HIZLI SORGULAMA & WHATSAPP HATLARI -->
+    <section class="container my-4 text-center">
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="https://wa.me/905000000000?text=Merhaba,%20Özen%20Oto%20yedek%20parça%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="btn btn-outline-warning btn-lg px-4">
+                <i class="fa-brands fa-whatsapp fs-4 align-middle me-2"></i> WhatsApp İletişim Hattı
+            </a>
+        </div>
+    </section>
 
-    <!-- ŞASİ MODALI -->
-    <div class="modal fade" id="vinModal" tabindex="-1">
+    <!-- ÖRNEK ÜRÜN KARTLARI -->
+    <section class="container my-5">
+        <h4 class="text-yellow border-bottom border-secondary pb-2 mb-4"><i class="fa-solid fa-boxes-stacked me-2"></i>Öne Çıkan Parçalar</h4>
+        <div class="row g-4" id="productList">
+            
+            <!-- Ürün 1 -->
+            <div class="col-md-4 product-item">
+                <div class="product-card p-3 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="badge bg-warning text-dark mb-2">Renault / Dacia</span>
+                        <h5 class="fw-bold">1.5 dCi Yağ Filtresi</h5>
+                        <p class="text-secondary small mb-2">OEM Kodu: 152095084R</p>
+                        <p class="text-muted small">Clio, Megane, Fluence, Duster, Sandero uyumlu orijinal yağ filtresi.</p>
+                    </div>
+                    <button class="btn btn-yellow w-100 mt-3" onclick="sendWhatsApp('1.5 dCi Yağ Filtresi (152095084R)')">
+                        <i class="fa-brands fa-whatsapp me-1"></i> Fiyat & Stok Sor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ürün 2 -->
+            <div class="col-md-4 product-item">
+                <div class="product-card p-3 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="badge bg-warning text-dark mb-2">Renault</span>
+                        <h5 class="fw-bold"> Ön Fren Balatası Takımı</h5>
+                        <p class="text-secondary small mb-2">OEM Kodu: 410605536R</p>
+                        <p class="text-muted small">Megane 3, Fluence araçlar için orijinal ön fren balatası seti.</p>
+                    </div>
+                    <button class="btn btn-yellow w-100 mt-3" onclick="sendWhatsApp('Ön Fren Balatası (410605536R)')">
+                        <i class="fa-brands fa-whatsapp me-1"></i> Fiyat & Stok Sor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ürün 3 -->
+            <div class="col-md-4 product-item">
+                <div class="product-card p-3 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="badge bg-warning text-dark mb-2">Dacia</span>
+                        <h5 class="fw-bold">Duster Mazot (Yakıt) Filtresi</h5>
+                        <p class="text-secondary small mb-2">OEM Kodu: 164005420R</p>
+                        <p class="text-muted small">Dacia Duster 1.5 dCi Euro 5 ve Euro 6 motorlar ile uyumlu.</p>
+                    </div>
+                    <button class="btn btn-yellow w-100 mt-3" onclick="sendWhatsApp('Duster Mazot Filtresi (164005420R)')">
+                        <i class="fa-brands fa-whatsapp me-1"></i> Fiyat & Stok Sor
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ŞASİ SORGULAMA MODALI -->
+    <div class="modal fade" id="vinModal" tabindex="-1" aria-labelledby="vinModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title text-yellow"><i class="fa-solid fa-shield-halved me-2"></i>Şasi Numarası İle Parça Sorgula</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title text-yellow" id="vinModalLabel"><i class="fa-solid fa-shield-halved me-2"></i>Şasi Numarası İle Parça Sorgula</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="small text-muted">Araç ruhsatınızda yer alan 17 haneli Şasi Numarasını (VIN) girerek parçanın aracınızla tam uyumunu doğrulayabilirsiniz.</p>
-                    <input type="text" class="form-control bg-dark text-light border-secondary mb-3" placeholder="Örn: VF1KM0F0000000000">
-                    <button class="btn btn-yellow w-100 py-2"><i class="fa-brands fa-whatsapp me-2"></i>WhatsApp'a Gönder</button>
+                    <p class="small text-secondary">Ruhsatınızda yazan 17 haneli Şasi Numarasını (VIN) girerek parçanın aracınızla %100 uyumunu doğrulayabilirsiniz.</p>
+                    <input type="text" id="vinInput" class="form-control bg-dark text-light border-secondary mb-3 text-uppercase" placeholder="Örn: VF1KM0F0000000000">
+                    <button class="btn btn-yellow w-100 py-2" onclick="sendVinWhatsApp()">
+                        <i class="fa-brands fa-whatsapp me-2"></i> WhatsApp'tan Sorgula
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap 5 JavaScript (Butonların ve Modalların Tıklanması İçin Şart) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // WhatsApp Parça Sorgulama
+        function sendWhatsApp(productName) {
+            const phone = "905000000000"; // Buraya kendi WhatsApp numaranı yazabilirsin
+            const message = encodeURIComponent(`Merhaba Özen Oto, ${productName} parçası hakkında fiyat ve stok bilgisi almak istiyorum.`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // WhatsApp Şasi Sorgulama
+        function sendVinWhatsApp() {
+            const vin = document.getElementById('vinInput').value.trim();
+            if (!vin) {
+                alert('Lütfen geçerli bir Şasi Numarası giriniz.');
+                return;
+            }
+            const phone = "905000000000"; // Buraya kendi WhatsApp numaranı yazabilirsin
+            const message = encodeURIComponent(`Merhaba Özen Oto, Şasi Numaram: ${vin}. Aracım için uygun yedek parça tespiti yaptırmak istiyorum.`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // Basit Arama Filtresi
+        function searchParts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.product-item');
+            
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
