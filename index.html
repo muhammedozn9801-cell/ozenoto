@@ -244,7 +244,7 @@
                     <div>
                         <label class="block mb-1">Fotoğraf Seç / Çek (Çoklu Fotoğraf):</label>
                         <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                        <span class="text-[10px] text-gray-400 font-normal">Fotoğraflar otomatik olarak Google Drive'a yüklenir.</span>
+                        <span class="text-[10px] text-gray-400 font-normal">Fotoğraflar anında otomatik optimize edilerek kaydedilir.</span>
                     </div>
 
                     <div>
@@ -282,21 +282,45 @@
             }
             tablodanCek();
 
-            // Resim Okuma İşlemi
+            // ULTRA HAFİF RESİM SIKIŞTIRMA (Google Sheets Hücre Sınırına Takılmaz)
             document.getElementById('adm-kamera').addEventListener('change', function(e) {
                 cokluResimler = [];
                 const files = e.target.files;
                 if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
-                        const reader = new FileReader();
-                        reader.onload = function(evt) {
-                            cokluResimler.push(evt.target.result);
-                        };
-                        reader.readAsDataURL(files[i]);
+                        miniSikistir(files[i], function(base64Data) {
+                            cokluResimler.push(base64Data);
+                        });
                     }
                 }
             });
         };
+
+        function miniSikistir(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxWidth = 320; // Mikro genişlik
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', 0.4)); // Yüksek sıkıştırma
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
 
         function tablodanCek() {
             fetch(SHEET_READ_URL)
@@ -445,8 +469,10 @@
                 return;
             }
 
-            btn.innerText = "Fotoğraflar Google Drive'a Yükleniyor...";
+            btn.innerText = "Kaydediliyor...";
             btn.disabled = true;
+
+            const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
 
             const payload = {
                 action: id ? "update" : "add",
@@ -454,7 +480,7 @@
                 baslik: baslik,
                 arac: arac,
                 oem: oem,
-                resimler: cokluResimler,
+                resimler: resimMetni,
                 etiket: marka ? `Orijinal ${marka}` : "Orijinal MAİS",
                 aciklama: `${stok} | ${aciklama}`
             };
@@ -471,7 +497,7 @@
                 document.getElementById('admin-modal').classList.add('hidden');
                 
                 formuSifirla();
-                setTimeout(tablodanCek, 3000);
+                setTimeout(tablodanCek, 2500);
             });
         }
 
