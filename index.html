@@ -191,8 +191,11 @@
 
             <!-- ÜRÜN EKLEME VE DÜZENLEME FORMU -->
             <div id="admin-form-step" class="hidden">
-                <h3 id="form-baslik" class="text-lg font-bold mb-4 uppercase text-yellow-500 border-b pb-2"><i class="fa-solid fa-plus-circle mr-2"></i>Pratik Ürün Ekle / Düzenle</h3>
-                
+                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                    <h3 id="form-baslik" class="text-lg font-bold uppercase text-yellow-500"><i class="fa-solid fa-plus-circle mr-2"></i>Ürün Ekle / Düzenle</h3>
+                    <button id="sifirla-btn" onclick="formuSifirla()" class="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hidden">Yeni Ürün Moduna Geç</button>
+                </div>
+
                 <input type="hidden" id="adm-id" value="">
 
                 <div class="space-y-3 text-xs font-bold">
@@ -239,9 +242,9 @@
                     </div>
 
                     <div>
-                        <label class="block mb-1">Birden Fazla Fotoğraf Seç (Kamera/Galeri):</label>
+                        <label class="block mb-1">Fotoğraf Seç / Çek (İsteğe Bağlı):</label>
                         <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                        <span class="text-[10px] text-gray-400 font-normal">İstediğiniz sayıda fotoğraf yükleyebilirsiniz. Fotoğraflar otomatik sıkıştırılır.</span>
+                        <span class="text-[10px] text-gray-400 font-normal">Seçtiğiniz fotolar otomatik sıkıştırılır. Yeni foto seçmezseniz mevcuttakiler korunur.</span>
                     </div>
 
                     <div>
@@ -279,13 +282,13 @@
             }
             tablodanCek();
 
-            // Fotoğraf Sıkıştırma Mantığı
+            // Fotoğraf Sıkıştırma (Mobil Uyumlu)
             document.getElementById('adm-kamera').addEventListener('change', function(e) {
                 cokluResimler = [];
                 const files = e.target.files;
                 if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
-                        resimSikistir(files[i], 600, 0.6, function(base64Data) {
+                        resimSikistir(files[i], 450, 0.5, function(base64Data) {
                             cokluResimler.push(base64Data);
                         });
                     }
@@ -380,8 +383,8 @@
                             ${anaResim ? `<img id="img-urun-${u.id}" src="${anaResim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
                             
                             ${birdenFazlaFotoVar ? `
-                                <button onclick="fotoDegistir('${u.id}', -1)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs z-20"><i class="fa-solid fa-chevron-left"></i></button>
-                                <button onclick="fotoDegistir('${u.id}', 1)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs z-20"><i class="fa-solid fa-chevron-right"></i></button>
+                                <button onclick="fotoDegistir('${u.id}', -1)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs z-20"><i class="fa-solid fa-chevron-left"></i></button>
+                                <button onclick="fotoDegistir('${u.id}', 1)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs z-20"><i class="fa-solid fa-chevron-right"></i></button>
                             ` : ''}
                         </div>
                         <div class="p-4">
@@ -437,6 +440,17 @@
             document.getElementById('adm-oem').value = urun.oem;
             document.getElementById('adm-aciklama').value = urun.aciklama;
             document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-pen-to-square mr-2"></i> Ürün Düzenle (ID: ${urun.id})`;
+            document.getElementById('sifirla-btn').classList.remove('hidden');
+        }
+
+        function formuSifirla() {
+            document.getElementById('adm-id').value = '';
+            document.getElementById('adm-baslik').value = '';
+            document.getElementById('adm-oem').value = '';
+            document.getElementById('adm-aciklama').value = '';
+            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-plus-circle mr-2"></i> Pratik Ürün Ekle`;
+            document.getElementById('sifirla-btn').classList.add('hidden');
+            cokluResimler = [];
         }
 
         function urunKaydet() {
@@ -476,18 +490,12 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             }).then(() => {
-                alert(id ? 'Ürün Başarıyla Güncellendi!' : 'Yeni Ürün Yayınlandı!');
+                alert(id ? 'Ürün Kartı Başarıyla Güncellendi!' : 'Yeni Ürün Kartı Yayınlandı!');
                 btn.innerText = "Kaydet ve Yayınla";
                 btn.disabled = false;
                 document.getElementById('admin-modal').classList.add('hidden');
                 
-                // Form Temizle
-                document.getElementById('adm-id').value = '';
-                document.getElementById('adm-baslik').value = '';
-                document.getElementById('adm-oem').value = '';
-                document.getElementById('adm-aciklama').value = '';
-                cokluResimler = [];
-
+                formuSifirla();
                 setTimeout(tablodanCek, 2500);
             });
         }
