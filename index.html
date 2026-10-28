@@ -242,9 +242,9 @@
                     </div>
 
                     <div>
-                        <label class="block mb-1">Fotoğraf Seç / Çek (İsteğe Bağlı):</label>
+                        <label class="block mb-1">Fotoğraf Seç / Çek (Çoklu Fotoğraf):</label>
                         <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                        <span class="text-[10px] text-gray-400 font-normal">Seçtiğiniz fotolar otomatik sıkıştırılır. Yeni foto seçmezseniz mevcuttakiler korunur.</span>
+                        <span class="text-[10px] text-gray-400 font-normal">Fotoğraflar otomatik olarak Google Drive'a yüklenir.</span>
                     </div>
 
                     <div>
@@ -282,44 +282,21 @@
             }
             tablodanCek();
 
-            // Fotoğraf Sıkıştırma (Mobil Uyumlu)
+            // Resim Okuma İşlemi
             document.getElementById('adm-kamera').addEventListener('change', function(e) {
                 cokluResimler = [];
                 const files = e.target.files;
                 if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
-                        resimSikistir(files[i], 450, 0.5, function(base64Data) {
-                            cokluResimler.push(base64Data);
-                        });
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            cokluResimler.push(evt.target.result);
+                        };
+                        reader.readAsDataURL(files[i]);
                     }
                 }
             });
         };
-
-        function resimSikistir(file, maxWidth, quality, callback) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-
-                    if (width > maxWidth) {
-                        height = Math.round((height * maxWidth) / width);
-                        width = maxWidth;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/jpeg', quality));
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
 
         function tablodanCek() {
             fetch(SHEET_READ_URL)
@@ -448,7 +425,7 @@
             document.getElementById('adm-baslik').value = '';
             document.getElementById('adm-oem').value = '';
             document.getElementById('adm-aciklama').value = '';
-            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-plus-circle mr-2"></i> Pratik Ürün Ekle`;
+            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-plus-circle mr-2"></i> Ürün Ekle / Düzenle`;
             document.getElementById('sifirla-btn').classList.add('hidden');
             cokluResimler = [];
         }
@@ -468,10 +445,8 @@
                 return;
             }
 
-            btn.innerText = "İşleniyor...";
+            btn.innerText = "Fotoğraflar Google Drive'a Yükleniyor...";
             btn.disabled = true;
-
-            const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
 
             const payload = {
                 action: id ? "update" : "add",
@@ -479,7 +454,7 @@
                 baslik: baslik,
                 arac: arac,
                 oem: oem,
-                resimler: resimMetni,
+                resimler: cokluResimler,
                 etiket: marka ? `Orijinal ${marka}` : "Orijinal MAİS",
                 aciklama: `${stok} | ${aciklama}`
             };
@@ -490,13 +465,13 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             }).then(() => {
-                alert(id ? 'Ürün Kartı Başarıyla Güncellendi!' : 'Yeni Ürün Kartı Yayınlandı!');
+                alert(id ? 'Ürün Başarıyla Güncellendi!' : 'Yeni Ürün Yayınlandı!');
                 btn.innerText = "Kaydet ve Yayınla";
                 btn.disabled = false;
                 document.getElementById('admin-modal').classList.add('hidden');
                 
                 formuSifirla();
-                setTimeout(tablodanCek, 2500);
+                setTimeout(tablodanCek, 3000);
             });
         }
 
