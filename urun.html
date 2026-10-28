@@ -6,81 +6,81 @@
     <title>Ürün Detayı | Özen Oto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-    <!-- UYARI ŞERİDİ -->
     <div class="bg-red-600 text-white text-xs font-black py-2 px-4 text-center uppercase">
         ÖNEMLİ UYARI: Orijinal MAİS logolu ürünlerin montaj sonrasında kesinlikle iadesi yoktur!
     </div>
 
-    <!-- HEADER -->
-    <header class="bg-white py-4 border-b shadow-sm">
+    <header class="bg-white dark:bg-gray-900 py-4 border-b dark:border-gray-800 shadow-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col">
-                <span class="text-2xl font-black text-black">ÖZEN OTO</span>
+                <span class="text-2xl font-black text-black dark:text-white">ÖZEN OTO</span>
                 <span class="text-[10px] font-bold text-red-600 tracking-widest">RENAULT & DACIA YEDEK PARÇA</span>
             </a>
-            <a href="index.html" class="bg-gray-100 hover:bg-yellow-500 hover:text-black px-4 py-2 text-xs font-bold rounded">
+            <a href="index.html" class="bg-yellow-500 text-black px-4 py-2 text-xs font-bold rounded">
                 <i class="fa-solid fa-arrow-left mr-1"></i> Ana Sayfaya Dön
             </a>
         </div>
     </header>
 
-    <!-- ÜRÜN DETAY SAYFASI ALANI -->
     <div class="container mx-auto px-4 py-10">
-        <div class="bg-white border p-6 md:p-8 rounded shadow-sm max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 p-6 md:p-8 rounded shadow-sm max-w-4xl mx-auto">
             <div id="urun-icerik" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- JS Burayı Dolduracak -->
             </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-gray-900 text-gray-400 py-4 text-center text-xs border-t-2 border-yellow-500 mt-12">
         <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya (0242 887 89 80)</p>
     </footer>
 
     <script>
-        const urunler = [
-            { id: 1, baslik: "1.5 dCi Triger Seti + Devirdaim", arac: "Renault Megane 4 / Clio 5", oem: "8200537083", resim: "dukkan.png", etiket: "Orijinal MAİS", aciklama: "Orijinal Mais kutulu triger kayışı ve devirdaim pompası seti. Birebir uyumludur." },
-            { id: 2, baslik: "1,5 1,6 Krank Dişlisi Clio Megane Kangoo", arac: "Renault / Dacia", oem: "8200313018", resim: "", etiket: "Orijinal MAİS", aciklama: "K9K motor uyumlu krank dişlisi." },
-            { id: 3, baslik: "1,5 Dizel K9K Motor Egsoz Manifold Contası", arac: "Renault / Dacia", oem: "8200029169", resim: "", etiket: "Orijinal MAİS", aciklama: "Sıfır ambalajında egzoz manifold contası." },
-            { id: 4, baslik: "1-2 AVARE DİŞLİ", arac: "Renault Şanzıman", oem: "8200123456", resim: "", etiket: "Orijinal MAİS", aciklama: "Orijinal şanzıman 1-2 avare dişlisi." },
-            { id: 5, baslik: "1-2 AYIRMA ÇATALI", arac: "Renault Vites Aksamı", oem: "8200987654", resim: "", etiket: "Orijinal MAİS", aciklama: "Orijinal vites ayırma çatalı." },
-            { id: 6, baslik: "Periyodik Bakım Seti (4'lü)", arac: "Dacia Duster / Sandero", oem: "7701478547", resim: "", etiket: "Orijinal MAİS", aciklama: "Yağ, Hava, Polen ve Mazot filtresi tam set." },
-            { id: 7, baslik: "1.5 dCi Sıfır Sandık Motor", arac: "Renault & Dacia", oem: "K9K-872", resim: "", etiket: "Sıfır Sandık", aciklama: "Komple sıfır, faturalı, garantisiz sandık motor." }
-        ];
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const urunId = parseInt(urlParams.get('id')) || 1;
-            const urun = urunler.find(u => u.id === urunId) || urunler[0];
+            const urunId = urlParams.get('id');
 
-            document.title = urun.baslik + " | Özen Oto";
-
-            document.getElementById('urun-icerik').innerHTML = `
-                <div class="bg-gray-100 h-80 rounded flex items-center justify-center relative overflow-hidden">
-                    <span class="absolute top-2 left-2 bg-yellow-500 text-black text-xs font-black px-2 py-1 rounded uppercase">${urun.etiket}</span>
-                    ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-boxes-packing text-8xl text-gray-400"></i>`}
-                </div>
-                <div class="flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-red-600 uppercase">${urun.arac}</span>
-                        <h1 class="text-2xl font-black text-gray-900 mt-1 mb-2">${urun.baslik}</h1>
-                        <p class="text-xs text-gray-500 font-bold mb-4">OEM / PARÇA NO: <span class="text-black">${urun.oem}</span></p>
-                        
-                        <div class="border-t border-b py-4 my-4 text-sm text-gray-700">
-                            <p class="mb-2"><strong>Açıklama:</strong> ${urun.aciklama}</p>
-                            <p class="text-xs text-green-700 font-bold mt-2"><i class="fa-solid fa-check mr-1"></i> Stokta Var (Kumluca Dükkan Teslim veya Kargo)</p>
+            const kayitli = localStorage.getItem('ozenOtoUrunler');
+            if (kayitli) {
+                const liste = JSON.parse(kayitli);
+                const urun = liste.find(u => u.id === urunId) || liste[0];
+                if (urun) {
+                    document.title = urun.baslik + " | Özen Oto";
+                    document.getElementById('urun-icerik').innerHTML = `
+                        <div class="bg-gray-100 dark:bg-gray-900 h-80 rounded flex items-center justify-center relative overflow-hidden">
+                            <span class="absolute top-2 left-2 bg-yellow-500 text-black text-xs font-black px-2 py-1 rounded uppercase">${urun.etiket}</span>
+                            ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-boxes-packing text-8xl text-gray-400"></i>`}
                         </div>
-                    </div>
+                        <div class="flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-red-600 uppercase">${urun.arac}</span>
+                                <h1 class="text-2xl font-black text-gray-900 dark:text-white mt-1 mb-2">${urun.baslik}</h1>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 font-bold mb-4">OEM / PARÇA NO: <span class="text-black dark:text-white">${urun.oem}</span></p>
+                                
+                                <div class="border-t border-b dark:border-gray-700 py-4 my-4 text-sm text-gray-700 dark:text-gray-300">
+                                    <p class="mb-2"><strong>Açıklama:</strong> ${urun.aciklama || 'Ürün açıklaması bulunmuyor.'}</p>
+                                    <p class="text-xs text-green-600 dark:text-green-400 font-bold mt-2"><i class="fa-solid fa-check mr-1"></i> ${urun.stok || 'Stokta Var'} (Kumluca Dükkan Teslim veya Kargo)</p>
+                                </div>
+                            </div>
 
-                    <a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(urun.baslik)}%20(${urun.oem})%20hakk%C4%B1nda%20fiyat%20bilgisi%20almak%20istiyorum." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-center uppercase rounded flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp ile Fiyat Sor / Sipariş Ver
-                    </a>
-                </div>
-            `;
+                            <a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(urun.baslik)}%20(${urun.oem})%20hakk%C4%B1nda%20fiyat%20bilgisi%20almak%20istiyorum." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-center uppercase rounded flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp ile Fiyat Sor / Sipariş Ver
+                            </a>
+                        </div>
+                    `;
+                }
+            }
         };
     </script>
 </body>
