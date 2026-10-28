@@ -3,68 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sıfır kilometre, garantili ve faturalı 1.5 dCi K9K Komple Sandık Motor. Kumluca Özen Oto güvencesiyle.">
-    <title>1.5 dCi K9K Sandık Motor (Sıfır & Garantili) | Özen Oto</title>
+    <title>1.5 dCi K9K Sandık Motor | Özen Oto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInUp 0.6s ease-out forwards; }
+        .pulse-btn { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="../index.html" class="flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left text-gray-500 hover:text-red-600 transition text-xl mr-2"></i>
-                <h1 class="text-xl font-black text-gray-900">ÖZEN OTO</h1>
-            </a>
-            <a href="https://wa.me/905327249417" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-bold text-sm transition flex items-center">
-                <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Ustaya Ulaş
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition font-bold">
+                <i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön
             </a>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 max-w-6xl">
-        <nav class="text-sm text-gray-500 mb-6 font-semibold">
-            <a href="../index.html" class="hover:text-red-600">Ana Sayfa</a> > 
-            <a href="../renault.html" class="hover:text-red-600">Motor Parçaları</a> > 
-            <span class="text-gray-800">1.5 dCi Sandık Motor</span>
-        </nav>
-
-        <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row">
-            <div class="md:w-1/2 bg-gray-100 p-8 flex justify-center items-center relative">
-                <div class="absolute top-4 left-4 bg-green-500 text-white font-bold text-xs px-3 py-1.5 rounded-full shadow-md">
-                    %100 Orijinal Sıfır Ürün
+    <main class="container mx-auto px-4 py-10 max-w-5xl fade-in">
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col md:flex-row">
+            
+            <!-- Sol: Galeri -->
+            <div class="md:w-1/2 bg-gray-50 p-6 md:p-10 flex flex-col items-center">
+                <div class="w-full h-72 md:h-96 bg-white rounded-2xl shadow-sm border border-gray-200 p-4 mb-4 flex items-center justify-center relative">
+                    <span class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">%100 Sıfır Ürün</span>
+                    <img id="main-img" src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800" alt="1.5 dCi Motor" class="max-h-full object-contain transition-all duration-300">
                 </div>
-                <img src="1-5-dci-sandik-motor-resim.jpg" 
-                     onerror="this.src='https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800&auto=format&fit=crop&q=80'" 
-                     alt="Sıfır 1.5 dCi K9K Sandık Motor" class="max-h-96 object-contain rounded drop-shadow-2xl">
+                
+                <div class="flex gap-4 overflow-x-auto p-2">
+                    <img src="1-5-dci-sandik-motor-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=200'" onclick="document.getElementById('main-img').src=this.src" class="w-16 h-16 object-cover rounded-xl border-2 border-transparent hover:border-red-500 cursor-pointer shadow-sm bg-white transition">
+                    <img src="1-5-dci-sandik-motor-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200'" onclick="document.getElementById('main-img').src=this.src" class="w-16 h-16 object-cover rounded-xl border-2 border-transparent hover:border-red-500 cursor-pointer shadow-sm bg-white transition">
+                    <img src="1-5-dci-sandik-motor-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1600792580403-ee500be75844?w=200'" onclick="document.getElementById('main-img').src=this.src" class="w-16 h-16 object-cover rounded-xl border-2 border-transparent hover:border-red-500 cursor-pointer shadow-sm bg-white transition">
+                </div>
             </div>
 
-            <div class="md:w-1/2 p-8 flex flex-col justify-center">
-                <div class="uppercase tracking-widest text-red-600 font-bold text-xs mb-2">Orijinal (OEM) K9K Motor Serisi</div>
-                <h1 class="text-3xl sm:text-4xl font-black text-gray-900 mb-4 leading-tight">Sıfır 1.5 dCi Komple Sandık Motor</h1>
+            <!-- Sağ: Detaylar -->
+            <div class="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
+                <span class="text-red-600 font-extrabold text-xs uppercase tracking-widest mb-3">Renault / Dacia Uyumlu K9K</span>
+                <h1 class="text-3xl sm:text-4xl font-black text-gray-900 mb-6 leading-tight">Sıfır 1.5 dCi Komple Sandık Motor</h1>
+                <p class="text-gray-600 text-lg mb-8 leading-relaxed">Sıfır kilometre, faturalı ve fabrikasyon K9K komple sandık motor. Tüm enjektör ve kütük aksamları koruma kapaklı şekilde teslime hazırdır.</p>
                 
-                <p class="text-gray-600 mb-6 text-lg">
-                    Fabrika çıkışlı, sıfır kilometre ve faturalı 1.5 dCi (K9K) komple sandık motor. Tüm enjektör ve kütük aksamları koruma kapaklı şekilde teslim edilmektedir.
-                </p>
-
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="askEngineWhatsApp()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg font-black text-lg transition shadow-lg flex items-center justify-center">
-                        <i class="fa-brands fa-whatsapp text-2xl mr-2"></i> Fiyat & Stok Sor
-                    </button>
-                    <a href="tel:+905327249417" class="sm:flex-none bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition flex items-center justify-center">
-                        <i class="fa-solid fa-phone"></i>
+                    <a href="https://wa.me/905327249417?text=Merhaba%2C%201.5%20dCi%20motor%20i%C3%A7in%20bilgi%20almak%20istiyorum." target="_blank" class="pulse-btn flex-1 bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-black text-lg transition shadow-lg shadow-green-500/30 flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-2xl mr-2"></i> WhatsApp'tan Sor
                     </a>
                 </div>
             </div>
         </div>
     </main>
-
-    <script>
-        const WHATSAPP_NO = "905327249417"; 
-        function askEngineWhatsApp() {
-            const msg = `Merhaba Özen Oto, sitenizdeki "Sıfır 1.5 dCi (K9K) Sandık Motor" ilanı için fiyat ve stok bilgisi alabilir miyim?`;
-            window.open(`https://wa.me/${WHATSAPP_NO}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-    </script>
 </body>
 </html>
