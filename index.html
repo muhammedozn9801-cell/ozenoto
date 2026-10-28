@@ -1,255 +1,207 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Antalya Kumluca Özen Oto - Renault ve Dacia orijinal yedek parça, sıfır sandık motor.">
-    <title>Özen Oto | Yedek Parça ve Sandık Motor Uzmanı</title>
+    <title>Özen Oto | Renault ve Dacia Yedek Parça</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f4f5f7; }
-        .glass-header { background: rgba(255, 255, 255, 0.98); border-bottom: 2px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        .hover-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .brand-box { transition: all 0.3s ease; }
-        .brand-box:hover { border-color: #ef4444; background-color: #fffaf9; }
-    </style>
-</head>
-<body class="text-gray-800">
-
-    <!-- ÜST BİLGİ BANTI (Oto Ahmet Tarzı) -->
-    <div class="bg-gray-900 text-white text-xs py-2">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div><i class="fa-solid fa-truck-fast text-red-500 mr-1"></i> Tüm Türkiye'ye Hızlı Gönderim</div>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-red-400"><i class="fa-brands fa-facebook"></i> Facebook</a>
-                <a href="#" class="hover:text-red-400"><i class="fa-brands fa-instagram"></i> Instagram</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ANA HEADER & ARAMA (E-Ticaret Havası) -->
-    <header class="glass-header sticky top-0 z-50 py-4">
-        <div class="container mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
-            
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center gap-2">
-                <div class="bg-red-600 text-white p-2 rounded"><i class="fa-solid fa-car-side text-2xl"></i></div>
-                <div class="leading-tight">
-                    <h1 class="text-2xl font-black text-gray-900 m-0">ÖZEN OTO</h1>
-                    <span class="text-xs text-gray-500 font-bold tracking-widest">YEDEK PARÇA</span>
-                </div>
-            </a>
-
-            <!-- Arama Çubuğu (OEM veya Parça Adı) -->
-            <div class="flex-1 max-w-2xl hidden md:flex">
-                <div class="flex w-full border-2 border-red-600 rounded-lg overflow-hidden bg-white">
-                    <input type="text" id="search-input" placeholder="Parça adı, OEM kodu veya araç modeli yazın..." class="w-full px-4 py-3 outline-none text-sm font-semibold">
-                    <button onclick="askWhatsApp()" class="bg-red-600 text-white px-6 font-bold hover:bg-red-700 transition">
-                        <i class="fa-solid fa-magnifying-glass mr-1"></i> BUL
-                    </button>
-                </div>
-            </div>
-
-            <!-- İletişim & WhatsApp -->
-            <a href="https://wa.me/905327249417" target="_blank" class="flex items-center gap-3 bg-green-50 px-4 py-2 rounded-lg border border-green-200 hover:bg-green-100 transition">
-                <i class="fa-brands fa-whatsapp text-3xl text-green-500"></i>
-                <div class="hidden sm:block">
-                    <div class="text-xs text-gray-500 font-bold">Usta Destek Hattı</div>
-                    <div class="text-sm font-black text-gray-900">0532 724 94 17</div>
-                </div>
-            </a>
-        </div>
-    </header>
-
-    <!-- MOBİL ARAMA -->
-    <div class="md:hidden bg-white p-3 border-b border-gray-200">
-        <div class="flex border-2 border-red-600 rounded-lg overflow-hidden">
-            <input type="text" id="mobile-search-input" placeholder="Parça ara..." class="w-full px-3 py-2 outline-none text-sm">
-            <button onclick="askWhatsAppMobile()" class="bg-red-600 text-white px-4 font-bold">BUL</button>
-        </div>
-    </div>
-
-    <!-- KATEGORİLER VE MARKALAR (Oto Ahmet'in Kare Tarzı) -->
-    <section class="container mx-auto px-4 py-8">
-        <h2 class="text-xl font-black mb-4 border-l-4 border-red-600 pl-3">Hızlı Marka Seçimi</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            
-            <a href="renault.html" class="brand-box bg-white p-6 rounded-xl border border-gray-200 text-center flex flex-col items-center justify-center gap-3 shadow-sm">
-                <i class="fa-solid fa-car text-4xl text-yellow-500"></i>
-                <span class="font-bold text-gray-800">RENAULT Parçaları</span>
-            </a>
-            
-            <a href="dacia.html" class="brand-box bg-white p-6 rounded-xl border border-gray-200 text-center flex flex-col items-center justify-center gap-3 shadow-sm">
-                <i class="fa-solid fa-shield text-4xl text-blue-600"></i>
-                <span class="font-bold text-gray-800">DACIA Parçaları</span>
-            </a>
-
-            <a href="#" class="brand-box bg-white p-6 rounded-xl border border-gray-200 text-center flex flex-col items-center justify-center gap-3 shadow-sm opacity-70">
-                <i class="fa-solid fa-oil-can text-4xl text-gray-500"></i>
-                <span class="font-bold text-gray-800">Yağ & Bakım Setleri</span>
-            </a>
-
-            <a href="#" class="brand-box bg-white p-6 rounded-xl border border-gray-200 text-center flex flex-col items-center justify-center gap-3 shadow-sm opacity-70">
-                <i class="fa-solid fa-gear text-4xl text-gray-500"></i>
-                <span class="font-bold text-gray-800">Aksesuarlar</span>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- KAMPANYALI & POPÜLER ÜRÜNLER VİTRİNİ -->
-    <section class="container mx-auto px-4 py-8">
-        <div class="flex justify-between items-end mb-6">
-            <h2 class="text-2xl font-black border-l-4 border-red-600 pl-3">Kampanyalı & Öne Çıkan Ürünler</h2>
-        </div>
-
-        <!-- Ürün Grid Sistemi -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <!-- Ürün Kartı 1 -->
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover-card transition-all duration-300 relative flex flex-col">
-                <div class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Stokta</div>
-                <div class="h-48 p-4 flex justify-center items-center bg-gray-50 border-b border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=500" alt="1.5 dCi Motor" class="max-h-full object-contain mix-blend-multiply">
-                </div>
-                <div class="p-5 flex flex-col flex-1">
-                    <div class="text-xs text-gray-400 font-bold mb-1">RENAULT / DACIA</div>
-                    <h3 class="font-bold text-lg text-gray-900 mb-2 leading-tight">1.5 dCi Komple Sandık Motor (Sıfır K9K)</h3>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Garantili ve faturalı K9K sıfır sandık motor. Kumluca teslim.</p>
-                    
-                    <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <span class="text-red-600 font-black text-lg">Fiyat Sor</span>
-                        <a href="urunler/1-5-dci-sandik-motor.html" class="bg-gray-900 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-bold transition">İncele</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ürün Kartı 2 -->
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover-card transition-all duration-300 relative flex flex-col">
-                <div class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Stokta</div>
-                <div class="h-48 p-4 flex justify-center items-center bg-gray-50 border-b border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500" alt="1.3 TCe Motor" class="max-h-full object-contain mix-blend-multiply">
-                </div>
-                <div class="p-5 flex flex-col flex-1">
-                    <div class="text-xs text-gray-400 font-bold mb-1">RENAULT / DACIA</div>
-                    <h3 class="font-bold text-lg text-gray-900 mb-2 leading-tight">1.3 TCe Benzinli Komple Motor</h3>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Megane 4 ve Duster uyumlu yeni nesil motor.</p>
-                    
-                    <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <span class="text-red-600 font-black text-lg">Fiyat Sor</span>
-                        <a href="urunler/1-3-tce-sandik-motor.html" class="bg-gray-900 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-bold transition">İncele</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ürün Kartı 3 (Örnek Bakım Seti) -->
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover-card transition-all duration-300 relative flex flex-col">
-                <div class="h-48 p-4 flex justify-center items-center bg-gray-50 border-b border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1600792580403-ee500be75844?w=500" alt="Mais Triger" class="max-h-full object-contain mix-blend-multiply">
-                </div>
-                <div class="p-5 flex flex-col flex-1">
-                    <div class="text-xs text-gray-400 font-bold mb-1">ORİJİNAL MAİS</div>
-                    <h3 class="font-bold text-lg text-gray-900 mb-2 leading-tight">Orijinal Triger ve Bakım Setleri</h3>
-                    <p class="text-sm text-gray-500 mb-4 line-clamp-2">Aracınızın motor ömrünü uzatan, garantili triger kitleri.</p>
-                    
-                    <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <span class="text-red-600 font-black text-lg">Hızlı Teslimat</span>
-                        <button onclick="askWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm font-bold transition">WhatsApp'tan Sor</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ALT BİLGİ & FOOTER -->
-    <footer class="bg-gray-900 text-gray-300 mt-12 border-t-4 border-red-600">
-        <div class="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h4 class="text-white font-black text-xl mb-4">ÖZEN OTO</h4>
-                <p class="text-sm text-gray-400 leading-relaxed mb-4">Antalya Kumluca Yeni Sanayi Sitesi'nde Renault ve Dacia araçlarınız için %100 orijinal, garantili ve uygun fiyatlı yedek parça tedariği sağlıyoruz.</p>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Hızlı Menü</h4>
-                <ul class="text-sm space-y-2">
-                    <li><a href="renault.html" class="hover:text-red-500 transition">Renault Yedek Parça</a></li>
-                    <li><a href="dacia.html" class="hover:text-red-500 transition">Dacia Yedek Parça</a></li>
-                    <li><a href="urunler/1-5-dci-sandik-motor.html" class="hover:text-red-500 transition">Sandık Motorlar</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">İletişim</h4>
-                <ul class="text-sm space-y-3">
-                    <li class="flex items-start gap-3"><i class="fa-solid fa-map-pin text-red-500 mt-1"></i> Yeni Sanayi Sitesi, Kumluca / Antalya</li>
-                    <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-green-500 text-lg"></i> 0532 724 94 17</li>
-                    <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-gray-400"></i> info@ozenoto.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="bg-black py-4 text-center text-xs text-gray-500">
-            &copy; 2026 Özen Oto. Tüm Hakları Saklıdır.
-        </div>
-    </footer>
-
-    <!-- Arama Scripti -->
-  <!-- Arama Scripti -->
+    
+    <!-- Kendi Sarı-Siyah Renk Ayarımız -->
     <script>
-        const WHATSAPP = "905327249417";
-
-        // KENDİ ÜRÜN LİSTENİ BURAYA EKLEYECEKSİN
-        const urunListesi = [
-            { 
-                isim: "1.5 dCi Sandık Motor", 
-                link: "urunler/1-5-dci-sandik-motor.html", 
-                anahtarKelimeler: ["1.5", "dci", "k9k", "sandık", "motor", "clio", "kangoo", "megane"] 
-            },
-            { 
-                isim: "1.3 TCe Motor", 
-                link: "urunler/1-3-tce-sandik-motor.html", 
-                anahtarKelimeler: ["1.3", "tce", "benzinli", "duster", "motor"] 
-            },
-            { 
-                isim: "Orijinal Triger Seti", 
-                link: "urunler/triger-seti.html", 
-                anahtarKelimeler: ["triger", "kayış", "bakım", "mais", "set"] 
-            }
-            // Yeni ürün eklemek istersen virgül koyup yukarıdaki gibi ekleyebilirsin.
-        ];
-
-        function aramaYap(arananKelime) {
-            if (!arananKelime) return alert("Lütfen aradığınız parçayı veya kodu yazın.");
-
-            arananKelime = arananKelime.toLowerCase();
-            let eslesenUrunLink = null;
-
-            // Ürün listesinde arama yapıyoruz
-            for (let i = 0; i < urunListesi.length; i++) {
-                let urun = urunListesi[i];
-                
-                // Ürünün adında veya anahtar kelimelerinde geçiyor mu?
-                let isimUyusuyor = urun.isim.toLowerCase().includes(arananKelime);
-                let kelimeUyusuyor = urun.anahtarKelimeler.some(kelime => arananKelime.includes(kelime) || kelime.includes(arananKelime));
-
-                if (isimUyusuyor || kelimeUyusuyor) {
-                    eslesenUrunLink = urun.link;
-                    break; // İlk bulduğunda aramayı durdur
-                }
-            }
-
-            // Eğer ürün bulunduysa sayfaya git
-            if (eslesenUrunLink) {
-                window.location.href = eslesenUrunLink;
-            } else {
-                // Ürün bulunamadıysa WhatsApp'a yönlendir
-                let onay = confirm("Aradığınız parça sitemizde bulunamadı. Stok ve fiyat için doğrudan ustaya WhatsApp'tan sormak ister misiniz?");
-                if (onay) {
-                    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Merhaba, sitenizde aradım ama bulamadım. Şu parça için stok ve fiyat bilgisi alabilir miyim: ${arananKelime}`)}`, '_blank');
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { yellow: '#FFB800', dark: '#111111', light: '#f8f9fa' }
+                    }
                 }
             }
         }
-
-        // Arama butonlarına tıklandığında çalışacak fonksiyonlar
-        function askWhatsApp() { aramaYap(document.getElementById('search-input').value.trim()); }
-        function askWhatsAppMobile() { aramaYap(document.getElementById('mobile-search-input').value.trim()); }
     </script>
+    
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        .slide { transition: opacity 0.8s ease-in-out; }
+    </style>
+</head>
+<body class="bg-brand-light dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- 1. BAŞLANGIÇ UYARI EKRANI (MODAL) -->
+    <div id="guvenlik-uyarisi" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full text-center shadow-2xl border-t-4 border-brand-yellow">
+            <i class="fa-solid fa-triangle-exclamation text-brand-yellow text-5xl mb-4"></i>
+            <h2 class="text-2xl font-black mb-2 dark:text-white">ÖNEMLİ GÜVENLİK UYARISI</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 font-medium text-sm">
+                Özen Oto iletişim adreslerimiz <span class="text-red-600 font-bold">SADECE</span> aşağıdaki numaralardır. Lütfen firmamızın adını kullanan başka numaralara itibar etmeyiniz.
+            </p>
+            
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg text-left space-y-3 mb-6 border border-gray-200 dark:border-gray-700">
+                <div class="flex justify-between border-b border-gray-300 dark:border-gray-700 pb-2">
+                    <span class="font-bold">İş Yeri:</span> 
+                    <span class="font-mono text-lg font-black text-brand-yellow">0242 877 89 80</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-300 dark:border-gray-700 pb-2">
+                    <span class="font-bold">Baki Özen:</span> 
+                    <span class="font-mono text-lg font-black text-brand-yellow">0532 724 94 17</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-300 dark:border-gray-700 pb-2">
+                    <span class="font-bold">Hüseyin Özen:</span> 
+                    <span class="font-mono text-lg font-black text-brand-yellow">0533 925 19 33</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="font-bold">Muhammed Ali:</span> 
+                    <span class="font-mono text-lg font-black text-brand-yellow">0539 877 98 07</span>
+                </div>
+            </div>
+            
+            <button onclick="document.getElementById('guvenlik-uyarisi').style.display='none'" class="bg-brand-yellow hover:bg-yellow-500 text-black font-black py-3 px-8 rounded-lg w-full transition shadow-lg">
+                OKUDUM, ANLADIM
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. HEADER & TEMA AYARI -->
+    <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="bg-brand-yellow text-black p-2 rounded-lg shadow-sm"><i class="fa-solid fa-wrench text-2xl"></i></div>
+                <div>
+                    <h1 class="text-2xl font-black leading-none">ÖZEN OTO</h1>
+                    <span class="text-[10px] text-gray-500 dark:text-gray-400 font-bold tracking-widest uppercase">Orijinal Yedek Parça</span>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <!-- Tema Değiştirici -->
+                <button onclick="temaDegistir()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition" title="Gece/Gündüz Modu">
+                    <i id="tema-ikonu" class="fa-solid fa-moon text-xl text-gray-600 dark:text-yellow-400"></i>
+                </button>
+                
+                <!-- Hızlı Arama Butonu (WhatsApp Yönlendirmeli) -->
+                <a href="https://wa.me/905327249417" target="_blank" class="hidden sm:flex items-center gap-2 bg-brand-yellow text-black px-5 py-2 rounded-lg font-bold hover:bg-yellow-500 transition shadow-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Fiyat Sor
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. KAYAN AFİŞ (SLIDER) EKRANI -->
+    <div class="relative w-full h-[250px] md:h-[400px] bg-black overflow-hidden border-b-4 border-brand-yellow">
+        
+        <!-- Tablo 1: Karşılama -->
+        <div class="slide absolute inset-0 opacity-100 flex items-center justify-center text-center px-4" style="background: linear-gradient(rgba(17,17,17,0.8), rgba(17,17,17,0.8)), url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1600') center/cover;">
+            <div>
+                <h2 class="text-2xl md:text-5xl font-black text-white mb-2">ÖZEN OTO YEDEK PARÇA</h2>
+                <p class="text-brand-yellow font-bold text-sm md:text-xl tracking-widest">RENAULT • DACIA</p>
+            </div>
+        </div>
+
+        <!-- Tablo 2: MAİS Garanti Uyarısı -->
+        <div class="slide absolute inset-0 opacity-0 flex items-center justify-center text-center px-4 bg-gray-900">
+            <div class="border-2 border-brand-yellow p-6 md:p-10 rounded-xl bg-black/50 backdrop-blur-sm max-w-3xl">
+                <i class="fa-solid fa-circle-exclamation text-brand-yellow text-4xl md:text-5xl mb-4"></i>
+                <h2 class="text-xl md:text-3xl font-black text-white mb-3">DİKKAT! ÖNEMLİ KURAL</h2>
+                <p class="text-gray-200 text-sm md:text-lg font-medium leading-relaxed">
+                    Sitemizden veya mağazamızdan satın alacağınız <strong class="text-brand-yellow">Orijinal MAİS</strong> logolu ürünlerin montaj sonrasında <span class="underline decoration-red-500 decoration-4">kesinlikle garantisi yoktur.</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 4. MARKALARIMIZ BÖLÜMÜ -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h3 class="text-2xl font-black border-b-4 border-brand-yellow inline-block pb-2">Uzmanlık Alanlarımız</h3>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 text-center shadow-sm">
+                <h4 class="font-black text-2xl text-gray-900 dark:text-white">RENAULT</h4>
+                <p class="text-sm text-gray-500 mt-2">Tüm Seriler ve Sandık Motorlar</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 text-center shadow-sm">
+                <h4 class="font-black text-2xl text-gray-900 dark:text-white">DACIA</h4>
+                <p class="text-sm text-gray-500 mt-2">Duster, Sandero ve Diğer Modeller</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. HAKKIMIZDA & İŞ YERİ GÖRSELİ & KONUM -->
+    <section class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 py-16 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <!-- Sol Taraf: Fotoğraf ve Yazı -->
+                <div>
+                    <h3 class="text-3xl font-black mb-6 border-l-4 border-brand-yellow pl-4">Hakkımızda</h3>
+                    <!-- İş Yeri Fotoğrafı Alanı -->
+                    <div class="w-full h-64 bg-gray-200 dark:bg-gray-800 rounded-xl mb-6 overflow-hidden relative border border-gray-300 dark:border-gray-700">
+                        <img src="is-yeri.jpg" onerror="this.style.display='none'" alt="Özen Oto İş Yeri" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm font-bold -z-10">
+                            (Dükkan fotoğrafını is-yeri.jpg olarak klasöre attığında burada görünecek)
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+                        Özen Oto olarak Antalya Kumluca Sanayi Sitesi'nde uzun yıllardır hizmet vermekteyiz. Amacımız; <strong>Renault ve Dacia</strong> araç gruplarında aradığınız orijinal yedek parçaları en hızlı ve en güvenilir şekilde sizlere ulaştırmaktır. Çıkma parça riski taşımayan, faturalı ve garantili (istisnalar hariç) sıfır ürün stoğumuzla dükkanımızda hizmetinizdeyiz.
+                    </p>
+                </div>
+
+                <!-- Sağ Taraf: Harita ve İletişim -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-2 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="w-full h-72 rounded-xl overflow-hidden mb-4">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12821.579679165381!2d30.2796112!3d36.370535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c18f3a3d5e0d49%3A0x6b29d4b68456104c!2sKumluca%2C%20Antalya!5e0!3m2!1str!2str!4v1698240000000!5m2!1str!2str" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <h4 class="font-black text-lg mb-2">Merkez Depo & Mağaza</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><i class="fa-solid fa-location-dot text-brand-yellow mr-2"></i>Yeni Sanayi Sitesi, Kumluca / Antalya</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-gray-400 py-6 text-center text-sm border-t-2 border-brand-yellow">
+        <p>&copy; 2026 Özen Oto. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <!-- EKRAN SCRİPTLERİ (Slider ve Tema Ayarı) -->
+    <script>
+        // --- 1. SİYAH BEYAZ (TEMA) AYARI ---
+        function temaDegistir() {
+            const htmlTag = document.documentElement;
+            const ikon = document.getElementById('tema-ikonu');
+            
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark'); // Beyaz moda geç
+                ikon.classList.remove('fa-sun');
+                ikon.classList.add('fa-moon');
+            } else {
+                htmlTag.classList.add('dark'); // Siyah moda geç
+                ikon.classList.remove('fa-moon');
+                ikon.classList.add('fa-sun');
+            }
+        }
+
+        // --- 2. KAYAN TABLOLAR (SLIDER) ---
+        let suankiSlayt = 0;
+        const slaytlar = document.querySelectorAll('.slide');
+        
+        setInterval(() => {
+            slaytlar[suankiSlayt].classList.remove('opacity-100');
+            slaytlar[suankiSlayt].classList.add('opacity-0');
+            
+            suankiSlayt = (suankiSlayt + 1) % slaytlar.length;
+            
+            slaytlar[suankiSlayt].classList.remove('opacity-0');
+            slaytlar[suankiSlayt].classList.add('opacity-100');
+        }, 4000); // Her 4 saniyede bir tablo değişir
+    </script>
+</body>
+</html>
