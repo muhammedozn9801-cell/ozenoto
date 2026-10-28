@@ -193,9 +193,10 @@
             <div id="admin-form-step" class="hidden">
                 <div class="flex justify-between items-center mb-4 border-b pb-2">
                     <h3 id="form-baslik" class="text-lg font-bold uppercase text-yellow-500"><i class="fa-solid fa-plus-circle mr-2"></i>Ürün Ekle / Düzenle</h3>
-                    <button id="sifirla-btn" onclick="formuSifirla()" class="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hidden">Yeni Ürün Moduna Geç</button>
+                    <button id="sifirla-btn" onclick="formuSifirla()" class="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hidden">Yeni Ürün Ekle</button>
                 </div>
 
+                <!-- GİZLİ ID ALANI -->
                 <input type="hidden" id="adm-id" value="">
 
                 <div class="space-y-3 text-xs font-bold">
@@ -244,7 +245,7 @@
                     <div>
                         <label class="block mb-1">Fotoğraf Seç / Çek (Çoklu Fotoğraf):</label>
                         <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                        <span class="text-[10px] text-gray-400 font-normal">Fotoğraflar anında otomatik optimize edilerek kaydedilir.</span>
+                        <span class="text-[10px] text-gray-400 font-normal">Sadece yeni resim yükleyecekseniz seçin, yoksa eski resimler kalır.</span>
                     </div>
 
                     <div>
@@ -282,7 +283,7 @@
             }
             tablodanCek();
 
-            // ULTRA HAFİF RESİM SIKIŞTIRMA (Google Sheets Hücre Sınırına Takılmaz)
+            // RESİMLERİ SIKIŞTIR
             document.getElementById('adm-kamera').addEventListener('change', function(e) {
                 cokluResimler = [];
                 const files = e.target.files;
@@ -302,7 +303,7 @@
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const maxWidth = 320; // Mikro genişlik
+                    const maxWidth = 500;
                     let width = img.width;
                     let height = img.height;
 
@@ -315,7 +316,7 @@
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/jpeg', 0.4)); // Yüksek sıkıştırma
+                    callback(canvas.toDataURL('image/jpeg', 0.6));
                 };
                 img.src = event.target.result;
             };
@@ -421,7 +422,7 @@
                 isAdminLoggedIn = true;
                 document.getElementById('admin-login-step').classList.add('hidden');
                 document.getElementById('admin-form-step').classList.remove('hidden');
-                vitrinCiz();
+                vitrinCiz(); // Düzenle butonlarının gelmesi için vitrini tazele
             } else {
                 alert('Hatalı Şifre!');
             }
@@ -439,8 +440,19 @@
             document.getElementById('adm-baslik').value = urun.baslik;
             document.getElementById('adm-arac').value = urun.arac;
             document.getElementById('adm-oem').value = urun.oem;
-            document.getElementById('adm-aciklama').value = urun.aciklama;
-            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-pen-to-square mr-2"></i> Ürün Düzenle (ID: ${urun.id})`;
+            
+            const etiketParcala = urun.etiket.split(' ');
+            document.getElementById('adm-marka').value = etiketParcala.length > 1 ? etiketParcala[1] : 'MAİS';
+            
+            const aciklamaParcala = urun.aciklama.split(' | ');
+            if (aciklamaParcala.length > 1) {
+                document.getElementById('adm-stok').value = aciklamaParcala[0];
+                document.getElementById('adm-aciklama').value = aciklamaParcala.slice(1).join(' | ');
+            } else {
+                document.getElementById('adm-aciklama').value = urun.aciklama;
+            }
+
+            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-pen-to-square mr-2"></i> Düzenleniyor: ${urun.baslik}`;
             document.getElementById('sifirla-btn').classList.remove('hidden');
         }
 
@@ -451,6 +463,7 @@
             document.getElementById('adm-aciklama').value = '';
             document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-plus-circle mr-2"></i> Ürün Ekle / Düzenle`;
             document.getElementById('sifirla-btn').classList.add('hidden');
+            document.getElementById('adm-kamera').value = ''; // Dosya seçimini de sıfırla
             cokluResimler = [];
         }
 
@@ -469,14 +482,17 @@
                 return;
             }
 
-            btn.innerText = "Kaydediliyor...";
+            btn.innerText = "İşleniyor Lütfen Bekleyin...";
             btn.disabled = true;
 
             const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
+            
+            // Eğer ID yoksa yeni ürün ekleniyordur, asla çakışmayan yepyeni bir ID üret (Örn: PRC-170123456)
+            const guvenliID = id ? id : "PRC-" + Date.now().toString(); 
 
             const payload = {
                 action: id ? "update" : "add",
-                id: id || (aktifUrunler.length + 1).toString(),
+                id: guvenliID,
                 baslik: baslik,
                 arac: arac,
                 oem: oem,
@@ -496,8 +512,8 @@
                 btn.disabled = false;
                 document.getElementById('admin-modal').classList.add('hidden');
                 
-                formuSifirla();
-                setTimeout(tablodanCek, 2500);
+                formuSifirla(); // MODALI KAPATINCA HER ŞEYİ TERTEMİZ YAP
+                setTimeout(tablodanCek, 2500); // 2.5 sn sonra vitrini güncelle
             });
         }
 
@@ -554,6 +570,5 @@
         function kaydirSag() { document.getElementById('urun-seridi').scrollBy({ left: 300, behavior: 'smooth' }); }
         function kaydirSol() { document.getElementById('urun-seridi').scrollBy({ left: -300, behavior: 'smooth' }); }
     </script>
-
 </body>
 </html>
