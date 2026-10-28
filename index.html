@@ -189,44 +189,68 @@
                 <button onclick="adminGirisYap()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2.5 text-sm uppercase rounded">Giriş Yap</button>
             </div>
 
-            <!-- ÜRÜN EKLEME FORMU -->
+            <!-- ÜRÜN EKLEME VE DÜZENLEME FORMU -->
             <div id="admin-form-step" class="hidden">
-                <h3 class="text-lg font-bold mb-4 uppercase text-yellow-500 border-b pb-2"><i class="fa-solid fa-plus-circle mr-2"></i>Canlı Veritabanına Ürün Ekle</h3>
+                <h3 id="form-baslik" class="text-lg font-bold mb-4 uppercase text-yellow-500 border-b pb-2"><i class="fa-solid fa-plus-circle mr-2"></i>Pratik Ürün Ekle / Düzenle</h3>
                 
+                <input type="hidden" id="adm-id" value="">
+
                 <div class="space-y-3 text-xs font-bold">
                     <div>
                         <label class="block mb-1">Ürün Adı:</label>
-                        <input type="text" id="adm-baslik" placeholder="Örn: 1.5 dCi Triger Seti" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
+                        <input type="text" id="adm-baslik" placeholder="Örn: Triger Seti + Devirdaim" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
                     </div>
+
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="block mb-1">Araç / Model:</label>
-                            <input type="text" id="adm-arac" placeholder="Örn: Megane 4 / Clio 5" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
+                            <label class="block mb-1">Araç Seçin:</label>
+                            <select id="adm-arac" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
+                                <option>Renault Megane 4</option>
+                                <option>Renault Megane 3</option>
+                                <option>Renault Clio 5</option>
+                                <option>Renault Clio 4</option>
+                                <option>Renault Kangoo</option>
+                                <option>Renault Symbol</option>
+                                <option>Dacia Duster</option>
+                                <option>Dacia Sandero</option>
+                                <option>Dacia Lodgy</option>
+                                <option>Renault / Dacia Genel</option>
+                            </select>
                         </div>
+                        <div>
+                            <label class="block mb-1">Parça Markası:</label>
+                            <input type="text" id="adm-marka" placeholder="Örn: MAİS, Valeo, Motrio" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal" value="MAİS">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block mb-1">OEM / Parça Kodu:</label>
                             <input type="text" id="adm-oem" placeholder="Örn: 8200537083" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
                         </div>
-                    </div>
-                    <div>
-                        <label class="block mb-1">Parça Etiketi:</label>
-                        <select id="adm-etiket" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                            <option>Orijinal MAİS</option>
-                            <option>Sıfır Sandık</option>
-                            <option>Sıfır İthal</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block mb-1">Resim Dosya Adı veya Linki (Örn: dukkan.png):</label>
-                        <input type="text" id="adm-resim" placeholder="Örn: dukkan.png" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                    </div>
-                    <div>
-                        <label class="block mb-1">Açıklama / Detay:</label>
-                        <textarea id="adm-aciklama" rows="2" placeholder="Ürün açıklaması..." class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal"></textarea>
+                        <div>
+                            <label class="block mb-1">Stok Durumu:</label>
+                            <select id="adm-stok" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
+                                <option value="Stokta Var">Stokta Var</option>
+                                <option value="Sınırlı Stok">Sınırlı Stok</option>
+                                <option value="Tükendi">Tükendi / Sipariş Üzerine</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <button id="adm-btn" onclick="yeniUrunEkle()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-sm uppercase rounded mt-2">
-                        <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Google Tabloya Yükle ve Yayınla
+                    <div>
+                        <label class="block mb-1">Birden Fazla Fotoğraf Seç (Kamera/Galeri):</label>
+                        <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
+                        <span class="text-[10px] text-gray-400 font-normal">Birden fazla resim seçebilirsiniz.</span>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1">Açıklama / Detay:</label>
+                        <textarea id="adm-aciklama" rows="2" placeholder="Örn: Orijinal kutulu, Megane 4 K9K motor..." class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal"></textarea>
+                    </div>
+
+                    <button id="adm-btn" onclick="urunKaydet()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-sm uppercase rounded mt-2 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-base"></i> Kaydet ve Yayınla
                     </button>
                 </div>
             </div>
@@ -239,6 +263,7 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw1Qu0PmQziXdPMvdTP7fMYpSfEkqJiGh0JYEftj_re1ZsQIMF8e_WRv41J-P8gZ6BzQ/exec';
 
         let aktifUrunler = [];
+        let cokluResimler = [];
 
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -251,6 +276,23 @@
                 modal.classList.add('flex');
             }
             tablodanCek();
+
+            // Birden fazla resmi oku ve hazırla
+            document.getElementById('adm-kamera').addEventListener('change', function(e) {
+                cokluResimler = [];
+                const files = e.target.files;
+                if (files.length > 0) {
+                    let okunan = 0;
+                    for (let i = 0; i < files.length; i++) {
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            cokluResimler.push(evt.target.result);
+                            okunan++;
+                        };
+                        reader.readAsDataURL(files[i]);
+                    }
+                }
+            });
         };
 
         function tablodanCek() {
@@ -285,12 +327,14 @@
                 serit.innerHTML = `<p class="text-sm text-gray-500 p-4">Ürünler yükleniyor...</p>`;
                 return;
             }
-            serit.innerHTML = aktifUrunler.map(u => `
+            serit.innerHTML = aktifUrunler.map(u => {
+                const anaResim = u.resim ? u.resim.split('|')[0] : 'dukkan.png';
+                return `
                 <div class="min-w-[280px] max-w-[280px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-sm overflow-hidden kutu-golge flex flex-col justify-between">
                     <div>
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-48 relative flex items-center justify-center block">
                             <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded-sm uppercase z-10">${u.etiket}</span>
-                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
+                            ${anaResim ? `<img src="${anaResim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
                         </a>
                         <div class="p-4">
                             <span class="text-[11px] font-bold text-red-600 dark:text-red-400 uppercase">${u.arac}</span>
@@ -298,13 +342,16 @@
                             <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2">OEM: ${u.oem}</p>
                         </div>
                     </div>
-                    <div class="p-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
-                        <a href="urun.html?id=${u.id}" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-3 text-xs uppercase rounded-sm flex items-center justify-center gap-2">
-                            Ürünü İncele <i class="fa-solid fa-arrow-right"></i>
+                    <div class="p-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex gap-2">
+                        <a href="urun.html?id=${u.id}" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-3 text-xs uppercase rounded-sm flex items-center justify-center gap-1">
+                            İncele <i class="fa-solid fa-arrow-right"></i>
                         </a>
+                        <button onclick="urunDuzenleAso('${u.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-2.5 text-xs rounded-sm" title="Düzenle">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function adminGirisAc() {
@@ -324,52 +371,72 @@
             }
         }
 
-        function yeniUrunEkle() {
+        function urunDuzenleAso(id) {
+            const urun = aktifUrunler.find(u => u.id === id);
+            if (!urun) return;
+
+            adminGirisAc();
+            document.getElementById('admin-login-step').classList.add('hidden');
+            document.getElementById('admin-form-step').classList.remove('hidden');
+
+            document.getElementById('adm-id').value = urun.id;
+            document.getElementById('adm-baslik').value = urun.baslik;
+            document.getElementById('adm-arac').value = urun.arac;
+            document.getElementById('adm-oem').value = urun.oem;
+            document.getElementById('adm-aciklama').value = urun.aciklama;
+            document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-pen-to-square mr-2"></i> Ürün Düzenle (ID: ${urun.id})`;
+        }
+
+        function urunKaydet() {
+            const id = document.getElementById('adm-id').value;
             const baslik = document.getElementById('adm-baslik').value.trim();
-            const arac = document.getElementById('adm-arac').value.trim();
+            const arac = document.getElementById('adm-arac').value;
+            const marka = document.getElementById('adm-marka').value.trim();
             const oem = document.getElementById('adm-oem').value.trim();
-            const etiket = document.getElementById('adm-etiket').value;
-            const resim = document.getElementById('adm-resim').value.trim();
+            const stok = document.getElementById('adm-stok').value;
             const aciklama = document.getElementById('adm-aciklama').value.trim();
             const btn = document.getElementById('adm-btn');
 
             if (!baslik || !oem) {
-                alert('Lütfen Ürün Adı ve OEM kodunu boş bırakmayın!');
+                alert('Lütfen Ürün Adı ve OEM kodunu girin!');
                 return;
             }
 
-            btn.innerText = "Google Tabloya İşleniyor...";
+            btn.innerText = "İşleniyor...";
             btn.disabled = true;
 
-            const yeniUrun = {
-                id: (aktifUrunler.length + 1).toString(),
+            const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
+
+            const payload = {
+                action: id ? "update" : "add",
+                id: id || (aktifUrunler.length + 1).toString(),
                 baslik: baslik,
                 arac: arac,
                 oem: oem,
-                resim: resim,
-                etiket: etiket,
-                aciklama: aciklama
+                resimler: resimMetni,
+                etiket: marka ? `Orijinal ${marka}` : "Orijinal MAİS",
+                aciklama: `${stok} | ${aciklama}`
             };
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(yeniUrun)
+                body: JSON.stringify(payload)
             }).then(() => {
-                alert('Ürün Başarıyla Google Tablonuza Eklendi ve Canlıya Alındı!');
-                btn.innerText = "Google Tabloya Yükle ve Yayınla";
+                alert(id ? 'Ürün Başarıyla Güncellendi!' : 'Yeni Ürün Yayınlandı!');
+                btn.innerText = "Kaydet ve Yayınla";
                 btn.disabled = false;
                 document.getElementById('admin-modal').classList.add('hidden');
                 
-                // Formu temizle
+                // Form Temizle
+                document.getElementById('adm-id').value = '';
                 document.getElementById('adm-baslik').value = '';
-                document.getElementById('adm-arac').value = '';
                 document.getElementById('adm-oem').value = '';
-                document.getElementById('adm-resim').value = '';
                 document.getElementById('adm-aciklama').value = '';
+                cokluResimler = [];
 
-                setTimeout(tablodanCek, 2500); // 2.5 sn sonra canlı tabloyu yeniden yükle
+                setTimeout(tablodanCek, 2500);
             });
         }
 
@@ -388,7 +455,7 @@
                 kutu.innerHTML = eslesenler.map(u => `
                     <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
                         <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-sm flex items-center justify-center text-gray-400">
-                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
+                            ${u.resim ? `<img src="${u.resim.split('|')[0]}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
                         </div>
                         <div class="flex-1">
                             <h4 class="text-xs font-bold text-gray-900 dark:text-white">${u.baslik}</h4>
