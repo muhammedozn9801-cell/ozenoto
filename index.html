@@ -10,27 +10,29 @@
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { yellow: '#FFB800', dark: '#111111' }
-                    }
-                }
-            }
+            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } }
         }
     </script>
     <style>
         body { font-family: Arial, Helvetica, sans-serif; }
         .kutu-golge { box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .kaydir-alan::-webkit-scrollbar { display: none; }
+        .kaydir-alan { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-    <!-- 1. GÜVENLİK UYARISI MODALI -->
+    <!-- 1. EN ÜST İNCE MAİS UYARI ŞERİDİ -->
+    <div class="bg-red-600 text-white text-xs md:text-sm font-black py-2 px-4 text-center border-b border-red-700 tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-yellow-300 text-base"></i>
+        <span>ÖNEMLİ UYARI: Sitemizden veya mağazamızdan satın alacağınız <span class="bg-yellow-400 text-black px-1.5 py-0.5 rounded-sm">Orijinal MAİS</span> logolu ürünlerin kesinlikle iadesi yoktur!</span>
+    </div>
+
+    <!-- 2. GÜVENLİK UYARISI MODALI -->
     <div id="guvenlik-uyarisi" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 border-t-4 border-red-600 w-full max-w-2xl p-6 kutu-golge rounded-sm">
             <h2 class="text-2xl font-bold text-red-600 mb-4 uppercase border-b pb-2 dark:border-gray-700">
-                <i class="fa-solid fa-triangle-exclamation mr-2"></i>Önemli Güvenlik Uyarısı
+                <i class="fa-solid fa-shield-halved mr-2"></i>Önemli Güvenlik Uyarısı
             </h2>
             <p class="text-gray-800 dark:text-gray-200 text-sm mb-4 font-bold">
                 Firmamızın adını kullanan sahte hesaplara itibar etmeyiniz. Sipariş, ödeme ve parça sorgularınız SADECE aşağıdaki yetkili numaralarımızdan yapılmaktadır:
@@ -38,7 +40,7 @@
             
             <table class="w-full text-left text-sm mb-6 border-collapse">
                 <tbody>
-                    <tr class="border-b dark:border-gray-700"><th class="py-2 text-gray-600 dark:text-gray-400">İş Yeri Tel:</th><td class="py-2 font-bold text-lg dark:text-white">0242 877 89 80</td></tr>
+                    <tr class="border-b dark:border-gray-700"><th class="py-2 text-gray-600 dark:text-gray-400">İş Yeri Tel:</th><td class="py-2 font-bold text-lg dark:text-white">0242 887 89 80</td></tr>
                     <tr class="border-b dark:border-gray-700"><th class="py-2 text-gray-600 dark:text-gray-400">Baki Özen:</th><td class="py-2 font-bold text-lg dark:text-white">0532 724 94 17</td></tr>
                     <tr class="border-b dark:border-gray-700"><th class="py-2 text-gray-600 dark:text-gray-400">Hüseyin Özen:</th><td class="py-2 font-bold text-lg dark:text-white">0533 925 19 33</td></tr>
                     <tr><th class="py-2 text-gray-600 dark:text-gray-400">Muhammed Ali:</th><td class="py-2 font-bold text-lg dark:text-white">0539 877 98 07</td></tr>
@@ -51,31 +53,33 @@
         </div>
     </div>
 
-    <!-- 2. ÜST BİLGİ BANTI -->
+    <!-- 3. ÜST BİLGİ BANTI -->
     <div class="bg-gray-900 text-gray-300 text-xs py-2 border-b border-gray-800">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div><i class="fa-solid fa-location-dot text-yellow-500 mr-1"></i> Karşıyaka Mah. Kocakesik Sok. No: 509, Kumluca / Antalya</div>
-            <div>İş Yeri: 0242 877 89 80</div>
+            <div>İş Yeri: 0242 887 89 80</div>
         </div>
     </div>
 
-    <!-- 3. HEADER -->
-    <header class="bg-white dark:bg-gray-900 py-4 kutu-golge border-b dark:border-gray-800">
+    <!-- 4. HEADER -->
+    <header class="bg-white dark:bg-gray-900 py-4 kutu-golge border-b dark:border-gray-800 relative z-50">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <a href="index.html" class="flex flex-col">
                 <span class="text-3xl font-black text-black dark:text-white tracking-tight">ÖZEN OTO</span>
                 <span class="text-xs font-bold text-red-600 tracking-widest">RENAULT & DACIA YEDEK PARÇA</span>
             </a>
 
-            <!-- Arama Kutusu -->
-            <div class="flex-1 w-full max-w-xl flex border-2 border-yellow-500 rounded-sm overflow-hidden">
-                <input type="text" placeholder="Parça adı veya OEM kodu yazın..." class="w-full px-3 py-2 text-sm outline-none dark:bg-gray-800 dark:text-white">
-                <button class="bg-yellow-500 text-black px-6 font-bold hover:bg-yellow-600"><i class="fa-solid fa-search"></i></button>
+            <!-- ARAMA ALANI -->
+            <div class="flex-1 w-full max-w-xl relative">
+                <div class="flex border-2 border-yellow-500 rounded-sm overflow-hidden bg-white dark:bg-gray-800">
+                    <input type="text" id="arama-girdisi" oninput="canliAramaYap()" placeholder="Parça adı veya OEM kodu yazın... (Örn: 8200, Triger, Motor)" class="w-full px-3 py-2 text-sm outline-none dark:bg-gray-800 dark:text-white">
+                    <button class="bg-yellow-500 text-black px-6 font-bold hover:bg-yellow-600 uppercase text-xs tracking-wider">ARA</button>
+                </div>
+                <div id="arama-sonuclari" class="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-sm shadow-2xl hidden max-h-80 overflow-y-auto z-[200]"></div>
             </div>
 
             <div class="flex items-center gap-4">
-                <!-- Koyu / Açık Mod Değiştirici Buton -->
-                <button onclick="temaDegistir()" class="p-2.5 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center gap-2" title="Tema Değiştir">
+                <button onclick="temaDegistir()" class="p-2.5 rounded border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center gap-2">
                     <i id="tema-ikonu" class="fa-solid fa-moon"></i>
                     <span id="tema-yazi" class="hidden sm:inline">Koyu Mod</span>
                 </button>
@@ -91,47 +95,45 @@
         </div>
     </header>
 
-    <!-- 4. MENÜ -->
+    <!-- 5. MENÜ -->
     <nav class="bg-yellow-500 text-black font-bold text-sm border-b-2 border-yellow-600 sticky top-0 z-40">
-        <div class="container mx-auto px-4 flex">
-            <a href="index.html" class="px-6 py-3 bg-black text-white"><i class="fa-solid fa-house mr-2"></i>Ana Sayfa</a>
-            <a href="#hakkimizda" class="px-6 py-3 hover:bg-black hover:text-white transition-colors">Dükkanımız & Konum</a>
+        <div class="container mx-auto px-4 flex overflow-x-auto">
+            <a href="index.html" class="px-6 py-3 bg-black text-white whitespace-nowrap"><i class="fa-solid fa-house mr-2"></i>Ana Sayfa</a>
+            <a href="#urunler" class="px-6 py-3 hover:bg-black hover:text-white transition-colors whitespace-nowrap">Öne Çıkan Parçalar</a>
+            <a href="#hakkimizda" class="px-6 py-3 hover:bg-black hover:text-white transition-colors whitespace-nowrap">Dükkanımız & Konum</a>
         </div>
     </nav>
 
-    <!-- 5. GENİŞ ALANLI & DÖNGÜSÜZ AKAN 3 VİDEOLU MAİS UYARI BANTI -->
-    <div class="relative w-full h-[450px] md:h-[550px] bg-black overflow-hidden border-b-4 border-yellow-500">
-        
-        <!-- Sırayla Oynayacak Video Oyuncusu -->
-        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-65 transition-opacity duration-500">
+    <!-- 6. VİDEO BANTI -->
+    <div class="relative w-full h-[380px] md:h-[480px] bg-black overflow-hidden border-b-4 border-yellow-500">
+        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500">
             <source id="video-kaynak" src="renault1.mp4" type="video/mp4">
         </video>
-        
-        <!-- Karartma Filtresi -->
-        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="absolute inset-0 bg-black/20"></div>
+    </div>
 
-        <!-- MAİS Uyarısı (Merkezde) -->
-        <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="bg-black/80 border-2 border-red-600 p-8 md:p-12 max-w-4xl text-center kutu-golge rounded-sm backdrop-blur-md">
-                <h2 class="text-2xl md:text-4xl font-black text-red-500 mb-3 uppercase">
-                    <i class="fa-solid fa-circle-exclamation mr-2"></i>Önemli Uyarı
-                </h2>
-                <p class="text-gray-100 text-base md:text-xl font-bold leading-relaxed">
-                    Sitemizden veya mağazamızdan satın alacağınız <span class="bg-yellow-500 text-black px-2 py-1">Orijinal MAİS</span> logolu ürünlerin montaj sonrasında <span class="underline decoration-red-500 decoration-4">kesinlikle garantisi yoktur.</span>
-                </p>
+    <!-- 7. YANA KAYDIRMALI ÜRÜN VİTRİNİ -->
+    <div id="urunler" class="container mx-auto px-4 py-12">
+        <div class="flex items-center justify-between mb-6 border-b-2 border-yellow-500 pb-3">
+            <h2 class="text-xl md:text-2xl font-black uppercase text-gray-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-boxes-stacked text-yellow-500"></i> Öne Çıkan Orijinal Parçalar
+            </h2>
+            <div class="flex items-center gap-2">
+                <button onclick="kaydirSol()" class="bg-gray-200 dark:bg-gray-700 hover:bg-yellow-500 hover:text-black w-8 h-8 rounded-full font-bold transition-colors"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="kaydirSag()" class="bg-gray-200 dark:bg-gray-700 hover:bg-yellow-500 hover:text-black w-8 h-8 rounded-full font-bold transition-colors"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
+        </div>
+
+        <div id="urun-seridi" class="flex gap-6 overflow-x-auto scroll-smooth kaydir-alan pb-4">
         </div>
     </div>
 
-    <!-- 6. DÜKKAN FOTOĞRAFI & ADRES -->
-    <div id="hakkimizda" class="container mx-auto px-4 py-12">
+    <!-- 8. DÜKKAN FOTOĞRAFI & GOOGLE MAPS -->
+    <div id="hakkimizda" class="container mx-auto px-4 py-12 border-t border-gray-200 dark:border-gray-800">
         <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 kutu-golge rounded-sm">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                
                 <div>
-                    <h3 class="text-xl font-bold border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">
-                        Mağazamız
-                    </h3>
+                    <h3 class="text-xl font-bold border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">Mağazamız</h3>
                     <div class="border-2 border-gray-300 dark:border-gray-600 rounded-sm overflow-hidden bg-gray-100 dark:bg-gray-900">
                         <img src="dukkan.png" alt="Özen Oto Yedek Parça Dükkanı" class="w-full h-auto object-cover">
                     </div>
@@ -139,11 +141,9 @@
 
                 <div class="flex flex-col justify-between h-full">
                     <div>
-                        <h3 class="text-xl font-bold border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">
-                            Özen Oto Yedek Parça
-                        </h3>
+                        <h3 class="text-xl font-bold border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">Özen Oto Yedek Parça</h3>
                         <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
-                            Kumluca'da Renault ve Dacia marka araç grubunda orijinal yedek parça, mekanik aksam ve sıfır sandık motor stoklarımızla hizmet vermekteyiz. Çıkma parça riski taşımayan, faturalı ve güvenilir ürün tedariği için dükkanımıza bekleriz.
+                            Kumluca'da Renault ve Dacia marka araç grubunda orijinal yedek parça, mekanik aksam ve sıfır sandık motor stoklarımızla hizmet vermekteyiz. Faturalı ve güvenilir ürün tedariği için dükkanımıza bekleriz.
                         </p>
 
                         <div class="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 p-4 rounded-sm text-sm mb-6 space-y-3">
@@ -158,56 +158,122 @@
                                 <i class="fa-solid fa-phone text-yellow-600 text-lg"></i>
                                 <div>
                                     <strong class="text-gray-900 dark:text-white">Sabit Telefon:</strong> 
-                                    <span class="text-gray-800 dark:text-gray-300 font-bold ml-1">0242 877 89 80</span>
+                                    <span class="text-gray-800 dark:text-gray-300 font-bold ml-1">0242 887 89 80</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-full h-48 border border-gray-300 dark:border-gray-700">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12821.579679165381!2d30.2796112!3d36.370535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c18f3a3d5e0d49%3A0x6b29d4b68456104c!2sKumluca%2C%20Antalya!5e0!3m2!1str!2str!4v1698240000000!5m2!1str!2str" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="w-full h-56 border border-gray-300 dark:border-gray-700 rounded-sm overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3205.281898762503!2d30.2802085!3d36.345617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c225b301a3ee99%3A0x8ea1449316f969b!2zw5Z6ZW4gT3RvIEJha2kgw5Z6ZW4!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- 7. FOOTER -->
+    <!-- 9. FOOTER -->
     <footer class="bg-gray-900 text-gray-400 py-4 text-center text-xs border-t-2 border-yellow-500">
         <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
     </footer>
 
-    <!-- TEMA VE VİDEO DÖNGÜ SCRIPT'LERİ -->
+    <!-- SCRIPT'LER -->
     <script>
-        // --- 1. KOYU / AÇIK MOD SCRIPT'İ ---
-        function temaDegistir() {
-            const htmlTag = document.documentElement;
-            const ikon = document.getElementById('tema-ikonu');
-            const yazi = document.getElementById('tema-yazi');
-            
-            if (htmlTag.classList.contains('dark')) {
-                htmlTag.classList.remove('dark');
-                ikon.className = "fa-solid fa-moon";
-                yazi.textContent = "Koyu Mod";
+        const urunler = [
+            { id: 1, baslik: "1.5 dCi Triger Seti + Devirdaim", arac: "Renault Megane 4 / Clio 5", oem: "8200537083", resim: "dukkan.png", etiket: "Orijinal MAİS" },
+            { id: 2, baslik: "1,5 1,6 Krank Dişlisi Clio Megane Kangoo", arac: "Renault / Dacia", oem: "8200313018", resim: "", etiket: "Orijinal MAİS" },
+            { id: 3, baslik: "1,5 Dizel K9K Motor Egsoz Manifold Contası", arac: "Renault / Dacia", oem: "8200029169", resim: "", etiket: "Orijinal MAİS" },
+            { id: 4, baslik: "1-2 AVARE DİŞLİ", arac: "Renault Şanzıman", oem: "8200123456", resim: "", etiket: "Orijinal MAİS" },
+            { id: 5, baslik: "1-2 AYIRMA ÇATALI", arac: "Renault Vites Aksamı", oem: "8200987654", resim: "", etiket: "Orijinal MAİS" },
+            { id: 6, baslik: "Periyodik Bakım Seti (4'lü)", arac: "Dacia Duster / Sandero", oem: "7701478547", resim: "", etiket: "Orijinal MAİS" },
+            { id: 7, baslik: "1.5 dCi Sıfır Sandık Motor", arac: "Renault & Dacia", oem: "K9K-872", resim: "", etiket: "Sıfır Sandık" }
+        ];
+
+        window.onload = function() {
+            const serit = document.getElementById('urun-seridi');
+            serit.innerHTML = urunler.map(u => `
+                <div class="min-w-[280px] max-w-[280px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-sm overflow-hidden kutu-golge flex flex-col justify-between">
+                    <div>
+                        <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-48 relative flex items-center justify-center block">
+                            <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded-sm uppercase z-10">${u.etiket}</span>
+                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
+                        </a>
+                        <div class="p-4">
+                            <span class="text-[11px] font-bold text-red-600 dark:text-red-400 uppercase">${u.arac}</span>
+                            <a href="urun.html?id=${u.id}" class="font-bold text-sm text-gray-900 dark:text-white mt-1 line-clamp-2 hover:underline block">${u.baslik}</a>
+                            <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2">OEM: ${u.oem}</p>
+                        </div>
+                    </div>
+                    <div class="p-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                        <a href="urun.html?id=${u.id}" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-3 text-xs uppercase rounded-sm flex items-center justify-center gap-2">
+                            Ürünü İncele <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        function canliAramaYap() {
+            const girdi = document.getElementById('arama-girdisi').value.toLowerCase().trim();
+            const kutu = document.getElementById('arama-sonuclari');
+
+            if (girdi.length === 0) {
+                kutu.classList.add('hidden');
+                kutu.innerHTML = '';
+                return;
+            }
+
+            const eslesenler = urunler.filter(u => u.baslik.toLowerCase().includes(girdi) || u.oem.toLowerCase().includes(girdi) || u.arac.toLowerCase().includes(girdi));
+
+            if (eslesenler.length > 0) {
+                kutu.innerHTML = eslesenler.map(u => `
+                    <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
+                        <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-sm flex items-center justify-center text-gray-400">
+                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold text-gray-900 dark:text-white">${u.baslik}</h4>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400">${u.arac} | OEM: <span class="text-red-600 font-bold">${u.oem}</span></p>
+                        </div>
+                    </a>
+                `).join('');
+                kutu.classList.remove('hidden');
             } else {
-                htmlTag.classList.add('dark');
-                ikon.className = "fa-solid fa-sun";
-                yazi.textContent = "Açık Mod";
+                kutu.innerHTML = `<div class="p-4 text-xs text-gray-500 text-center">Aradığınız kriterlere uygun parça bulunamadı. <br><a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(girdi)}%20par%C3%A7as%C4%B1%20stokta%20var%20m%C4%B1?" target="_blank" class="text-green-600 font-bold underline mt-1 inline-block">WhatsApp'tan Sorgula</a></div>`;
+                kutu.classList.remove('hidden');
             }
         }
 
-        // --- 2. SIRAYLA DÖNEN 3 VİDEO DÖNGÜ SCRIPT'İ ---
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#arama-girdisi') && !e.target.closest('#arama-sonuclari')) {
+                document.getElementById('arama-sonuclari').classList.add('hidden');
+            }
+        });
+
+        function temaDegistir() {
+            const htmlTag = document.documentElement;
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark');
+                document.getElementById('tema-ikonu').className = "fa-solid fa-moon";
+                document.getElementById('tema-yazi').textContent = "Koyu Mod";
+            } else {
+                htmlTag.classList.add('dark');
+                document.getElementById('tema-ikonu').className = "fa-solid fa-sun";
+                document.getElementById('tema-yazi').textContent = "Açık Mod";
+            }
+        }
+
         const videolar = ['renault1.mp4', 'renault2.mp4', 'renault3.mp4'];
         let videoIndex = 0;
         const videoElement = document.getElementById('arka-plan-video');
-
-        // Video bittiğinde otomatik bir sonrakine geç
         videoElement.addEventListener('ended', function() {
             videoIndex = (videoIndex + 1) % videolar.length;
             videoElement.src = videolar[videoIndex];
             videoElement.play();
         });
+
+        function kaydirSag() { document.getElementById('urun-seridi').scrollBy({ left: 300, behavior: 'smooth' }); }
+        function kaydirSol() { document.getElementById('urun-seridi').scrollBy({ left: -300, behavior: 'smooth' }); }
     </script>
 
 </body>
