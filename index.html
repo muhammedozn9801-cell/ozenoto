@@ -1,1114 +1,524 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Özen Oto - Renault & Dacia Orijinal OEM Yedek Parça</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            yellow: '#FFCC00',
-                            yellowHover: '#E6B800',
-                            yellowLight: '#FFF5CC',
-                            darkYellow: '#D4A000'
-                        },
-                        anthracite: {
-                            950: '#101214',
-                            900: '#181B1F', // Primary Dark Background
-                            800: '#212529', // Card & Panel Background
-                            700: '#2B3036', // Borders & Secondary Panels
-                            600: '#383E45',
-                            500: '#4A515A'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ÖZEN OTO | Renault & Dacia Orijinal Yedek Parça Portalı</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --bg-main: #0b0c0e;
+            --bg-card: #14161a;
+            --brand-yellow: #ffcc00;
+            --brand-yellow-hover: #e6b800;
+            --text-light: #f8f9fa;
+            --text-muted: #9ca3af;
+            --border-color: #222630;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #181B1F;
-            color: #F8FAFC;
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            font-family: 'Work Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+
+        .brand-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.9rem;
+            color: var(--brand-yellow);
+            letter-spacing: 1px;
         }
-        ::-webkit-scrollbar-track {
-            background: #181B1F;
+
+        .top-bar {
+            background-color: #07080a;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #2B3036;
+
+        .glass-header {
+            background: rgba(20, 22, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .btn-yellow {
+            background-color: var(--brand-yellow);
+            color: #000;
+            font-weight: 800;
+            border: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-yellow:hover {
+            background-color: var(--brand-yellow-hover);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* ÜRÜN KARTLARI */
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            border-color: var(--brand-yellow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.15);
+        }
+        .product-img-wrap {
+            height: 190px;
+            background-color: #0e1013;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px;
+            position: relative;
+        }
+        .product-img-wrap img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .badge-mais {
+            background-color: var(--brand-yellow);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.7rem;
+            padding: 3px 8px;
             border-radius: 4px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #FFCC00;
+        .oem-tag {
+            font-family: monospace;
+            background-color: #1a1e26;
+            color: var(--brand-yellow);
+            border: 1px solid rgba(255,204,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.78rem;
         }
-        .text-brand-yellow { color: #FFCC00; }
-        .bg-brand-yellow { background-color: #FFCC00; }
-        .border-brand-yellow { border-color: #FFCC00; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+
+        /* SIDEBAR */
+        .sidebar-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
         }
-        .animate-modal {
-            animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: var(--brand-yellow);
+            border-bottom: 2px solid var(--brand-yellow);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .modal-content, .offcanvas {
+            background-color: var(--bg-card);
+            border: 1px solid var(--brand-yellow);
+            color: #fff;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-brand-yellow selection:text-anthracite-950">
+<body>
 
-    <!-- INITIAL OTOAHMET STYLE ANNOUNCEMENT POPUP MODAL -->
-    <div id="initialNoticeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-anthracite-800 border-2 border-brand-yellow rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl animate-modal relative">
-            
-            <!-- Header Header Bar -->
-            <div class="bg-brand-yellow p-4 text-anthracite-950 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-anthracite-950 text-brand-yellow rounded-xl flex items-center justify-center font-black text-xl shadow-md">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-black text-base uppercase tracking-tight leading-tight">ÖZEN OTO - ÖNEMLİ DUYURU</h3>
-                        <p class="text-[11px] font-bold opacity-90 uppercase tracking-widest">Orijinal Parça & Şasi Doğrulama</p>
-                    </div>
+    <!-- TOP BAR -->
+    <div class="top-bar py-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fa-solid fa-location-dot text-yellow me-1"></i> Sanayi Sitesi, Kumluca / Antalya
+                <span class="ms-3 d-none d-md-inline"><i class="fa-solid fa-clock text-yellow me-1"></i> Çalışma: 08:30 - 19:00</span>
+            </div>
+            <div>
+                <a href="https://wa.me/905000000000" target="_blank" class="text-yellow text-decoration-none fw-bold">
+                    <i class="fa-brands fa-whatsapp me-1"></i> Canlı Usta Destek Hattı
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark glass-header sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fa-solid fa-gears text-yellow fs-1"></i>
+                <div>
+                    <span class="brand-title d-block leading-none">ÖZEN OTO</span>
+                    <small class="text-muted fs-7">RENAULT & DACIA YEDEK PARÇA</small>
                 </div>
-                <button onclick="closeNoticeModal()" class="text-anthracite-950 hover:bg-black/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+            </a>
+
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <button class="btn btn-outline-warning btn-sm d-none d-md-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#vinModal">
+                    <i class="fa-solid fa-shield-halved"></i> Şasi No Sorgula
+                </button>
+                <button class="btn btn-yellow position-relative d-flex align-items-center gap-2 px-3 py-2" data-bs-toggle="offcanvas" data-bs-target="#cartPanel">
+                    <i class="fa-solid fa-bag-shopping fs-5"></i>
+                    <span class="d-none d-sm-inline">SEPETİM</span>
+                    <span class="cart-badge" id="cartCount">0</span>
                 </button>
             </div>
+        </div>
+    </nav>
 
-            <!-- Modal Content -->
-            <div class="p-6 space-y-4">
-                <div class="bg-anthracite-900 border border-anthracite-700 p-4 rounded-xl text-xs space-y-3">
-                    <p class="text-slate-200 leading-relaxed font-medium">
-                        <span class="text-brand-yellow font-bold">Değerli Müşterimiz,</span> Renault ve Dacia grubunda aynı model ve yıl araçlarda dahi motor tipi ve şasi serisine göre parçalar değişiklik gösterebilmektedir.
-                    </p>
-                    <div class="flex items-start gap-2.5 text-slate-300 bg-anthracite-950/80 p-3 rounded-lg border border-brand-yellow/30">
-                        <i class="fa-solid fa-circle-check text-brand-yellow text-sm mt-0.5 shrink-0"></i>
-                        <span class="text-[11px]">Hatalı siparişlerin ve zaman kaybının önüne geçmek için sipariş vermeden önce <strong>17 haneli Şasi Numarası (VIN)</strong> ile doğrulama yapmanızı tavsiye ederiz.</span>
+    <!-- SEARCH & HERO BANNER -->
+    <div class="py-4 border-bottom border-secondary bg-dark">
+        <div class="container">
+            <div class="row align-items-center g-3">
+                <div class="col-lg-5">
+                    <h2 class="fw-bold text-yellow mb-1"><i class="fa-solid fa-magnifying-glass me-2"></i>PARÇA KANALI</h2>
+                    <p class="text-muted small mb-0">Kumluca / Antalya — Orijinal MAİS ve A-Kalite Muadil Ürünler</p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="input-group input-group-lg">
+                        <input type="text" id="searchInput" class="form-control bg-dark text-light border-warning fs-6" placeholder="Parça adı veya OEM Kodu girin (Örn: 152095084R, Balata)..." onkeyup="filterCatalog()">
+                        <button class="btn btn-yellow px-4 fw-bold" type="button" onclick="filterCatalog()">ARA</button>
                     </div>
                 </div>
-
-                <div class="space-y-2">
-                    <button onclick="openVinModalFromNotice()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-brand-yellow/10 transition-all hover:scale-[1.01]">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp İle Şasi Numarasını Gönder
-                    </button>
-                    <button onclick="closeNoticeModal()" class="w-full bg-anthracite-700 hover:bg-anthracite-600 border border-anthracite-600 text-slate-200 font-bold text-xs py-2.5 rounded-xl transition-colors">
-                        Sitede İncelemeye Devam Et
-                    </button>
-                </div>
-
-                <!-- Do Not Show Again Checkbox -->
-                <div class="pt-2 border-t border-anthracite-700 flex items-center justify-between text-xs text-slate-400">
-                    <label class="flex items-center gap-2 cursor-pointer hover:text-white select-none">
-                        <input type="checkbox" id="dontShowNoticeCheck" class="rounded border-anthracite-600 text-brand-yellow focus:ring-brand-yellow bg-anthracite-900 w-4 h-4">
-                        <span>Bu uyarıyı bir daha gösterme</span>
-                    </label>
-                    <span class="text-[10px] text-brand-yellow font-semibold">Kumluca / Antalya</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-anthracite-950 text-xs text-slate-300 py-2 px-4 border-b border-anthracite-700">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div class="flex items-center gap-4">
-                <span class="flex items-center gap-1.5 font-medium"><i class="fa-solid fa-certificate text-brand-yellow"></i> %100 Orijinal MAİS & OEM Garanti</span>
-                <span class="hidden md:inline-flex items-center gap-1.5 text-slate-400"><i class="fa-solid fa-truck-fast text-brand-yellow"></i> Saat 16:00'ya Kadar Aynı Gün Kargo</span>
-            </div>
-            <div class="flex items-center gap-4 text-slate-400">
-                <a href="tel:+905300000000" class="hover:text-brand-yellow transition-colors flex items-center gap-1">
-                    <i class="fa-solid fa-phone text-brand-yellow"></i> 0530 000 00 00
-                </a>
-                <span>|</span>
-                <a href="javascript:void(0)" onclick="openVinModal()" class="text-emerald-400 hover:underline font-semibold flex items-center gap-1">
-                    <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> WhatsApp Şasi Sorgu Hattı
-                </a>
             </div>
         </div>
     </div>
 
-    <!-- MAIN NAVBAR -->
-    <header class="sticky top-0 z-40 bg-anthracite-800/95 backdrop-blur-md border-b border-anthracite-700 shadow-2xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-            <div class="flex items-center justify-between gap-4">
-                
-                <!-- BRAND LOGO -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 bg-brand-yellow rounded-xl flex items-center justify-center text-anthracite-950 font-black text-2xl shadow-lg shadow-brand-yellow/20 group-hover:scale-105 transition-transform">
-                        ÖO
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="text-2xl font-black tracking-wider text-white">ÖZEN<span class="text-brand-yellow">OTO</span></span>
-                            <span class="bg-brand-yellow/15 text-brand-yellow text-[10px] font-bold px-2 py-0.5 rounded border border-brand-yellow/30">PARÇA</span>
-                        </div>
-                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Renault & Dacia Uzmanı</p>
-                    </div>
-                </a>
-
-                <!-- LIVE OEM SEARCH BAR -->
-                <div class="flex-1 max-w-2xl relative hidden md:block">
-                    <div class="relative">
-                        <input type="text" id="searchInput" 
-                            placeholder="Parça Adı, OEM Kodu (Örn: 7701477028, 8200768913) veya Araç Modeli ile arayın..." 
-                            class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2.5 pl-11 pr-28 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-all">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400"></i>
-                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-28 top-3 text-slate-400 hover:text-white text-xs px-2 py-1">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <span class="absolute right-2.5 top-2 bg-anthracite-800 text-brand-yellow text-[11px] font-mono font-bold px-2.5 py-1 rounded border border-anthracite-700">
-                            OEM SEARCH
-                        </span>
-                    </div>
-                </div>
-
-                <!-- HEADER ACTIONS -->
-                <div class="flex items-center gap-3">
-                    <button onclick="openVinModal()" class="hidden sm:flex items-center gap-2 bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-brand-yellow/10 transition-all hover:scale-[1.02] active:scale-[0.98]">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        <div class="text-left">
-                            <div class="leading-none text-[10px] opacity-80 font-bold uppercase">Hızlı Sorgu</div>
-                            <div class="leading-tight font-black">Şasi No İle Sor</div>
-                        </div>
-                    </button>
-
-                    <!-- CART BUTTON -->
-                    <button onclick="toggleCartModal()" class="relative bg-anthracite-700 hover:bg-anthracite-600 border border-anthracite-600 p-2.5 rounded-xl text-slate-200 transition-colors flex items-center gap-2 group">
-                        <i class="fa-solid fa-basket-shopping text-brand-yellow text-lg group-hover:scale-110 transition-transform"></i>
-                        <span id="cartCount" class="bg-brand-yellow text-anthracite-950 font-black text-xs rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center">0</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- MOBILE SEARCH BAR -->
-            <div class="mt-3 md:hidden">
-                <div class="relative">
-                    <input type="text" id="mobileSearchInput" 
-                        placeholder="OEM Kodu veya Parça Adı..." 
-                        class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2 pl-10 pr-4 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-yellow">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO / BANNER SECTION -->
-    <section class="bg-gradient-to-b from-anthracite-800 to-anthracite-900 border-b border-anthracite-700 py-8 px-4">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            
-            <div class="lg:col-span-2 space-y-4">
-                <div class="inline-flex items-center gap-2 bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow text-xs font-bold px-3 py-1 rounded-full">
-                    <i class="fa-solid fa-shield-halved"></i> Orijinal MAİS & Garantili OEM Ürün Tedariği
-                </div>
-                <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-                    Renault & Dacia Aracınız İçin <br>
-                    <span class="text-brand-yellow">Orijinal Yedek Parça</span> Çözümleri
-                </h1>
-                <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-                    17 haneli Şasi Numarası (VIN) ile aracınıza %100 birebir uyumlu parçaları hemen bulun. Hızlı kargo, orijinal parça garantisi ve uzman teknik destek.
-                </p>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <button onclick="openVinModal()" class="bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-sm px-6 py-3.5 rounded-xl flex items-center gap-2.5 shadow-xl shadow-brand-yellow/10 transition-all hover:scale-105">
-                        <i class="fa-brands fa-whatsapp text-xl"></i> Şasi Numarası İle Fiyat Al
-                    </button>
-                    <a href="#productsSection" class="bg-anthracite-700 hover:bg-anthracite-600 border border-anthracite-600 text-slate-200 font-bold text-sm px-5 py-3.5 rounded-xl transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-boxes-stacked text-brand-yellow"></i> Kataloğu İncele
-                    </a>
-                </div>
-            </div>
-
-            <!-- VEHICLE QUICK SELECT CARDS -->
-            <div class="grid grid-cols-2 gap-4">
-                <div onclick="selectMakeFilter('Renault')" class="cursor-pointer bg-anthracite-800 hover:bg-anthracite-700 border-2 border-anthracite-700 hover:border-brand-yellow rounded-2xl p-5 text-center transition-all group shadow-lg">
-                    <div class="w-14 h-14 mx-auto mb-3 rounded-xl bg-anthracite-950 flex items-center justify-center border border-anthracite-700 group-hover:border-brand-yellow transition-colors">
-                        <i class="fa-solid fa-car text-brand-yellow text-2xl"></i>
-                    </div>
-                    <div class="font-black text-white text-base tracking-wider">RENAULT</div>
-                    <div class="text-[11px] text-slate-400 mt-1">Clio, Megane, Fluence...</div>
-                </div>
-                <div onclick="selectMakeFilter('Dacia')" class="cursor-pointer bg-anthracite-800 hover:bg-anthracite-700 border-2 border-anthracite-700 hover:border-brand-yellow rounded-2xl p-5 text-center transition-all group shadow-lg">
-                    <div class="w-14 h-14 mx-auto mb-3 rounded-xl bg-anthracite-950 flex items-center justify-center border border-anthracite-700 group-hover:border-brand-yellow transition-colors">
-                        <i class="fa-solid fa-truck-pickup text-brand-yellow text-2xl"></i>
-                    </div>
-                    <div class="font-black text-white text-base tracking-wider">DACIA</div>
-                    <div class="text-[11px] text-slate-400 mt-1">Duster, Sandero, Jogger...</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- MAIN CATALOG & SIDEBAR SECTION -->
-    <main id="productsSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
-        <div class="flex flex-col lg:flex-row gap-8">
+    <!-- MAIN CONTENT -->
+    <div class="container my-4 flex-grow-1">
+        <div class="row g-4">
             
             <!-- SIDEBAR FILTERS -->
-            <aside class="w-full lg:w-72 shrink-0 space-y-6">
-                
-                <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl p-5 sticky top-24 shadow-xl">
-                    <div class="flex items-center justify-between pb-4 border-b border-anthracite-700 mb-5">
-                        <h3 class="font-bold text-white flex items-center gap-2 text-sm uppercase tracking-wider">
-                            <i class="fa-solid fa-sliders text-brand-yellow"></i> Filtreleme Paneli
-                        </h3>
-                        <button onclick="resetFilters()" class="text-xs text-brand-yellow hover:underline font-bold">Temizle</button>
-                    </div>
-
-                    <!-- MARKA SEÇİMİ -->
-                    <div class="mb-5">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Marka</label>
-                        <select id="makeFilter" onchange="applyFilters()" class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2.5 px-3 text-xs text-slate-200 font-semibold focus:border-brand-yellow focus:outline-none">
-                            <option value="ALL">Tüm Markalar (Renault & Dacia)</option>
-                            <option value="Renault">Renault</option>
-                            <option value="Dacia">Dacia</option>
-                        </select>
-                    </div>
-
-                    <!-- MODEL SEÇİMİ -->
-                    <div class="mb-5">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Araç Modeli</label>
-                        <select id="modelFilter" onchange="applyFilters()" class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2.5 px-3 text-xs text-slate-200 font-semibold focus:border-brand-yellow focus:outline-none">
-                            <option value="ALL">Tüm Modeller</option>
-                            <!-- Dynamic Model Options -->
-                        </select>
-                    </div>
-
-                    <!-- KATEGORİ SEÇİMİ -->
-                    <div class="mb-5">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Parça Kategorisi</label>
-                        <div class="space-y-1.5" id="categoryCheckboxes">
-                            <!-- Dynamic Category Radio Buttons -->
+            <div class="col-lg-3">
+                <div class="sidebar-box sticky-top" style="top: 90px;">
+                    <div class="sidebar-title"><i class="fa-solid fa-car me-2"></i>MARKA SEÇİMİ</div>
+                    <div class="mb-4">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="chkRenault" checked onchange="filterCatalog()">
+                            <label class="form-check-label text-light" for="chkRenault">Renault</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="chkDacia" checked onchange="filterCatalog()">
+                            <label class="form-check-label text-light" for="chkDacia">Dacia</label>
                         </div>
                     </div>
 
-                    <!-- ÖZEL FİLTRELER -->
-                    <div class="pt-4 border-t border-anthracite-700 space-y-2.5">
-                        <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer hover:text-white">
-                            <input type="checkbox" id="stockOnlyFilter" onchange="applyFilters()" class="rounded border-anthracite-700 text-brand-yellow focus:ring-brand-yellow bg-anthracite-900 w-4 h-4">
-                            <span>Sadece Stokta Olanlar</span>
-                        </label>
-                        <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer hover:text-white">
-                            <input type="checkbox" id="maisOnlyFilter" onchange="applyFilters()" class="rounded border-anthracite-700 text-brand-yellow focus:ring-brand-yellow bg-anthracite-900 w-4 h-4">
-                            <span>Sadece Orijinal MAİS Parçalar</span>
-                        </label>
+                    <div class="sidebar-title"><i class="fa-solid fa-layer-group me-2"></i>KATEGORİLER</div>
+                    <div class="mb-4">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input cat-chk" type="checkbox" value="bakim" id="c1" checked onchange="filterCatalog()">
+                            <label class="form-check-label text-light" for="c1">Periyodik Bakım</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input cat-chk" type="checkbox" value="fren" id="c2" checked onchange="filterCatalog()">
+                            <label class="form-check-label text-light" for="c2">Fren Aksamı</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input cat-chk" type="checkbox" value="motor" id="c3" checked onchange="filterCatalog()">
+                            <label class="form-check-label text-light" for="c3">Motor & Triger</label>
+                        </div>
                     </div>
 
-                    <!-- ŞASİ DESTEK KUTUSU -->
-                    <div class="mt-6 bg-anthracite-950 border border-brand-yellow/30 rounded-xl p-4 text-center">
-                        <i class="fa-solid fa-headset text-brand-yellow text-3xl mb-2"></i>
-                        <div class="text-xs font-bold text-white uppercase">Aradığınız Parçayı Bulamadınız mı?</div>
-                        <p class="text-[11px] text-slate-400 mt-1 mb-3">Şasi numaranızı iletin, uzmanımız doğru parçayı dakikalar içinde tespit etsin.</p>
-                        <button onclick="openVinModal()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 text-xs font-black py-2.5 rounded-lg transition-colors shadow">
-                            <i class="fa-brands fa-whatsapp text-sm mr-1"></i> Şasi İle Destek Al
-                        </button>
-                    </div>
+                    <div class="sidebar-title"><i class="fa-solid fa-list-check me-2"></i>MODEL</div>
+                    <select class="form-select bg-dark text-light border-secondary small mb-3" id="modelSelect" onchange="filterCatalog()">
+                        <option value="all">Tüm Modeller</option>
+                        <option value="clio">Clio</option>
+                        <option value="megane">Megane</option>
+                        <option value="fluence">Fluence</option>
+                        <option value="duster">Duster</option>
+                        <option value="sandero">Sandero</option>
+                    </select>
 
+                    <button class="btn btn-outline-warning w-100 btn-sm" onclick="resetFilters()">
+                        <i class="fa-solid fa-rotate-right me-1"></i> Filtreleri Sıfırla
+                    </button>
                 </div>
+            </div>
 
-            </aside>
-
-            <!-- PRODUCT CATALOG LISTING -->
-            <div class="flex-1 space-y-5">
-                
-                <!-- RESULT BAR CONTROL -->
-                <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
-                    <div class="text-xs text-slate-300 font-medium">
-                        Listelenen Parça Sayısı: <span id="productResultCount" class="font-black text-brand-yellow text-sm">0</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <label class="text-xs text-slate-400 font-semibold">Sıralama:</label>
-                        <select id="sortOrder" onchange="applyFilters()" class="bg-anthracite-900 border border-anthracite-700 rounded-lg py-2 px-3 text-xs text-slate-200 font-semibold focus:outline-none focus:border-brand-yellow">
-                            <option value="featured">Öne Çıkanlar</option>
-                            <option value="price-asc">Fiyat: Düşükten Yüksek</option>
-                            <option value="price-desc">Fiyat: Yüksekten Düşük</option>
-                            <option value="name">İsme Göre (A-Z)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- PRODUCT GRID -->
-                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Dynamic Product Cards injected via JS -->
-                </div>
-
-                <!-- EMPTY STATE -->
-                <div id="emptyState" class="hidden bg-anthracite-800 border border-anthracite-700 rounded-2xl p-12 text-center shadow-xl">
-                    <i class="fa-solid fa-magnifying-glass text-5xl text-brand-yellow/40 mb-3"></i>
-                    <h4 class="text-lg font-extrabold text-white">Aradığınız Kriterlerde Parça Bulunamadı</h4>
-                    <p class="text-xs text-slate-400 mt-2 max-w-md mx-auto leading-relaxed">
-                        Arama terimini değiştirip tekrar deneyebilir veya Şasi Numaranız ile doğrudan WhatsApp hattımıza sorabilirsiniz.
-                    </p>
-                    <button onclick="openVinModal()" class="mt-5 inline-flex items-center gap-2 bg-brand-yellow text-anthracite-950 font-black text-xs px-5 py-3 rounded-xl shadow-lg">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp İle Şasi Sorgula
+            <!-- PRODUCT GRID -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary">
+                    <span class="text-muted small"><i class="fa-solid fa-boxes-stacked text-yellow me-1"></i> Stoktaki Orijinal Parçalar</span>
+                    <button class="btn btn-sm btn-outline-warning d-md-none" data-bs-toggle="modal" data-bs-target="#vinModal">
+                        <i class="fa-solid fa-shield-halved me-1"></i> Şasi Sorgula
                     </button>
                 </div>
 
+                <div class="row g-3" id="productGrid">
+                    
+                    <!-- Item 1 -->
+                    <div class="col-md-6 col-xl-4 product-item" data-brand="renault dacia" data-cat="bakim" data-model="clio megane fluence duster sandero">
+                        <div class="product-card h-100 d-flex flex-column justify-content-between">
+                            <div class="product-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&auto=format&fit=crop&q=80" alt="Yağ Filtresi">
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge-mais">Orijinal MAİS</span>
+                                    <span class="oem-tag">152095084R</span>
+                                </div>
+                                <h6 class="fw-bold mb-1">1.5 dCi Yağ Filtresi</h6>
+                                <p class="text-muted small mb-2">Clio 4, Megane 3/4, Fluence, Duster 1.5 dCi motor uyumlu.</p>
+                                <div class="text-yellow fw-bold fs-5">₺450,00</div>
+                            </div>
+                            <div class="p-3 pt-0">
+                                <button class="btn btn-yellow w-100 btn-sm fw-bold" onclick="addToCart('1.5 dCi Yağ Filtresi (152095084R)', 450)">
+                                    <i class="fa-solid fa-cart-plus me-1"></i> SEPETE EKLE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="col-md-6 col-xl-4 product-item" data-brand="renault" data-cat="fren" data-model="megane fluence">
+                        <div class="product-card h-100 d-flex flex-column justify-content-between">
+                            <div class="product-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1600792580403-ee500be75844?w=400&auto=format&fit=crop&q=80" alt="Fren Balatası">
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge-mais">Orijinal MAİS</span>
+                                    <span class="oem-tag">410605536R</span>
+                                </div>
+                                <h6 class="fw-bold mb-1">Ön Fren Balatası Seti</h6>
+                                <p class="text-muted small mb-2">Megane 3, Megane 4 ve Fluence ön fren balata seti.</p>
+                                <div class="text-yellow fw-bold fs-5">₺1.250,00</div>
+                            </div>
+                            <div class="p-3 pt-0">
+                                <button class="btn btn-yellow w-100 btn-sm fw-bold" onclick="addToCart('Ön Fren Balatası Seti (410605536R)', 1250)">
+                                    <i class="fa-solid fa-cart-plus me-1"></i> SEPETE EKLE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="col-md-6 col-xl-4 product-item" data-brand="dacia" data-cat="bakim" data-model="duster">
+                        <div class="product-card h-100 d-flex flex-column justify-content-between">
+                            <div class="product-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&auto=format&fit=crop&q=80" alt="Mazot Filtresi">
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge-mais">Orijinal MAİS</span>
+                                    <span class="oem-tag">164005420R</span>
+                                </div>
+                                <h6 class="fw-bold mb-1">Duster Mazot Filtresi</h6>
+                                <p class="text-muted small mb-2">Dacia Duster 1.5 dCi Euro 5/6 soketli tip orijinal filtre.</p>
+                                <div class="text-yellow fw-bold fs-5">₺980,00</div>
+                            </div>
+                            <div class="p-3 pt-0">
+                                <button class="btn btn-yellow w-100 btn-sm fw-bold" onclick="addToCart('Duster Mazot Filtresi (164005420R)', 980)">
+                                    <i class="fa-solid fa-cart-plus me-1"></i> SEPETE EKLE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="col-md-6 col-xl-4 product-item" data-brand="renault dacia" data-cat="motor" data-model="clio megane duster sandero">
+                        <div class="product-card h-100 d-flex flex-column justify-content-between">
+                            <div class="product-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=400&auto=format&fit=crop&q=80" alt="Triger Seti">
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge-mais">Orijinal MAİS</span>
+                                    <span class="oem-tag">130C11508R</span>
+                                </div>
+                                <h6 class="fw-bold mb-1">1.5 dCi Triger Kayış Kiti</h6>
+                                <p class="text-muted small mb-2">Triger kayışı ve bilyaları dahil komple orijinal set.</p>
+                                <div class="text-yellow fw-bold fs-5">₺2.400,00</div>
+                            </div>
+                            <div class="p-3 pt-0">
+                                <button class="btn btn-yellow w-100 btn-sm fw-bold" onclick="addToCart('1.5 dCi Triger Seti (130C11508R)', 2400)">
+                                    <i class="fa-solid fa-cart-plus me-1"></i> SEPETE EKLE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
-    </main>
+    </div>
 
-    <!-- FOOTER SECTION -->
-    <footer class="bg-anthracite-950 border-t border-anthracite-700 mt-16 text-slate-400 text-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-9 h-9 bg-brand-yellow rounded-lg flex items-center justify-center text-anthracite-950 font-black text-lg">ÖO</div>
-                        <span class="text-xl font-black text-white">ÖZEN OTO</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed text-xs">
-                        Renault & Dacia araç gruplarında %100 Orijinal MAİS ve yüksek kaliteli OEM yedek parça tedarikçiniz.
-                    </p>
+    <!-- CART OFFCANVAS -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartPanel">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title text-yellow fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i>SİPARİŞ SEPETİM</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <div id="cartList">
+                <p class="text-muted text-center my-4">Sepetiniz şu an boş.</p>
+            </div>
+            <div class="border-top border-secondary pt-3">
+                <div class="d-flex justify-content-between fs-5 fw-bold mb-3">
+                    <span>Toplam:</span>
+                    <span class="text-yellow" id="cartTotal">₺0,00</span>
                 </div>
-                <div>
-                    <h4 class="text-xs font-black text-white mb-3 uppercase tracking-wider text-brand-yellow">Hızlı Kategoriler</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#productsSection" onclick="filterByCategory('Periyodik Bakım Setleri')" class="hover:text-brand-yellow transition-colors">Periyodik Bakım Setleri</a></li>
-                        <li><a href="#productsSection" onclick="filterByCategory('Fren & Süspansiyon')" class="hover:text-brand-yellow transition-colors">Fren Diski & Balatalar</a></li>
-                        <li><a href="#productsSection" onclick="filterByCategory('Motor & Şanzıman')" class="hover:text-brand-yellow transition-colors">Triger & Devirdaim Setleri</a></li>
-                        <li><a href="#productsSection" onclick="filterByCategory('Sıvı & Motor Yağları')" class="hover:text-brand-yellow transition-colors">Elf & Liqui Moly Motor Yağları</a></li>
-                    </ul>
+                <button class="btn btn-yellow w-100 py-3 fw-bold" onclick="sendOrderWhatsApp()">
+                    <i class="fa-brands fa-whatsapp me-2 fs-5 align-middle"></i> WHATSAPP İLE SİPARİŞİ BİTİR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIN MODAL -->
+    <div class="modal fade" id="vinModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title text-yellow fw-bold"><i class="fa-solid fa-shield-halved me-2"></i>ŞASİ NO İLE PARÇA SORGULA</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div>
-                    <h4 class="text-xs font-black text-white mb-3 uppercase tracking-wider text-brand-yellow">Müşteri Destek</h4>
-                    <ul class="space-y-2">
-                        <li><a href="javascript:void(0)" onclick="openVinModal()" class="hover:text-brand-yellow transition-colors">Şasi No İle Parça Sorgula</a></li>
-                        <li><a href="javascript:void(0)" class="hover:text-brand-yellow transition-colors">Aynı Gün Kargo ve Teslimat</a></li>
-                        <li><a href="javascript:void(0)" class="hover:text-brand-yellow transition-colors">Orijinal Parça Garantisi</a></li>
-                        <li><a href="javascript:void(0)" class="hover:text-brand-yellow transition-colors">İade ve Değişim Şartları</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xs font-black text-white mb-3 uppercase tracking-wider text-brand-yellow">İletişim & Adres</h4>
-                    <p class="leading-relaxed mb-2 text-slate-300">
-                        <strong class="text-white">Özen Oto Yedek Parça</strong><br>
-                        Sanayi Sitesi, Kumluca / Antalya
-                    </p>
-                    <p class="font-bold text-white mb-1"><i class="fa-solid fa-phone text-brand-yellow mr-1"></i> 0530 000 00 00</p>
-                    <p class="text-brand-yellow font-bold"><i class="fa-brands fa-whatsapp mr-1"></i> 0530 000 00 00 (WhatsApp)</p>
+                <div class="modal-body">
+                    <p class="small text-muted mb-3">Ruhsatınızdaki 17 haneli Şasi Numarasını (VIN) girin, uzman ustamız parçanın uyumunu teyit etsin.</p>
+                    <input type="text" id="vinInput" class="form-control bg-dark text-light border-secondary mb-3 text-uppercase" placeholder="Örn: VF1KM0F0000000000">
+                    <button class="btn btn-yellow w-100 py-2 fw-bold" onclick="sendVinWhatsApp()">
+                        <i class="fa-brands fa-whatsapp me-2"></i> WHATSAPP'A GÖNDER
+                    </button>
                 </div>
             </div>
-            <div class="border-t border-anthracite-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-slate-500">
-                <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya. Tüm Hakları Saklıdır.</p>
-                <div class="flex gap-4 mt-2 sm:mt-0 text-sm text-slate-400">
-                    <i class="fa-brands fa-cc-visa hover:text-brand-yellow transition-colors"></i>
-                    <i class="fa-brands fa-cc-mastercard hover:text-brand-yellow transition-colors"></i>
-                    <i class="fa-solid fa-shield-cat hover:text-brand-yellow transition-colors"></i>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark border-top border-warning py-4 mt-auto">
+        <div class="container text-center text-md-start">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <h5 class="text-yellow fw-bold mb-1">ÖZEN OTO - RENAULT & DACIA</h5>
+                    <p class="text-muted small mb-0">Sanayi Sitesi, Kumluca / Antalya | Orijinal Yedek Parça Satış Noktası</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="https://wa.me/905000000000" target="_blank" class="btn btn-outline-warning btn-sm">
+                        <i class="fa-brands fa-whatsapp me-1"></i> Müşteri Destek Hattı
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- PRODUCT DETAIL MODAL -->
-    <div id="productModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative animate-modal">
-            <button onclick="closeProductModal()" class="absolute right-4 top-4 bg-anthracite-700 hover:bg-anthracite-600 text-slate-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div id="productModalContent" class="p-6">
-                <!-- JS Populated Content -->
-            </div>
-        </div>
-    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- VIN / ŞASİ NO WHATSAPP MODAL -->
-    <div id="vinModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative animate-modal">
-            <button onclick="closeVinModal()" class="absolute right-4 top-4 bg-anthracite-700 text-slate-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-11 h-11 rounded-xl bg-brand-yellow text-anthracite-950 flex items-center justify-center text-2xl font-black">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-black text-white leading-tight">Şasi No İle Parça Sorgula</h3>
-                    <p class="text-xs text-slate-400">Ruhsattaki 17 haneli Şasi Numarasını (VIN) girin</p>
-                </div>
-            </div>
-
-            <form id="vinForm" onsubmit="sendVinToWhatsapp(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">Şasi Numarası (VIN)</label>
-                    <input type="text" id="vinInput" maxlength="17" placeholder="Örn: VF1RZB0000000000" required
-                        class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2.5 px-3 text-sm text-brand-yellow font-mono font-bold uppercase tracking-wider focus:border-brand-yellow focus:outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">Araç Model / Yıl</label>
-                        <input type="text" id="vinCarModel" placeholder="Örn: Megane 4 / 2018" required
-                            class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2 px-3 text-xs text-white focus:border-brand-yellow focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">Motor Tipi (Opsiyonel)</label>
-                        <input type="text" id="vinEngine" placeholder="Örn: 1.5 dCi 110bg"
-                            class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2 px-3 text-xs text-white focus:border-brand-yellow focus:outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">İhtiyacınız Olan Parçalar</label>
-                    <textarea id="vinPartsNeeded" rows="3" placeholder="Örn: Ön fren balatası, Yağ filtresi ve 5W30 motor yağı fiyatı istiyorum." required
-                        class="w-full bg-anthracite-900 border border-anthracite-700 rounded-xl py-2 px-3 text-xs text-white focus:border-brand-yellow focus:outline-none"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-sm py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp İle Şasi Bilgisini İlet
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- CART MODAL -->
-    <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative animate-modal">
-            <button onclick="toggleCartModal()" class="absolute right-4 top-4 bg-anthracite-700 text-slate-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <h3 class="text-lg font-black text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-basket-shopping text-brand-yellow"></i> Parça Sepetim
-            </h3>
-
-            <div id="cartItemsList" class="max-h-80 overflow-y-auto space-y-3 mb-4 pr-1">
-                <!-- JS Populated Cart Items -->
-            </div>
-
-            <div class="pt-4 border-t border-anthracite-700 flex justify-between items-center mb-4">
-                <span class="text-xs text-slate-400 font-bold">Tahmini Toplam:</span>
-                <span id="cartTotalPrice" class="text-xl font-black text-brand-yellow">0.00 ₺</span>
-            </div>
-
-            <button onclick="checkoutCartWhatsapp()" class="w-full bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-sm py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg">
-                <i class="fa-brands fa-whatsapp text-lg"></i> Sepettekiler İçin WhatsApp'tan Fiyat/Teklif Al
-            </button>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION TOAST -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-anthracite-800 border border-brand-yellow/50 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all transform translate-y-20 opacity-0 z-50">
-        <i class="fa-solid fa-circle-check text-brand-yellow text-base"></i>
-        <span id="toastMessage">İşlem Başarılı</span>
-    </div>
-
-
-    <!-- JAVASCRIPT APPLICATION LOGIC -->
     <script>
-        // PRODUCT DATA (OtoAhmet Inspired Renault & Dacia Spare Parts)
-        const productsData = [
-            {
-                id: 'p1',
-                name: 'Renault Mais Orijinal Yağ Filtresi (1.5 dCi / 1.3 TCe)',
-                oem: '152085758R',
-                make: 'Renault',
-                models: ['Clio 4', 'Clio 5', 'Megane 4', 'Fluence', 'Kadjar', 'Captur', 'Symbol'],
-                category: 'Filtre Grubu',
-                price: 340.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-filter',
-                description: '1.5 dCi K9K ve 1.3 TCe motorlar ile %100 uyumlu Orijinal Renault Mais üretimi yağ filtresi.'
-            },
-            {
-                id: 'p2',
-                name: 'Dacia Duster 1.5 dCi Ön Fren Disk Seti (2 Adet)',
-                oem: '402060010R',
-                make: 'Dacia',
-                models: ['Duster', 'Dokker', 'Lodgy'],
-                category: 'Fren & Süspansiyon',
-                price: 2450.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-compact-disc',
-                description: 'Dacia Duster 4x2 ve 4x4 modeller için hava kanallı yüksek performanslı orijinal fren disk seti.'
-            },
-            {
-                id: 'p3',
-                name: 'Renault Megane 4 / Clio 4 Triger Kayış Seti + Devirdaim (K9K Motor)',
-                oem: '130C11508R',
-                make: 'Renault',
-                models: ['Megane 4', 'Clio 4', 'Fluence', 'Kadjar', 'Symbol'],
-                category: 'Motor & Şanzıman',
-                price: 4850.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-gear',
-                description: '1.5 dCi K9K motorlar için eksantrik triger bilyaları, kayışı ve devirdaim su pompası dahil tam set.'
-            },
-            {
-                id: 'p4',
-                name: 'Dacia Sandero Stepway Hava Filtresi (0.9 TCe / 1.5 dCi)',
-                oem: '165467674R',
-                make: 'Dacia',
-                models: ['Sandero', 'Logan', 'Jogger'],
-                category: 'Filtre Grubu',
-                price: 290.00,
-                inStock: true,
-                isMais: false,
-                icon: 'fa-wind',
-                description: 'Motorun ideal hava akışını sağlayan yüksek toz tutma kapasiteli kaliteli OEM filtre.'
-            },
-            {
-                id: 'p5',
-                name: 'Elf Evolution Full-Tech FE 5W-30 Motor Yağı (5 Litre - RN0720)',
-                oem: 'ELF-5W30-5L',
-                make: 'Renault',
-                models: ['Clio 4', 'Clio 5', 'Megane 3', 'Megane 4', 'Fluence', 'Captur', 'Duster', 'Symbol'],
-                category: 'Sıvı & Motor Yağları',
-                price: 1350.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-oil-can',
-                description: 'Renault RN0720 onaylı DPF (Partikül Filtreli) Euro 5 ve Euro 6 dCi motorlar için özel onaylı yağ.'
-            },
-            {
-                id: 'p6',
-                name: 'Liqui Moly Top Tec 4400 5W-30 Motor Yağı (5 Litre)',
-                oem: 'LM-3751',
-                make: 'Renault',
-                models: ['Clio 4', 'Megane 4', 'Talisman', 'Austral', 'Duster'],
-                category: 'Sıvı & Motor Yağları',
-                price: 2150.00,
-                inStock: true,
-                isMais: false,
-                icon: 'fa-flask',
-                description: 'Alman kalitesi Liqui Moly DPF korumalıSentetik motor yağı. Düşük sürtünme ve aşınma önleyici.'
-            },
-            {
-                id: 'p7',
-                name: 'Renault Fluence / Megane 3 Ön Fren Balata Seti',
-                oem: '410605961R',
-                make: 'Renault',
-                models: ['Fluence', 'Megane 3', 'Scenic 3'],
-                category: 'Fren & Süspansiyon',
-                price: 1120.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-shield-halved',
-                description: 'Sessiz frenleme ve yüksek tutuş sağlayan orijinal ön fren balata takımı.'
-            },
-            {
-                id: 'p8',
-                name: 'Dacia Duster 1.3 TCe / 1.5 dCi Debriyaj Seti + Hidrolik Rulman',
-                oem: '300018873R',
-                make: 'Dacia',
-                models: ['Duster', 'Lodgy'],
-                category: 'Debriyaj & Aktarma',
-                price: 6200.00,
-                inStock: false,
-                isMais: true,
-                icon: 'fa-circle-notch',
-                description: 'Baskı, balata ve hidrolik debriyaj rulmanı içeren tam orijinal değişim seti.'
-            },
-            {
-                id: 'p9',
-                name: 'Renault Clio 5 LED Ön Far / Sağ (Orijinal Mais)',
-                oem: '260107297R',
-                make: 'Renault',
-                models: ['Clio 5'],
-                category: 'Aydınlatma & Elektrik',
-                price: 11500.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-lightbulb',
-                description: 'Clio 5 Full LED Pure Vision Orijinal Mais sağ ön far komple montaj grubu.'
-            },
-            {
-                id: 'p10',
-                name: 'Renault & Dacia Antifriz Glaceol RX Type D (1 Litre - Organik Yeşil)',
-                oem: '7711428132',
-                make: 'Renault',
-                models: ['Clio 4', 'Clio 5', 'Megane 4', 'Duster', 'Sandero', 'Symbol', 'Master'],
-                category: 'Sıvı & Motor Yağları',
-                price: 320.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-flask',
-                description: 'Renault araç fabrikasyon dolum orijinal yeşil/sarı organik konsantre antifriz.'
-            },
-            {
-                id: 'p11',
-                name: 'Renault Master 3 / Trafic 3 Periyodik Bakım Seti (4 Filtre)',
-                oem: 'MAST3-SET-4',
-                make: 'Renault',
-                models: ['Master', 'Trafic'],
-                category: 'Periyodik Bakım Setleri',
-                price: 1850.00,
-                inStock: true,
-                isMais: true,
-                icon: 'fa-boxes-packing',
-                description: 'Yağ, Hava, Polen ve Yakıt/Mazot filtresini içeren tam periyodik bakım seti.'
-            }
-        ];
-
-        // CATEGORIES LIST
-        const categories = [
-            'Tüm Kategoriler',
-            'Periyodik Bakım Setleri',
-            'Motor & Şanzıman',
-            'Fren & Süspansiyon',
-            'Filtre Grubu',
-            'Aydınlatma & Elektrik',
-            'Sıvı & Motor Yağları',
-            'Debriyaj & Aktarma'
-        ];
-
-        // MODELS MAP
-        const modelsMap = {
-            'Renault': ['Clio 4', 'Clio 5', 'Megane 3', 'Megane 4', 'Fluence', 'Symbol', 'Captur', 'Kadjar', 'Austral', 'Scenic 3', 'Master', 'Trafic'],
-            'Dacia': ['Duster', 'Sandero', 'Logan', 'Lodgy', 'Jogger', 'Dokker']
-        };
-
-        // STATE MANAGEMENT
         let cart = [];
-        let selectedCategory = 'Tüm Kategoriler';
 
-        // INIT ON WINDOW LOAD
-        window.onload = function() {
-            checkNoticeModalPreference();
-            renderCategories();
-            populateModelOptions();
-            applyFilters();
-
-            // Search input listeners
-            document.getElementById('searchInput').addEventListener('input', applyFilters);
-            document.getElementById('mobileSearchInput').addEventListener('input', function(e) {
-                document.getElementById('searchInput').value = e.target.value;
-                applyFilters();
-            });
-        };
-
-        // CHECK POPUP NOTICE MODAL PREFERENCE IN LOCALSTORAGE
-        function checkNoticeModalPreference() {
-            const hideNotice = localStorage.getItem('ozenOtoHideNotice');
-            if (hideNotice === 'true') {
-                document.getElementById('initialNoticeModal').classList.add('hidden');
-            }
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            new bootstrap.Offcanvas(document.getElementById('cartPanel')).show();
         }
 
-        function closeNoticeModal() {
-            const dontShowCheck = document.getElementById('dontShowNoticeCheck');
-            if (dontShowCheck && dontShowCheck.checked) {
-                localStorage.setItem('ozenOtoHideNotice', 'true');
-            }
-            document.getElementById('initialNoticeModal').classList.add('hidden');
-        }
-
-        function openVinModalFromNotice() {
-            closeNoticeModal();
-            openVinModal();
-        }
-
-        // RENDER CATEGORY RADIO BUTTONS
-        function renderCategories() {
-            const container = document.getElementById('categoryCheckboxes');
-            container.innerHTML = categories.map((cat, idx) => `
-                <label class="flex items-center gap-2.5 text-xs text-slate-300 hover:text-brand-yellow cursor-pointer py-1 transition-colors">
-                    <input type="radio" name="categoryRadio" value="${cat}" ${idx === 0 ? 'checked' : ''} onchange="onCategorySelect('${cat}')" class="text-brand-yellow focus:ring-brand-yellow bg-anthracite-900 border-anthracite-700">
-                    <span class="font-medium">${cat}</span>
-                </label>
-            `).join('');
-        }
-
-        function onCategorySelect(cat) {
-            selectedCategory = cat;
-            applyFilters();
-        }
-
-        function filterByCategory(cat) {
-            selectedCategory = cat;
-            const radios = document.getElementsByName('categoryRadio');
-            radios.forEach(r => {
-                if (r.value === cat) r.checked = true;
-            });
-            applyFilters();
-        }
-
-        // POPULATE MODEL SELECT BOX
-        function populateModelOptions() {
-            const make = document.getElementById('makeFilter').value;
-            const modelSelect = document.getElementById('modelFilter');
-            modelSelect.innerHTML = '<option value="ALL">Tüm Modeller</option>';
-
-            let modelsToLoad = [];
-            if (make === 'ALL') {
-                modelsToLoad = [...modelsMap['Renault'], ...modelsMap['Dacia']];
-            } else if (modelsMap[make]) {
-                modelsToLoad = modelsMap[make];
-            }
-
-            modelsToLoad.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m;
-                opt.textContent = m;
-                modelSelect.appendChild(opt);
-            });
-        }
-
-        function selectMakeFilter(makeName) {
-            document.getElementById('makeFilter').value = makeName;
-            populateModelOptions();
-            applyFilters();
-        }
-
-        // FILTER & SEARCH LOGIC
-        function applyFilters() {
-            const searchTerm = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-            const selectedMake = document.getElementById('makeFilter').value;
-            const selectedModel = document.getElementById('modelFilter').value;
-            const stockOnly = document.getElementById('stockOnlyFilter').checked;
-            const maisOnly = document.getElementById('maisOnlyFilter').checked;
-            const sortOrder = document.getElementById('sortOrder').value;
-
-            document.getElementById('clearSearchBtn').classList.toggle('hidden', searchTerm === '');
-
-            let filtered = productsData.filter(p => {
-                const matchesSearch = !searchTerm || 
-                    p.name.toLowerCase().includes(searchTerm) || 
-                    p.oem.toLowerCase().includes(searchTerm) ||
-                    p.category.toLowerCase().includes(searchTerm);
-
-                const matchesMake = (selectedMake === 'ALL') || (p.make === selectedMake);
-                const matchesModel = (selectedModel === 'ALL') || (p.models.includes(selectedModel));
-                const matchesCategory = (selectedCategory === 'Tüm Kategoriler') || (p.category === selectedCategory);
-                const matchesStock = !stockOnly || p.inStock;
-                const matchesMais = !maisOnly || p.isMais;
-
-                return matchesSearch && matchesMake && matchesModel && matchesCategory && matchesStock && matchesMais;
-            });
-
-            // Sorting
-            if (sortOrder === 'price-asc') {
-                filtered.sort((a, b) => a.price - b.price);
-            } else if (sortOrder === 'price-desc') {
-                filtered.sort((a, b) => b.price - a.price);
-            } else if (sortOrder === 'name') {
-                filtered.sort((a, b) => a.name.localeCompare(b.name));
-            }
-
-            renderProducts(filtered);
-        }
-
-        // RENDER PRODUCT CARDS GRID
-        function renderProducts(items) {
-            const grid = document.getElementById('productGrid');
-            const emptyState = document.getElementById('emptyState');
-            document.getElementById('productResultCount').textContent = items.length;
-
-            if (items.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-            grid.innerHTML = items.map(product => `
-                <div class="bg-anthracite-800 border border-anthracite-700 rounded-2xl p-4 flex flex-col justify-between hover:border-brand-yellow/80 transition-all hover:shadow-2xl hover:shadow-brand-yellow/5 group relative">
-                    
-                    <div>
-                        <!-- ITEM BADGES -->
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <span class="text-[10px] font-black tracking-wider px-2 py-0.5 rounded ${product.isMais ? 'bg-brand-yellow text-anthracite-950' : 'bg-anthracite-700 text-slate-300'}">
-                                ${product.isMais ? 'ORİJİNAL MAİS' : 'OEM YEDEK PARÇA'}
-                            </span>
-                            <span class="text-[11px] font-mono font-bold bg-anthracite-950 text-brand-yellow px-2 py-0.5 rounded border border-anthracite-700 flex items-center gap-1">
-                                <i class="fa-solid fa-barcode text-slate-500"></i> ${product.oem}
-                            </span>
-                        </div>
-
-                        <!-- PRODUCT ICON / PLACEHOLDER -->
-                        <div onclick="openProductModal('${product.id}')" class="cursor-pointer h-36 bg-anthracite-900 rounded-xl flex items-center justify-center border border-anthracite-700 group-hover:border-brand-yellow/30 transition-colors mb-3 relative overflow-hidden">
-                            <i class="fa-solid ${product.icon} text-4xl text-slate-600 group-hover:text-brand-yellow group-hover:scale-110 transition-all"></i>
-                            ${product.inStock 
-                                ? `<span class="absolute bottom-2 left-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded"><i class="fa-solid fa-check text-[8px] mr-1"></i>Stokta Var</span>`
-                                : `<span class="absolute bottom-2 left-2 bg-amber-500/20 border border-amber-500/40 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded"><i class="fa-solid fa-clock text-[8px] mr-1"></i>Sipariş Üzerine</span>`
-                            }
-                        </div>
-
-                        <!-- PRODUCT TITLE -->
-                        <h4 onclick="openProductModal('${product.id}')" class="font-bold text-white text-sm hover:text-brand-yellow cursor-pointer line-clamp-2 mb-1 transition-colors">
-                            ${product.name}
-                        </h4>
-
-                        <!-- COMPATIBLE VEHICLE TAGS -->
-                        <div class="flex flex-wrap gap-1 mb-3">
-                            ${product.models.slice(0, 3).map(m => `
-                                <span class="bg-anthracite-950 text-slate-400 text-[10px] font-medium px-1.5 py-0.5 rounded border border-anthracite-700">${m}</span>
-                            `).join('')}
-                            ${product.models.length > 3 ? `<span class="text-slate-500 text-[10px] self-center">+${product.models.length - 3}</span>` : ''}
-                        </div>
-                    </div>
-
-                    <!-- FOOTER PRICE & ACTIONS -->
-                    <div class="pt-3 border-t border-anthracite-700 flex items-center justify-between gap-2 mt-2">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block leading-none font-medium">Fiyat (KDV Dahil)</span>
-                            <span class="text-base font-black text-brand-yellow">${product.price.toFixed(2)} ₺</span>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <button onclick="copyOemCode('${product.oem}')" title="OEM Kodu Kopyala" class="bg-anthracite-700 hover:bg-anthracite-600 text-slate-300 p-2 rounded-lg text-xs transition-colors">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
-                            <button onclick="addToCart('${product.id}')" class="bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 shadow transition-all active:scale-95">
-                                <i class="fa-solid fa-plus"></i> Ekle
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            `).join('');
-        }
-
-        // RESET ALL FILTERS
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('makeFilter').value = 'ALL';
-            document.getElementById('modelFilter').value = 'ALL';
-            document.getElementById('stockOnlyFilter').checked = false;
-            document.getElementById('maisOnlyFilter').checked = false;
-            selectedCategory = 'Tüm Kategoriler';
-            renderCategories();
-            populateModelOptions();
-            applyFilters();
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            applyFilters();
-        }
-
-        // COPY OEM CODE
-        function copyOemCode(oem) {
-            const tempInput = document.createElement('input');
-            tempInput.value = oem;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            showToast(`OEM Kodu Kopyalandı: ${oem}`);
-        }
-
-        // OPEN PRODUCT MODAL
-        function openProductModal(productId) {
-            const product = productsData.find(p => p.id === productId);
-            if (!product) return;
-
-            const modalContent = document.getElementById('productModalContent');
-            modalContent.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-anthracite-950 rounded-xl p-8 flex flex-col items-center justify-center border border-anthracite-700">
-                        <i class="fa-solid ${product.icon} text-6xl text-brand-yellow mb-4"></i>
-                        <span class="text-xs font-mono font-bold text-brand-yellow bg-anthracite-900 px-3 py-1 rounded-full border border-anthracite-700">
-                            OEM: ${product.oem}
-                        </span>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <span class="text-xs font-black text-brand-yellow uppercase tracking-wider">${product.category}</span>
-                            <h2 class="text-xl font-black text-white mt-1">${product.name}</h2>
-                            <p class="text-xs text-slate-300 mt-2 leading-relaxed">${product.description}</p>
-                        </div>
-
-                        <div class="bg-anthracite-900 p-3 rounded-xl border border-anthracite-700">
-                            <div class="text-xs font-bold text-slate-300 mb-2"><i class="fa-solid fa-car text-brand-yellow mr-1"></i> Uyumlu Araç Modelleri:</div>
-                            <div class="flex flex-wrap gap-1.5">
-                                ${product.models.map(m => `<span class="bg-anthracite-800 text-slate-200 text-xs px-2 py-0.5 rounded border border-anthracite-700">${product.make} ${m}</span>`).join('')}
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-2">
-                            <div>
-                                <span class="text-xs text-slate-400 block font-medium">Birim Fiyatı</span>
-                                <span class="text-2xl font-black text-brand-yellow">${product.price.toFixed(2)} ₺</span>
-                            </div>
-                            <button onclick="addToCart('${product.id}'); closeProductModal();" class="bg-brand-yellow hover:bg-brand-yellowHover text-anthracite-950 font-black text-sm px-5 py-2.5 rounded-xl flex items-center gap-2">
-                                <i class="fa-solid fa-basket-shopping"></i> Sepete Ekle
-                            </button>
-                        </div>
-
-                        <div class="pt-2 border-t border-anthracite-700">
-                            <button onclick="openVinModalWithPart('${product.oem}', '${product.name}')" class="w-full bg-brand-yellow/10 hover:bg-brand-yellow/20 border border-brand-yellow/40 text-brand-yellow font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2">
-                                <i class="fa-brands fa-whatsapp text-base"></i> Şasi İle Bu Parçanın Uyumunu Sorgula
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('productModal').classList.remove('hidden');
-        }
-
-        function closeProductModal() {
-            document.getElementById('productModal').classList.add('hidden');
-        }
-
-        // CART LOGIC
-        function addToCart(productId) {
-            const product = productsData.find(p => p.id === productId);
-            if (!product) return;
-
-            const existingIndex = cart.findIndex(item => item.id === productId);
-            if (existingIndex > -1) {
-                cart[existingIndex].qty += 1;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-
-            updateCartUI();
-            showToast(`${product.name} sepete eklendi.`);
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCartUI();
-            renderCartItems();
-        }
-
-        function changeQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (!item) return;
-            item.qty += delta;
-            if (item.qty <= 0) {
-                removeFromCart(productId);
-            } else {
-                updateCartUI();
-                renderCartItems();
-            }
-        }
-
-        function updateCartUI() {
-            const totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
-            document.getElementById('cartCount').textContent = totalCount;
-        }
-
-        function toggleCartModal() {
-            const modal = document.getElementById('cartModal');
-            if (modal.classList.contains('hidden')) {
-                renderCartItems();
-                modal.classList.remove('hidden');
-            } else {
-                modal.classList.add('hidden');
-            }
-        }
-
-        function renderCartItems() {
-            const container = document.getElementById('cartItemsList');
-            if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">Sepetinizde henüz parça bulunmuyor.</div>`;
-                document.getElementById('cartTotalPrice').textContent = '0.00 ₺';
-                return;
-            }
-
-            let grandTotal = 0;
-            container.innerHTML = cart.map(item => {
-                const itemTotal = item.price * item.qty;
-                grandTotal += itemTotal;
-                return `
-                    <div class="bg-anthracite-900 border border-anthracite-700 p-3 rounded-xl flex items-center justify-between gap-3">
-                        <div class="flex-1">
-                            <div class="font-bold text-white text-xs line-clamp-1">${item.name}</div>
-                            <div class="text-[10px] text-brand-yellow font-mono">OEM: ${item.oem}</div>
-                            <div class="text-xs font-bold text-slate-300 mt-1">${item.price.toFixed(2)} ₺ / adet</div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex items-center bg-anthracite-800 border border-anthracite-700 rounded-lg">
-                                <button onclick="changeQty('${item.id}', -1)" class="px-2 py-0.5 text-slate-400 hover:text-white font-bold">-</button>
-                                <span class="px-2 text-xs font-black text-brand-yellow">${item.qty}</span>
-                                <button onclick="changeQty('${item.id}', 1)" class="px-2 py-0.5 text-slate-400 hover:text-white font-bold">+</button>
-                            </div>
-                            <button onclick="removeFromCart('${item.id}')" class="text-rose-400 hover:text-rose-300 text-xs p-1">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('cartTotalPrice').textContent = `${grandTotal.toFixed(2)} ₺`;
-        }
-
-        // WHATSAPP CHECKOUT FROM CART
-        function checkoutCartWhatsapp() {
-            if (cart.length === 0) {
-                showToast('Sepetiniz boş!');
-                return;
-            }
-
-            let message = "Merhaba Özen Oto (Kumluca), web siteniz üzerinden aşağıdaki parçalar için fiyat/sipariş talebinde bulunmak istiyorum:\n\n";
+        function updateCart() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const list = document.getElementById('cartList');
             let total = 0;
 
-            cart.forEach((item, index) => {
-                const sum = item.price * item.qty;
-                total += sum;
-                message += `${index + 1}. ${item.name}\n   - OEM: ${item.oem}\n   - Adet: ${item.qty} x ${item.price.toFixed(2)} TL = ${sum.toFixed(2)} TL\n\n`;
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="text-muted text-center my-4">Sepetiniz şu an boş.</p>';
+            } else {
+                let html = '<ul class="list-group list-group-flush bg-transparent">';
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    html += `
+                        <li class="list-group-item bg-transparent text-light border-secondary d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <div class="fw-bold small">${item.name}</div>
+                                <div class="text-yellow small">₺${item.price.toFixed(2)}</div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash"></i></button>
+                        </li>
+                    `;
+                });
+                html += '</ul>';
+                list.innerHTML = html;
+            }
+            document.getElementById('cartTotal').innerText = `₺${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function sendOrderWhatsApp() {
+            if (cart.length === 0) return alert('Sepetiniz boş.');
+            const phone = "905000000000";
+            let text = "Merhaba Özen Oto, web sitenizden aşağıdaki parçaları sipariş etmek istiyorum:\n\n";
+            let total = 0;
+            cart.forEach((item, i) => {
+                text += `${i + 1}. ${item.name} - ₺${item.price.toFixed(2)}\n`;
+                total += item.price;
             });
-
-            message += `Tahmini Toplam: ${total.toFixed(2)} TL\n\nStok ve kargo durumu hakkında bilgi verebilir misiniz?`;
-
-            const encodedMsg = encodeURIComponent(message);
-            window.open(`https://wa.me/905300000000?text=${encodedMsg}`, '_blank');
+            text += `\nToplam Tutar: ₺${total.toFixed(2)}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // VIN MODAL LOGIC
-        function openVinModal() {
-            document.getElementById('vinModal').classList.remove('hidden');
+        function sendVinWhatsApp() {
+            const vin = document.getElementById('vinInput').value.trim();
+            if (!vin) return alert('Lütfen Şasi Numarasını giriniz.');
+            const phone = "905000000000";
+            const text = `Merhaba Özen Oto, Şasi Numaram: ${vin}. Aracım için parça uyumu teyidi yaptırmak istiyorum.`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        function openVinModalWithPart(oem, name) {
-            closeProductModal();
-            document.getElementById('vinPartsNeeded').value = `OEM: ${oem} - ${name} parçası aracımla uyumlu mu?`;
-            openVinModal();
+        function filterCatalog() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const model = document.getElementById('modelSelect').value.toLowerCase();
+            const chkRenault = document.getElementById('chkRenault').checked;
+            const chkDacia = document.getElementById('chkDacia').checked;
+
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                const brand = item.getAttribute('data-brand');
+                const itemModel = item.getAttribute('data-model');
+                const text = item.innerText.toLowerCase();
+
+                let matchSearch = text.includes(search);
+                let matchBrand = (chkRenault && brand.includes('renault')) || (chkDacia && brand.includes('dacia'));
+                let matchModel = (model === 'all') || itemModel.includes(model);
+
+                if (matchSearch && matchBrand && matchModel) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
 
-        function closeVinModal() {
-            document.getElementById('vinModal').classList.add('hidden');
-        }
-
-        function sendVinToWhatsapp(e) {
-            e.preventDefault();
-            const vin = document.getElementById('vinInput').value.trim().toUpperCase();
-            const carModel = document.getElementById('vinCarModel').value.trim();
-            const engine = document.getElementById('vinEngine').value.trim();
-            const parts = document.getElementById('vinPartsNeeded').value.trim();
-
-            let msg = `Merhaba Özen Oto, Şasi Numarası ile Parça Sorgusu:\n\n`;
-            msg += `🚘 Araç Model/Yıl: ${carModel}\n`;
-            if (engine) msg += `⚙️ Motor Tipi: ${engine}\n`;
-            msg += `🔑 Şasi No (VIN): ${vin}\n\n`;
-            msg += `📦 İstenen Parçalar:\n${parts}\n\nUyumlu OEM parçaların fiyat bilgisini rica ederim.`;
-
-            const encoded = encodeURIComponent(msg);
-            window.open(`https://wa.me/905300000000?text=${encoded}`, '_blank');
-            closeVinModal();
-        }
-
-        // TOAST NOTIFICATION
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('chkRenault').checked = true;
+            document.getElementById('chkDacia').checked = true;
+            document.getElementById('modelSelect').value = 'all';
+            filterCatalog();
         }
     </script>
 </body>
