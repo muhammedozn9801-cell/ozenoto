@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sıfır kilometre, garantili 1.3 TCe Benzinli Komple Sandık Motor. Megane 4 ve Dacia Duster uyumlu.">
+    <title>1.3 TCe Sandık Motor (Sıfır & Garantili) | Özen Oto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left text-gray-500 hover:text-red-600 transition text-xl mr-2"></i>
+                <h1 class="text-xl font-black text-gray-900">ÖZEN OTO</h1>
+            </a>
+            <a href="https://wa.me/905327249417" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-bold text-sm transition">
+                <i class="fa-brands fa-whatsapp mr-1"></i> Ustaya Ulaş
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <nav class="text-sm text-gray-500 mb-6 font-semibold">
+            <a href="../index.html" class="hover:text-red-600">Ana Sayfa</a> > 
+            <a href="../renault.html" class="hover:text-red-600">Motor Parçaları</a> > 
+            <span class="text-gray-800">1.3 TCe Sandık Motor</span>
+        </nav>
+
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-1/2 bg-gray-100 p-8 flex justify-center items-center">
+                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&auto=format&fit=crop&q=80" alt="1.3 TCe Sandık Motor" class="max-h-96 object-contain rounded drop-shadow-2xl">
+            </div>
+
+            <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                <div class="uppercase tracking-widest text-red-600 font-bold text-xs mb-2">Benzinli Yeni Nesil</div>
+                <h1 class="text-3xl sm:text-4xl font-black text-gray-900 mb-4 leading-tight">Sıfır 1.3 TCe Komple Sandık Motor</h1>
+                <p class="text-gray-600 mb-6 text-lg">Megane 4, Duster ve Kadjar araçlara özel. Orijinal fabrika çıkışlı, sıfır ve garantili komple sandık motor.</p>
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                    <button onclick="askEngineWhatsApp()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg font-black text-lg transition flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-2xl mr-2"></i> Fiyat & Stok Sor
+                    </button>
+                    <a href="tel:+905327249417" class="sm:flex-none bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition flex items-center justify-center">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const WHATSAPP_NO = "905327249417"; 
+        function askEngineWhatsApp() {
+            const msg = `Merhaba Özen Oto, sitenizdeki "1.3 TCe Komple Sandık Motor" ilanı için fiyat alabilir miyim?`;
+            window.open(`https://wa.me/${WHATSAPP_NO}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
