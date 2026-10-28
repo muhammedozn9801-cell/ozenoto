@@ -104,10 +104,10 @@
         </div>
     </nav>
 
-    <!-- VİDEO BANTI -->
+    <!-- VİDEO BANTI (MOBİL UYUMLU) -->
     <div class="relative w-full h-[380px] md:h-[480px] bg-black overflow-hidden border-b-4 border-yellow-500">
-        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500">
-            <source id="video-kaynak" src="renault1.mp4" type="video/mp4">
+        <video id="arka-plan-video" autoplay loop muted playsinline webkit-playsinline preload="auto" oncontextmenu="return false;" class="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none">
+            <source src="renault1.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black/20"></div>
     </div>
@@ -263,9 +263,12 @@
 
     <!-- SCRIPT'LER -->
     <script>
-        const SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/1-iTxWmrBoBRHnsm1gklHB33EBIBG6PdiArKrwYxfG7s/export?format=csv';
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw1Qu0PmQziXdPMvdTP7fMYpSfEkqJiGh0JYEftj_re1ZsQIMF8e_WRv41J-P8gZ6BzQ/exec';
+        // YENİ UYGULAMA LİNKİNİ BURAYA YAPIŞTIRMAYI UNUTMA!
+        const SCRIPT_URL = 'BURAYA_YENI_LINK_GELECEK'; 
 
+        // ÖNBELLEK SİLİCİ (CACHE BUSTER) EKLENDİ - Anında güncellenecek
+        const SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/1-iTxWmrBoBRHnsm1gklHB33EBIBG6PdiArKrwYxfG7s/export?format=csv&t=' + new Date().getTime();
+        
         let aktifUrunler = [];
         let cokluResimler = [];
         let resimIndeksleri = {};
@@ -283,7 +286,6 @@
             }
             tablodanCek();
 
-            // RESİMLERİ SIKIŞTIR
             document.getElementById('adm-kamera').addEventListener('change', function(e) {
                 cokluResimler = [];
                 const files = e.target.files;
@@ -422,7 +424,7 @@
                 isAdminLoggedIn = true;
                 document.getElementById('admin-login-step').classList.add('hidden');
                 document.getElementById('admin-form-step').classList.remove('hidden');
-                vitrinCiz(); // Düzenle butonlarının gelmesi için vitrini tazele
+                vitrinCiz();
             } else {
                 alert('Hatalı Şifre!');
             }
@@ -463,7 +465,7 @@
             document.getElementById('adm-aciklama').value = '';
             document.getElementById('form-baslik').innerHTML = `<i class="fa-solid fa-plus-circle mr-2"></i> Ürün Ekle / Düzenle`;
             document.getElementById('sifirla-btn').classList.add('hidden');
-            document.getElementById('adm-kamera').value = ''; // Dosya seçimini de sıfırla
+            document.getElementById('adm-kamera').value = '';
             cokluResimler = [];
         }
 
@@ -486,8 +488,6 @@
             btn.disabled = true;
 
             const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
-            
-            // Eğer ID yoksa yeni ürün ekleniyordur, asla çakışmayan yepyeni bir ID üret (Örn: PRC-170123456)
             const guvenliID = id ? id : "PRC-" + Date.now().toString(); 
 
             const payload = {
@@ -512,8 +512,8 @@
                 btn.disabled = false;
                 document.getElementById('admin-modal').classList.add('hidden');
                 
-                formuSifirla(); // MODALI KAPATINCA HER ŞEYİ TERTEMİZ YAP
-                setTimeout(tablodanCek, 2500); // 2.5 sn sonra vitrini güncelle
+                formuSifirla(); 
+                setTimeout(tablodanCek, 2000); 
             });
         }
 
@@ -557,15 +557,6 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
-
-        const videolar = ['renault1.mp4', 'renault2.mp4', 'renault3.mp4'];
-        let videoIndex = 0;
-        const videoElement = document.getElementById('arka-plan-video');
-        videoElement.addEventListener('ended', function() {
-            videoIndex = (videoIndex + 1) % videolar.length;
-            videoElement.src = videolar[videoIndex];
-            videoElement.play();
-        });
 
         function kaydirSag() { document.getElementById('urun-seridi').scrollBy({ left: 300, behavior: 'smooth' }); }
         function kaydirSol() { document.getElementById('urun-seridi').scrollBy({ left: -300, behavior: 'smooth' }); }
