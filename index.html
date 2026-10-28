@@ -193,14 +193,63 @@
     </footer>
 
     <!-- Arama Scripti -->
+  <!-- Arama Scripti -->
     <script>
         const WHATSAPP = "905327249417";
-        function triggerWhatsApp(val) {
-            if(!val) return alert("Lütfen aradığınız parçayı veya kodu yazın.");
-            window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Merhaba, aradığım parça: ${val}. Fiyat ve stok bilgisi alabilir miyim?`)}`, '_blank');
+
+        // KENDİ ÜRÜN LİSTENİ BURAYA EKLEYECEKSİN
+        const urunListesi = [
+            { 
+                isim: "1.5 dCi Sandık Motor", 
+                link: "urunler/1-5-dci-sandik-motor.html", 
+                anahtarKelimeler: ["1.5", "dci", "k9k", "sandık", "motor", "clio", "kangoo", "megane"] 
+            },
+            { 
+                isim: "1.3 TCe Motor", 
+                link: "urunler/1-3-tce-sandik-motor.html", 
+                anahtarKelimeler: ["1.3", "tce", "benzinli", "duster", "motor"] 
+            },
+            { 
+                isim: "Orijinal Triger Seti", 
+                link: "urunler/triger-seti.html", 
+                anahtarKelimeler: ["triger", "kayış", "bakım", "mais", "set"] 
+            }
+            // Yeni ürün eklemek istersen virgül koyup yukarıdaki gibi ekleyebilirsin.
+        ];
+
+        function aramaYap(arananKelime) {
+            if (!arananKelime) return alert("Lütfen aradığınız parçayı veya kodu yazın.");
+
+            arananKelime = arananKelime.toLowerCase();
+            let eslesenUrunLink = null;
+
+            // Ürün listesinde arama yapıyoruz
+            for (let i = 0; i < urunListesi.length; i++) {
+                let urun = urunListesi[i];
+                
+                // Ürünün adında veya anahtar kelimelerinde geçiyor mu?
+                let isimUyusuyor = urun.isim.toLowerCase().includes(arananKelime);
+                let kelimeUyusuyor = urun.anahtarKelimeler.some(kelime => arananKelime.includes(kelime) || kelime.includes(arananKelime));
+
+                if (isimUyusuyor || kelimeUyusuyor) {
+                    eslesenUrunLink = urun.link;
+                    break; // İlk bulduğunda aramayı durdur
+                }
+            }
+
+            // Eğer ürün bulunduysa sayfaya git
+            if (eslesenUrunLink) {
+                window.location.href = eslesenUrunLink;
+            } else {
+                // Ürün bulunamadıysa WhatsApp'a yönlendir
+                let onay = confirm("Aradığınız parça sitemizde bulunamadı. Stok ve fiyat için doğrudan ustaya WhatsApp'tan sormak ister misiniz?");
+                if (onay) {
+                    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Merhaba, sitenizde aradım ama bulamadım. Şu parça için stok ve fiyat bilgisi alabilir miyim: ${arananKelime}`)}`, '_blank');
+                }
+            }
         }
-        function askWhatsApp() { triggerWhatsApp(document.getElementById('search-input').value.trim()); }
-        function askWhatsAppMobile() { triggerWhatsApp(document.getElementById('mobile-search-input').value.trim()); }
+
+        // Arama butonlarına tıklandığında çalışacak fonksiyonlar
+        function askWhatsApp() { aramaYap(document.getElementById('search-input').value.trim()); }
+        function askWhatsAppMobile() { aramaYap(document.getElementById('mobile-search-input').value.trim()); }
     </script>
-</body>
-</html>
