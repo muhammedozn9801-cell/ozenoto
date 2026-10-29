@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Özen Oto | Renault & Dacia Orijinal Yedek Parça</title>
     
-    <!-- Tailwind CSS & FontAwesome Icons -->
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Arka plan video karartma ve estetik katman */
         .video-overlay {
             background: linear-gradient(180deg, rgba(17, 24, 39, 0.82) 0%, rgba(17, 24, 39, 0.95) 100%);
         }
@@ -18,16 +17,15 @@
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased min-h-screen relative selection:bg-yellow-500 selection:text-black">
 
-    <!-- ARKA PLAN TAM EKRAN DÖNEN VİDEO OYNATICI -->
+    <!-- ARKA PLAN TAM EKRAN DÖNEN VİDEO -->
     <div class="fixed inset-0 w-full h-full -z-20 overflow-hidden">
         <video id="bg-video" class="w-full h-full object-cover" autoplay muted playsinline>
             <source id="bg-video-src" src="video1.mp4" type="video/mp4">
         </video>
     </div>
-    <!-- VİDEO ÜZERİ KARARTMA PERDESİ -->
     <div class="fixed inset-0 w-full h-full -z-10 video-overlay"></div>
 
-    <!-- İLK AÇILIŞ UYARI VE 4 İLETİŞİM HATTI MODALI -->
+    <!-- 1. İLK AÇILIŞ UYARI VE 4 İLETİŞİM HATTI MODALI -->
     <div id="uyari-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-gray-900 border-2 border-yellow-500 text-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
             <button onclick="modalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold transition-colors">
@@ -89,9 +87,8 @@
                 <span class="text-xs text-gray-400 hidden sm:inline">Renault & Dacia Orijinal Parça</span>
             </a>
             
-            <!-- OEM ARAMA KUTUSU -->
             <div class="relative w-full md:w-1/2">
-                <input type="text" id="arama-input" onkeyup="urunAramasi()" placeholder="OEM Kodu veya Parça Adı Ara (Örn: 110616700R, Buji, Volan)..." class="w-full pl-10 pr-4 py-2 bg-gray-800/90 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-yellow-500 transition-colors">
+                <input type="text" id="arama-input" onkeyup="urunAramasi()" placeholder="OEM Kodu veya Parça Adı Ara (Örn: 162085488R, Buji, Filtre)..." class="w-full pl-10 pr-4 py-2 bg-gray-800/90 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:border-yellow-500 transition-colors">
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
             </div>
 
@@ -101,33 +98,33 @@
         </div>
     </header>
 
-    <!-- ANA İÇERİK (ARAYÜZ VİTRİNİ) -->
+    <!-- ANA İÇERİK -->
     <main class="max-w-[1400px] mx-auto px-4 py-8">
-        
-        <!-- KATEGORİ SEÇİM BUTONLARI -->
         <div class="flex flex-wrap gap-2 mb-8 justify-center">
             <button onclick="filtrele('hepsi')" class="bg-yellow-500 text-black text-xs font-bold px-5 py-2 rounded-full hover:bg-yellow-400 transition-all shadow-md">Tüm Parçalar</button>
             <button onclick="filtrele('Renault')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Renault</button>
             <button onclick="filtrele('Dacia')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Dacia</button>
         </div>
 
-        <!-- ÜRÜN KARTLARI IZGARASI (GRID) -->
         <div id="urun-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <p class="col-span-full text-center text-gray-400 py-12">Ürün vitrini yükleniyor...</p>
+            <!-- Ürünler urunler.js dosyasından yüklenir -->
         </div>
     </main>
 
     <footer class="bg-gray-900/90 text-gray-400 text-xs text-center py-6 border-t border-gray-800 mt-12">
-        <p>© Özen Oto - Renault & Dacia Orijinal Yedek Parça Katalog Arayüzü</p>
+        <p>© Özen Oto - Renault & Dacia Orijinal Yedek Parça Kataloğu</p>
     </footer>
 
-    <!-- ARAYÜZ KONTROL MANTIĞI (FRONTEND JS) -->
+    <!-- ÜRÜNLER DOSYASI BAĞLANTISI -->
+    <script src="urunler.js"></script>
+
+    <!-- KONTROL JS -->
     <script>
         function modalKapat() {
             document.getElementById('uyari-modal').classList.add('hidden');
         }
 
-        // 4 ADET DÖNGÜSEL ARKA PLAN VİDEOSU
+        // 4 VİDEOLUK ARKA PLAN DÖNGÜSÜ
         const videolar = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
         let mevVideo = 0;
         const bgVid = document.getElementById('bg-video');
@@ -140,73 +137,50 @@
             bgVid.play();
         });
 
-        // CANLI VERİ ÇEKME VE LİSTELEME
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/1-iTxWmrBoBRHnsm1gklHB33EBIBG6PdiArKrwYxfG7s/export?format=csv&t=' + new Date().getTime();
-        let tumUrunler = [];
-
+        // SAYFA YÜKLENDİĞİNDE ÜRÜNLERİ BASMA
         window.onload = function() {
-            veriCek();
+            if (typeof urunler !== 'undefined') {
+                urunleriEkranaBas(urunler);
+            } else {
+                document.getElementById('urun-container').innerHTML = '<p class="col-span-full text-center text-red-400 py-12">urunler.js dosyası bulunamadı!</p>';
+            }
         };
-
-        function veriCek() {
-            fetch(CSV_URL)
-                .then(res => res.text())
-                .then(csv => {
-                    const satirlar = csv.split('\n').slice(1);
-                    tumUrunler = satirlar.filter(s => s.trim() !== '').map(s => {
-                        const col = s.split(',');
-                        return {
-                            id: col[0] ? col[0].trim() : '',
-                            baslik: col[1] ? col[1].replace(/"/g, '').trim() : '',
-                            arac: col[2] ? col[2].replace(/"/g, '').trim() : '',
-                            oem: col[3] ? col[3].replace(/"/g, '').trim() : '',
-                            resim: col[4] ? col[4].replace(/"/g, '').trim() : 'dukkan.png',
-                            etiket: col[5] ? col[5].replace(/"/g, '').trim() : '',
-                            aciklama: col[6] ? col[6].replace(/"/g, '').trim() : ''
-                        };
-                    });
-                    urunleriEkranaBas(tumUrunler);
-                });
-        }
 
         function urunleriEkranaBas(liste) {
             const container = document.getElementById('urun-container');
-            if (liste.length === 0) {
+            if (!liste || liste.length === 0) {
                 container.innerHTML = '<p class="col-span-full text-center text-gray-400 py-12">Aranan OEM kodu veya parça bulunamadı.</p>';
                 return;
             }
 
-            container.innerHTML = liste.map(u => {
-                const imgUrl = u.resim ? u.resim.split('|')[0] : 'dukkan.png';
-                return `
-                    <div class="bg-gray-800/90 backdrop-blur-md border border-gray-700/60 rounded-xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all flex flex-col justify-between group">
-                        <div>
-                            <div class="h-48 bg-gray-900/60 overflow-hidden relative p-2">
-                                <img src="${imgUrl}" alt="${u.baslik}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.src='dukkan.png'">
-                                <span class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded shadow">${u.etiket || 'Orijinal MAİS'}</span>
-                            </div>
-                            <div class="p-4">
-                                <div class="text-[10px] text-yellow-500 font-bold uppercase tracking-wider">${u.arac}</div>
-                                <h3 class="font-bold text-sm text-white mt-1 line-clamp-2">${u.baslik}</h3>
-                                <div class="mt-3 bg-gray-900/80 p-2 rounded-lg text-xs font-mono text-gray-300 font-semibold border border-gray-700/50">
-                                    OEM: <span class="text-yellow-400 font-bold">${u.oem}</span>
-                                </div>
-                                <p class="text-xs text-gray-400 mt-2 line-clamp-2">${u.aciklama}</p>
-                            </div>
+            container.innerHTML = liste.map(u => `
+                <div class="bg-gray-800/90 backdrop-blur-md border border-gray-700/60 rounded-xl overflow-hidden shadow-xl hover:border-yellow-500/50 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 bg-gray-900/60 overflow-hidden relative p-2">
+                            <img src="${u.resim || 'dukkan.png'}" alt="${u.baslik}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.src='dukkan.png'">
+                            <span class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded shadow">${u.etiket || 'Orijinal MAİS'}</span>
                         </div>
-                        <div class="p-4 pt-0">
-                            <a href="https://wa.me/905000000001?text=Merhaba,%20${encodeURIComponent(u.oem)}%20kodlu%20${encodeURIComponent(u.baslik)}%20hakkinda%20bilgi%20almak%20istiyorum." target="_blank" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black text-xs font-black py-2.5 rounded-lg transition-colors text-center block uppercase shadow-md">
-                                Fiyat & Stok Sor
-                            </a>
+                        <div class="p-4">
+                            <div class="text-[10px] text-yellow-500 font-bold uppercase tracking-wider">${u.arac}</div>
+                            <h3 class="font-bold text-sm text-white mt-1 line-clamp-2">${u.baslik}</h3>
+                            <div class="mt-3 bg-gray-900/80 p-2 rounded-lg text-xs font-mono text-gray-300 font-semibold border border-gray-700/50">
+                                OEM: <span class="text-yellow-400 font-bold">${u.oem}</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 line-clamp-2">${u.aciklama}</p>
                         </div>
                     </div>
-                `;
-            }).join('');
+                    <div class="p-4 pt-0">
+                        <a href="https://wa.me/905000000001?text=Merhaba,%20${encodeURIComponent(u.oem)}%20kodlu%20${encodeURIComponent(u.baslik)}%20hakkinda%20bilgi%20almak%20istiyorum." target="_blank" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black text-xs font-black py-2.5 rounded-lg transition-colors text-center block uppercase shadow-md">
+                            Fiyat & Stok Sor
+                        </a>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function urunAramasi() {
             const q = document.getElementById('arama-input').value.toLowerCase().replace(/\s+/g, '');
-            const filtrelenmis = tumUrunler.filter(u => 
+            const filtrelenmis = urunler.filter(u => 
                 u.baslik.toLowerCase().includes(q) || 
                 u.oem.toLowerCase().replace(/\s+/g, '').includes(q) ||
                 u.arac.toLowerCase().includes(q)
@@ -216,9 +190,9 @@
 
         function filtrele(kategori) {
             if (kategori === 'hepsi') {
-                urunleriEkranaBas(tumUrunler);
+                urunleriEkranaBas(urunler);
             } else {
-                const f = tumUrunler.filter(u => u.arac.toLowerCase().includes(kategori.toLowerCase()));
+                const f = urunler.filter(u => u.arac.toLowerCase().includes(kategori.toLowerCase()));
                 urunleriEkranaBas(f);
             }
         }
