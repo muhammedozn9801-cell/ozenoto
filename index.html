@@ -29,7 +29,7 @@
     </script>
 
     <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
-    <script src="urunler.js?v=5.0"></script>
+    <script src="urunler.js?v=6.0"></script>
 
     <script>
         tailwind.config = {
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <!-- ŞASİ NO (VIN) SORGULAMA MODALI -->
+    <!-- ŞASİ NO SORGULAMA MODALI -->
     <div id="sasi-modal" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 border-t-4 border-yellow-500 w-full max-w-lg p-6 md:p-8 kutu-golge rounded-xl animasyon-acilis relative">
             <button onclick="sasiModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
@@ -111,11 +111,21 @@
         </div>
     </div>
 
-    <!-- ÜST BİLGİ BANTI -->
+    <!-- ÜST BİLGİ BANTI (CANLI DURUM & NAVİGASYON ENTEGRELİ) -->
     <div class="bg-gray-900 text-gray-300 text-xs py-2 border-b border-gray-800">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-yellow-500"></i> Karşıyaka Mah. Kocakesik Sok. No: 509, Kumluca / Antalya</div>
-            <div class="font-bold text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>0242 887 89 80</div>
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-yellow-500"></i> Karşıyaka Mah. Kumluca / Antalya</span>
+                <!-- YOL TARİFİ AL BUTONU -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-2.5 py-0.5 rounded flex items-center gap-1 transition-colors">
+                    <i class="fa-solid fa-diamond-turn-right"></i> Yol Tarifi Al
+                </a>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- CANLI ÇALIŞMA DURUMU SİMGESİ -->
+                <div id="calisma-durumu"></div>
+                <div class="font-bold text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>0242 887 89 80</div>
+            </div>
         </div>
     </div>
 
@@ -175,7 +185,7 @@
         </div>
     </div>
 
-    <!-- DİNAMİK YENİ & ÖNE ÇIKAN ÜRÜN VİTRİNİ -->
+    <!-- DİNAMİK ÜRÜN VİTRİNİ -->
     <div id="urunler" class="container mx-auto px-4 py-12">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 border-b-2 border-yellow-500 pb-4 gap-4">
             <div>
@@ -185,7 +195,6 @@
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Stoklarımıza en son giren orijinal parçalar otomatik olarak en başta listelenir.</p>
             </div>
 
-            <!-- KATEGORİ FİLTRELERİ -->
             <div class="flex flex-wrap gap-2" id="kategori-butonlari">
                 <button onclick="kategoriFiltrele('hepsi')" class="kategori-btn active bg-yellow-500 text-black px-4 py-2 rounded-full text-xs font-black transition-all hover:scale-105 shadow-sm">Tümü</button>
                 <button onclick="kategoriFiltrele('motor')" class="kategori-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all hover:scale-105">Motor & Aksam</button>
@@ -195,11 +204,9 @@
             </div>
         </div>
 
-        <!-- ÜRÜN IZGARASI -->
         <div id="urun-izgarasi" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         </div>
 
-        <!-- DAHA FAZLA YÜKLE BUTONU -->
         <div class="text-center mt-10" id="daha-fazla-kapsayici">
             <button onclick="dahaFazlaYukle()" id="btn-daha-fazla" class="bg-gray-900 hover:bg-black dark:bg-gray-800 dark:hover:bg-gray-700 text-yellow-400 font-extrabold px-8 py-3.5 rounded-lg text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-xl inline-flex items-center gap-2 border border-yellow-500/30">
                 <span>Daha Fazla Parça Gör</span>
@@ -280,7 +287,7 @@
         </div>
     </div>
 
-    <!-- DÜKKAN & MAPS -->
+    <!-- DÜKKAN & MAPS (NAVİGASYON BUTONU EKLENDİ) -->
     <div id="hakkimizda" class="container mx-auto px-4 py-12">
         <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 kutu-golge rounded-xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -314,6 +321,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- HARİTA NAVİGASYON BUTONU -->
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="w-full mb-6 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-4 rounded-lg text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-blue-600/30 transition-all">
+                            <i class="fa-solid fa-location-arrow text-base"></i>
+                            <span>Google Haritalar'da Dükkana Rota Oluştur</span>
+                        </a>
                     </div>
 
                     <div class="w-full h-56 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-inner">
@@ -349,7 +362,34 @@
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
 
-        // AKILLI TÜRKÇE METİN NORMALİZASYONU
+        // OTOMATİK CANLI ÇALIŞMA SAATİ KONTROLÜ
+        function durumGuncelle() {
+            const simdi = new Date();
+            const gun = simdi.getDay(); // 0: Pazar, 1: Pzt, ... 6: Cmt
+            const saat = simdi.getHours();
+            const rozet = document.getElementById('calisma-durumu');
+
+            if (!rozet) return;
+
+            // Pazartesi - Cumartesi arası (1-6) ve 08:00 - 19:00 arası
+            if (gun >= 1 && gun <= 6 && saat >= 8 && saat < 19) {
+                rozet.innerHTML = `
+                    <span class="inline-flex items-center gap-1.5 bg-green-500/20 text-green-700 dark:text-green-400 border border-green-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        AÇIK
+                    </span>`;
+            } else {
+                rozet.innerHTML = `
+                    <span class="inline-flex items-center gap-1.5 bg-red-500/20 text-red-700 dark:text-red-400 border border-red-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
+                        <span class="h-2 w-2 rounded-full bg-red-500"></span>
+                        KAPALI
+                    </span>`;
+            }
+        }
+
         function turkceNormalize(str) {
             if (!str) return '';
             return str
@@ -487,7 +527,6 @@
             urunleriYukle();
         }
 
-        // AKILLI ESNEK ARAMA MOTORU
         function canliAramaYap() {
             const hamGirdi = document.getElementById('arama-girdisi').value.trim();
             const aranan = turkceNormalize(hamGirdi);
@@ -548,6 +587,7 @@
         videoElement.addEventListener('error', sonrakiVideoyaGec);
 
         window.onload = function() {
+            durumGuncelle();
             temaButonunuGuncelle();
             urunleriYukle();
         };
