@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özen Oto | Yönetim Paneli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-gray-800 w-full max-w-lg rounded-md p-6 shadow-2xl border-t-4 border-yellow-500">
+        <div class="flex items-center justify-between mb-6 border-b border-gray-700 pb-3">
+            <h2 class="text-xl font-black uppercase text-yellow-500">
+                <i class="fa-solid fa-boxes-packing mr-2"></i>Yeni Ürün Ekle
+            </h2>
+            <a href="index.html" class="text-sm text-gray-400 hover:text-white underline">Siteye Dön</a>
+        </div>
+
+        <!-- ÜRÜN EKLEME FORMU -->
+        <div class="space-y-4 text-sm font-bold text-gray-200">
+            <div>
+                <label class="block mb-1 text-gray-400">Ürün Adı:</label>
+                <input type="text" id="adm-baslik" placeholder="Örn: Triger Seti + Devirdaim" class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none focus:border-yellow-500 text-white font-normal">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block mb-1 text-gray-400">Araç Seçin:</label>
+                    <select id="adm-arac" class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none text-white font-normal">
+                        <option>Renault Megane 4</option>
+                        <option>Renault Megane 3</option>
+                        <option>Renault Clio 5</option>
+                        <option>Renault Clio 4</option>
+                        <option>Renault Symbol</option>
+                        <option>Renault Kangoo</option>
+                        <option>Dacia Duster</option>
+                        <option>Dacia Sandero</option>
+                        <option>Renault / Dacia Genel</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block mb-1 text-gray-400">Parça Markası:</label>
+                    <input type="text" id="adm-marka" placeholder="Örn: MAİS" class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none text-white font-normal" value="MAİS">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block mb-1 text-gray-400">OEM / Parça Kodu:</label>
+                    <input type="text" id="adm-oem" placeholder="Örn: 8200537083" class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none text-white font-normal">
+                </div>
+                <div>
+                    <label class="block mb-1 text-gray-400">Stok Durumu:</label>
+                    <select id="adm-stok" class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none text-white font-normal">
+                        <option value="Stokta Var">Stokta Var</option>
+                        <option value="Sınırlı Stok">Sınırlı Stok</option>
+                        <option value="Tükendi">Tükendi</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block mb-1 text-gray-400">Kamerayı Aç / Fotoğraf Seç:</label>
+                <!-- Kamera ikonu ve dosya yükleme yanyana -->
+                <div class="flex items-center gap-2">
+                    <label class="bg-gray-700 hover:bg-gray-600 border border-gray-600 cursor-pointer p-2.5 rounded flex-1 text-center text-gray-300 font-normal transition-colors">
+                        <i class="fa-solid fa-camera mr-2"></i> Fotoğraf Ekle
+                        <input type="file" id="adm-kamera" accept="image/*" multiple class="hidden">
+                    </label>
+                    <span id="foto-bilgi" class="text-xs text-yellow-500 font-normal w-24 text-center">Foto Yok</span>
+                </div>
+            </div>
+
+            <div>
+                <label class="block mb-1 text-gray-400">Açıklama / Detay:</label>
+                <textarea id="adm-aciklama" rows="3" placeholder="Ürün durumu, kutulu vs..." class="w-full p-2.5 bg-gray-700 border border-gray-600 rounded outline-none text-white font-normal"></textarea>
+            </div>
+
+            <button id="adm-btn" onclick="urunKaydet()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3.5 text-sm uppercase rounded shadow-lg mt-4 transition-colors">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Ürünü Siteye Gönder
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // GOOGLE APPS SCRIPT URL'Nİ BURAYA YAPIŞTIR
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykqHXBDxXmnBQYwtlgHgdG68j8TCoC0w9_3Df2Oe-PNK8E09_U-IrUnVbI3J3CEJxt/exec'; 
+        let cokluResimler = [];
+
+        // Fotoğraf seçildiğinde
+        document.getElementById('adm-kamera').addEventListener('change', function(e) {
+            cokluResimler = [];
+            const files = e.target.files;
+            const bilgi = document.getElementById('foto-bilgi');
+            
+            if (files.length > 0) {
+                bilgi.innerText = `${files.length} Foto Seçildi`;
+                for (let i = 0; i < files.length; i++) {
+                    miniSikistir(files[i], function(base64Data) {
+                        cokluResimler.push(base64Data);
+                    });
+                }
+            } else {
+                bilgi.innerText = `Foto Yok`;
+            }
+        });
+
+        // Fotoğraf Sıkıştırma İşlemi
+        function miniSikistir(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > 600) { height = Math.round((height * 600) / width); width = 600; }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', 0.6));
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Gönderme İşlemi
+        function urunKaydet() {
+            const btn = document.getElementById('adm-btn');
+            
+            const baslik = document.getElementById('adm-baslik').value.trim();
+            const oem = document.getElementById('adm-oem').value.trim();
+            const marka = document.getElementById('adm-marka').value.trim();
+            const arac = document.getElementById('adm-arac').value;
+            const stok = document.getElementById('adm-stok').value;
+            const aciklama = document.getElementById('adm-aciklama').value.trim();
+
+            if (!baslik || !oem) {
+                alert('Ürün Adı ve OEM kodunu girmek zorundasın!');
+                return;
+            }
+
+            btn.innerText = "Yükleniyor... Lütfen Bekleyin";
+            btn.disabled = true;
+            btn.classList.replace('bg-yellow-500', 'bg-gray-500');
+
+            const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
+
+            const payload = {
+                action: "add",
+                id: "PRC-" + Date.now().toString(),
+                baslik: baslik,
+                arac: arac,
+                oem: oem,
+                resimler: resimMetni,
+                etiket: marka ? `Orijinal ${marka}` : "Orijinal MAİS",
+                aciklama: `${stok} | ${aciklama}`
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert('Ürün Başarıyla Siteye Eklendi!');
+                // Formu Sıfırla
+                document.getElementById('adm-baslik').value = '';
+                document.getElementById('adm-oem').value = '';
+                document.getElementById('adm-aciklama').value = '';
+                document.getElementById('adm-kamera').value = '';
+                document.getElementById('foto-bilgi').innerText = 'Foto Yok';
+                cokluResimler = [];
+                
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Ürünü Siteye Gönder';
+                btn.disabled = false;
+                btn.classList.replace('bg-gray-500', 'bg-yellow-500');
+            }).catch(error => {
+                alert("Bir hata oluştu kanka, interneti kontrol et.");
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Tekrar Dene';
+                btn.disabled = false;
+                btn.classList.replace('bg-gray-500', 'bg-yellow-500');
+            });
+        }
+    </script>
+</body>
+</html>
