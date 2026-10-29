@@ -7,6 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- KOYU MOD HAFIZA KONTROLÜ (Flash Önleme) -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
     <script src="urunler.js?v=2.0"></script>
 
@@ -17,7 +26,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between">
+<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between transition-colors duration-300">
 
     <!-- HEADER -->
     <header class="bg-white dark:bg-gray-900 py-4 shadow border-b dark:border-gray-800">
@@ -26,9 +35,15 @@
                 <span class="text-2xl font-black text-black dark:text-white">ÖZEN OTO</span>
                 <span class="text-[10px] font-bold text-red-600 tracking-widest">RENAULT & DACIA YEDEK PARÇA</span>
             </a>
-            <a href="index.html" class="text-xs font-extrabold text-gray-700 dark:text-gray-300 hover:text-yellow-500 flex items-center gap-1 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön
-            </a>
+            <div class="flex items-center gap-3">
+                <button onclick="temaDegistir()" class="p-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center gap-2 transition-all active:scale-95">
+                    <i id="tema-ikonu" class="fa-solid fa-moon"></i>
+                    <span id="tema-yazi" class="hidden sm:inline">Koyu Mod</span>
+                </button>
+                <a href="index.html" class="text-xs font-extrabold text-gray-700 dark:text-gray-300 hover:text-yellow-500 flex items-center gap-1 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön
+                </a>
+            </div>
         </div>
     </header>
 
@@ -50,6 +65,26 @@
     </div>
 
     <script>
+        function temaButonunuGuncelle() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const ikonav = document.getElementById('tema-ikonu');
+            const yazi = document.getElementById('tema-yazi');
+            if (ikonav) ikonav.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+            if (yazi) yazi.textContent = isDark ? "Açık Mod" : "Koyu Mod";
+        }
+
+        function temaDegistir() {
+            const htmlTag = document.documentElement;
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlTag.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            temaButonunuGuncelle();
+        }
+
         function toastGoster(mesaj) {
             const toast = document.getElementById('toast-bildirim');
             document.getElementById('toast-mesaj').innerText = mesaj;
@@ -58,6 +93,8 @@
         }
 
         window.onload = function() {
+            temaButonunuGuncelle();
+            
             const urlParams = new URLSearchParams(window.location.search);
             const urunId = urlParams.get('id');
             const kutu = document.getElementById('urun-detay-kutu');
