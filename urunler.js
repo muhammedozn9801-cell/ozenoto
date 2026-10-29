@@ -7,9 +7,9 @@ window.urunler = [
     kategori: "motor",
     etiket: "Orijinal MAİS",
     yeni: true,
-    resim: "https://www.akbayrenault.com/idea/ay/22/myassets/products/561/3saw10h3kbgiwkq6v2nybslibeojrqhkhyn4y9es-2400561.jpg?revision=1792211729",
+    resim: "https://ibb.co/Qggf77X",
     resimler: [
-      "termostat-110606181r.jpg"
+      "https://ibb.co/Qggf77X"
     ],
     aciklama: "1.3 TCe H5H motorlar için revize edilmiş/iyileştirilmiş tip %100 Orijinal MAİS komple termostat kütüğü ve gövdesi.",
     ozellikler: {
