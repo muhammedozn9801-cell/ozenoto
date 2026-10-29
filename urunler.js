@@ -7,7 +7,7 @@ window.urunler = [
     kategori: "motor",
     etiket: "Orijinal MAİS",
     yeni: true,
-    resim: "termostat-110606181r.jpg",
+    resim: "https://www.akbayoto.com/images/products/110606181R.jpg",
     resimler: [
       "termostat-110606181r.jpg"
     ],
