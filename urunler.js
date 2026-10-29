@@ -4,6 +4,7 @@ window.urunler = [
     baslik: "Renault / Dacia Egzoz Askı Lastiği Orijinal MAİS",
     arac: "Dacia Logan / Sandero / Duster / Renault Symbol",
     oem: "6001547140",
+    kategori: "egzoz",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=Egzoz+Ask%C4%B1+Lasti%C4%9Fi"
   },
@@ -12,6 +13,7 @@ window.urunler = [
     baslik: "Renault Ön Far Bağlantı Braketi Orijinal MAİS",
     arac: "Megane 4 / Kadjar / Scenic 4",
     oem: "260606079R",
+    kategori: "elektrik",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=Far+Braketi"
   },
@@ -20,6 +22,7 @@ window.urunler = [
     baslik: "Renault Kanallı V-Kayışı Orijinal MAİS",
     arac: "Megane 4 / Kadjar / Clio 4 / Clio 5 1.5 dCi",
     oem: "117206191R",
+    kategori: "motor",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=V+Kay%C4%B1%C5%9F%C4%B1"
   },
@@ -28,6 +31,7 @@ window.urunler = [
     baslik: "Renault V-Kayış Seti (Alternatör Kayışı) Orijinal MAİS",
     arac: "Megane 4 / Kadjar / Clio 4 / Captur 1.5 dCi",
     oem: "117203694R",
+    kategori: "motor",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=V+Kay%C4%B1%C5%9F+Seti"
   },
@@ -36,6 +40,7 @@ window.urunler = [
     baslik: "Renault Egzoz Takozu / Askı Lastiği Orijinal MAİS",
     arac: "Megane 2 / Megane 3 / Scenic 2 / Clio 3",
     oem: "8200277960",
+    kategori: "egzoz",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=Egzoz+Takozu"
   },
@@ -44,6 +49,7 @@ window.urunler = [
     baslik: "NGK Laser Iridium Buji Seti (4 Adet) - SILZKFR8D7G",
     arac: "Megane 4 / Kadjar / Clio 5 / Captur 1.3 TCe",
     oem: "SILZKFR8D7G / 90912",
+    kategori: "motor",
     etiket: "NGK",
     resim: "https://via.placeholder.com/300x200?text=NGK+Buji+Seti+1.3TCe"
   },
@@ -52,6 +58,7 @@ window.urunler = [
     baslik: "Renault Termostat Kütlesi Orijinal MAİS",
     arac: "Megane 4 / Kadjar / Clio 5 / Captur 1.3 TCe",
     oem: "162085488R",
+    kategori: "motor",
     etiket: "Orijinal MAİS",
     resim: "https://via.placeholder.com/300x200?text=Termostat+K%C3%BCtlesi"
   },
@@ -60,6 +67,7 @@ window.urunler = [
     baslik: "Purflux Yağ Filtresi L1089",
     arac: "Megane 4 / Clio 5 / Captur / Kadjar 1.3 TCe - 1.5 dCi",
     oem: "L1089",
+    kategori: "bakim",
     etiket: "Purflux",
     resim: "https://via.placeholder.com/300x200?text=Purflux+Ya%C4%9F+Filtresi"
   },
@@ -68,6 +76,7 @@ window.urunler = [
     baslik: "NGK Laser Iridium Buji Seti (4 Adet) - ILKAR7Q7",
     arac: "Megane 4 / Clio 4 / Captur / Kadjar 0.9 TCe - 1.2 TCe",
     oem: "ILKAR7Q7 / 90391",
+    kategori: "motor",
     etiket: "NGK",
     resim: "https://via.placeholder.com/300x200?text=NGK+Buji+Seti+0.9-1.2TCe"
   },
@@ -76,6 +85,7 @@ window.urunler = [
     baslik: "Bosch Elektrikli Direksiyon Kutusu",
     arac: "Megane 3 / Scenic 3 / Fluence",
     oem: "KS00910095",
+    kategori: "fren",
     etiket: "Bosch",
     resim: "https://via.placeholder.com/300x200?text=Bosch+Direksiyon+Kutusu"
   }
