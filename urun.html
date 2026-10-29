@@ -6,120 +6,74 @@
     <title>Ürün Detayı | Özen Oto</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <script src="urunler.js"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } }
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } } }
     </script>
 </head>
-<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between">
 
-    <div class="bg-red-600 text-white text-xs font-black py-2 px-4 text-center uppercase">
-        ÖNEMLİ UYARI: Orijinal MAİS logolu ürünlerin montaj sonrasında kesinlikle iadesi yoktur!
-    </div>
-
-    <header class="bg-white dark:bg-gray-900 py-4 border-b dark:border-gray-800 shadow-sm">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-900 py-4 shadow border-b dark:border-gray-800">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="flex flex-col">
                 <span class="text-2xl font-black text-black dark:text-white">ÖZEN OTO</span>
                 <span class="text-[10px] font-bold text-red-600 tracking-widest">RENAULT & DACIA YEDEK PARÇA</span>
             </a>
-            
-            <div class="flex items-center gap-3">
-                <button onclick="temaDegistir()" class="p-2 rounded border border-gray-300 dark:border-gray-700 text-xs font-bold">
-                    <i id="tema-ikonu" class="fa-solid fa-moon"></i>
-                </button>
-                <a href="index.html" class="bg-yellow-500 text-black px-4 py-2 text-xs font-bold rounded">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> Ana Sayfaya Dön
-                </a>
-            </div>
+            <a href="index.html" class="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-yellow-500 flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön
+            </a>
         </div>
     </header>
 
-    <div class="container mx-auto px-4 py-10">
-        <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 p-6 md:p-8 rounded shadow-sm max-w-4xl mx-auto">
-            <div id="urun-icerik" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            </div>
+    <!-- ÜRÜN DETAY ALANI -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl flex-1">
+        <div id="urun-detay-kutu" class="bg-white dark:bg-gray-800 p-6 rounded shadow border border-gray-200 dark:border-gray-700">
+            <!-- JavaScript ile doldurulacak -->
         </div>
-    </div>
+    </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-4 text-center text-xs border-t-2 border-yellow-500 mt-12">
-        <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya (0242 887 89 80)</p>
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-4 text-center text-xs border-t-2 border-yellow-500">
+        <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
     </footer>
 
     <script>
-        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1-iTxWmrBoBRHnsm1gklHB33EBIBG6PdiArKrwYxfG7s/export?format=csv';
-
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-
-        function temaDegistir() {
-            const htmlTag = document.documentElement;
-            if (htmlTag.classList.contains('dark')) {
-                htmlTag.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlTag.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const urunId = urlParams.get('id') || '1';
+            const urunId = urlParams.get('id');
+            const kutu = document.getElementById('urun-detay-kutu');
 
-            fetch(SHEET_CSV_URL)
-                .then(res => res.text())
-                .then(text => {
-                    const satirlar = text.split('\n').slice(1);
-                    const liste = satirlar.filter(s => s.trim() !== '').map((s) => {
-                        const col = s.split(',');
-                        return {
-                            id: col[0] ? col[0].trim() : '',
-                            baslik: col[1] ? col[1].trim() : '',
-                            arac: col[2] ? col[2].trim() : '',
-                            oem: col[3] ? col[3].trim() : '',
-                            resim: col[4] ? col[4].trim() : '',
-                            etiket: col[5] && col[5].trim() !== '' ? col[5].trim() : 'Orijinal MAİS',
-                            aciklama: col[6] ? col[6].trim() : ''
-                        };
-                    });
-                    detayCiz(liste, urunId);
-                });
-        };
+            if (typeof urunler !== 'undefined' && urunId) {
+                const urun = urunler.find(u => u.id === urunId);
+                if (urun) {
+                    const waMesaj = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası hakkında bilgi almak istiyorum.`);
+                    kutu.innerHTML = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div class="bg-gray-100 dark:bg-gray-900 h-64 rounded flex items-center justify-center overflow-hidden border">
+                                ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-400"></i>`}
+                            </div>
+                            <div>
+                                <span class="bg-yellow-500 text-black text-xs font-black px-2 py-1 rounded uppercase inline-block mb-2">${urun.etiket}</span>
+                                <h1 class="text-xl font-bold mb-2">${urun.baslik}</h1>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1"><strong>Uyumlu Araçlar:</strong> ${urun.arac}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4"><strong>OEM Kod:</strong> <span class="text-red-600 font-bold">${urun.oem}</span></p>
+                                
+                                <div class="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 p-3 rounded mb-4 text-xs text-red-700 dark:text-red-300">
+                                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Orijinal MAİS logolu ürünlerde iade yapılmamaktadır.
+                                </div>
 
-        function detayCiz(liste, urunId) {
-            const urun = liste.find(u => u.id === urunId) || liste[0];
-            if(!urun) return;
-
-            document.title = urun.baslik + " | Özen Oto";
-
-            document.getElementById('urun-icerik').innerHTML = `
-                <div class="bg-gray-100 dark:bg-gray-900 h-80 rounded flex items-center justify-center relative overflow-hidden">
-                    <span class="absolute top-2 left-2 bg-yellow-500 text-black text-xs font-black px-2 py-1 rounded uppercase">${urun.etiket}</span>
-                    ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-boxes-packing text-8xl text-gray-400"></i>`}
-                </div>
-                <div class="flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-red-600 uppercase">${urun.arac}</span>
-                        <h1 class="text-2xl font-black text-gray-900 dark:text-white mt-1 mb-2">${urun.baslik}</h1>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 font-bold mb-4">OEM / PARÇA NO: <span class="text-black dark:text-white">${urun.oem}</span></p>
-                        
-                        <div class="border-t border-b dark:border-gray-700 py-4 my-4 text-sm text-gray-700 dark:text-gray-300">
-                            <p class="mb-2"><strong>Açıklama:</strong> ${urun.aciklama || 'Açıklama bulunmuyor.'}</p>
-                            <p class="text-xs text-green-600 dark:text-green-400 font-bold mt-2"><i class="fa-solid fa-check mr-1"></i> Stokta Var (Kumluca Dükkan Teslim veya Kargo)</p>
+                                <a href="https://wa.me/905327249417?text=${waMesaj}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded text-center flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp ile Fiyat & Stok Sorgula
+                                </a>
+                            </div>
                         </div>
-                    </div>
-
-                    <a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(urun.baslik)}%20(${urun.oem})%20hakk%C4%B1nda%20fiyat%20bilgisi%20almak%20istiyorum." target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-center uppercase rounded flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp ile Fiyat Sor / Sipariş Ver
-                    </a>
-                </div>
-            `;
-        }
+                    `;
+                    return;
+                }
+            }
+            kutu.innerHTML = `<p class="text-center text-gray-500 py-8">Ürün bulunamadı veya geçersiz ID.</p>`;
+        };
     </script>
 </body>
 </html>
