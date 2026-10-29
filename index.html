@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Arka plan video karartma perdesi */
         .video-overlay {
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.82) 0%, rgba(17, 24, 39, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(17, 24, 39, 0.85) 0%, rgba(17, 24, 39, 0.95) 100%);
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased min-h-screen relative selection:bg-yellow-500 selection:text-black">
 
-    <!-- ARKA PLAN TAM EKRAN DÖNEN VİDEO -->
+    <!-- ARKA PLAN TAM EKRAN DÖNEN 4 VİDEO -->
     <div class="fixed inset-0 w-full h-full -z-20 overflow-hidden">
         <video id="bg-video" class="w-full h-full object-cover" autoplay muted playsinline>
             <source id="bg-video-src" src="video1.mp4" type="video/mp4">
@@ -25,9 +26,15 @@
     </div>
     <div class="fixed inset-0 w-full h-full -z-10 video-overlay"></div>
 
-    <!-- 1. İLK AÇILIŞ UYARI VE 4 İLETİŞİM HATTI MODALI -->
+    <!-- 1. EN ÜST CANLI DUYURU BARI -->
+    <div class="bg-yellow-500 text-black text-[11px] sm:text-xs font-black py-1.5 px-4 text-center tracking-wide flex items-center justify-center gap-2 shadow-md">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>RENAULT & DACIA TÜM ORİJİNAL MAİS PARÇALARDA ŞASİ NO İLE İLE %100 UYUMLULUK GARANTİSİ</span>
+    </div>
+
+    <!-- 2. İLK AÇILIŞ UYARI VE 4 İLETİŞİM HATTI MODALI -->
     <div id="uyari-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-        <div class="bg-gray-900 border-2 border-yellow-500 text-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+        <div class="bg-gray-900 border-2 border-yellow-500 text-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative animate-fade-in">
             <button onclick="modalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -79,7 +86,7 @@
         </div>
     </div>
 
-    <!-- ÜST BİLGİ & ARAMA BARI -->
+    <!-- ÜST NAVİGASYON VE ARAMA BARI -->
     <header class="bg-gray-900/90 backdrop-blur-md text-white sticky top-0 z-50 border-b border-yellow-500/30 shadow-lg">
         <div class="max-w-[1400px] mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
             <a href="#" class="flex items-center gap-3">
@@ -92,25 +99,91 @@
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
             </div>
 
-            <button onclick="document.getElementById('uyari-modal').classList.remove('hidden')" class="bg-yellow-500 text-black text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-yellow-400 transition-colors">
-                <i class="fa-solid fa-phone"></i> İletişim Numaraları
-            </button>
+            <div class="flex items-center gap-2">
+                <a href="#hakkimizda" class="text-xs font-bold text-gray-300 hover:text-yellow-500 px-2 py-1 transition-colors">Hakkımızda</a>
+                <a href="#konum" class="text-xs font-bold text-gray-300 hover:text-yellow-500 px-2 py-1 transition-colors">Konum</a>
+                <button onclick="document.getElementById('uyari-modal').classList.remove('hidden')" class="bg-yellow-500 text-black text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-2 hover:bg-yellow-400 transition-colors ml-2">
+                    <i class="fa-solid fa-phone"></i> İletişim
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- ANA İÇERİK -->
-    <main class="max-w-[1400px] mx-auto px-4 py-8">
-        <div class="flex flex-wrap gap-2 mb-8 justify-center">
-            <button onclick="filtrele('hepsi')" class="bg-yellow-500 text-black text-xs font-bold px-5 py-2 rounded-full hover:bg-yellow-400 transition-all shadow-md">Tüm Parçalar</button>
-            <button onclick="filtrele('Renault')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Renault</button>
-            <button onclick="filtrele('Dacia')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Dacia</button>
-        </div>
+    <main class="max-w-[1400px] mx-auto px-4 py-8 space-y-16">
+        
+        <!-- ÜRÜN VİTRİNİ SEKSİYONU -->
+        <section>
+            <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                <button onclick="filtrele('hepsi')" class="bg-yellow-500 text-black text-xs font-bold px-5 py-2 rounded-full hover:bg-yellow-400 transition-all shadow-md">Tüm Parçalar</button>
+                <button onclick="filtrele('Renault')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Renault</button>
+                <button onclick="filtrele('Dacia')" class="bg-gray-800/80 text-white text-xs font-bold px-5 py-2 rounded-full border border-gray-700 hover:bg-yellow-500 hover:text-black transition-all">Dacia</button>
+            </div>
 
-        <div id="urun-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Ürünler urunler.js dosyasından yüklenir -->
-        </div>
+            <div id="urun-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Ürünler urunler.js dosyasından yüklenir -->
+            </div>
+        </section>
+
+        <!-- HAKKIMIZDA BÖLÜMÜ -->
+        <section id="hakkimizda" class="bg-gray-800/80 backdrop-blur-md border border-gray-700/60 rounded-2xl p-6 sm:p-10 shadow-2xl">
+            <div class="max-w-3xl mx-auto text-center space-y-4">
+                <span class="text-yellow-500 font-bold text-xs uppercase tracking-widest">Güvenli Yedek Parça Tedariği</span>
+                <h2 class="text-2xl font-black text-white">Özen Oto Hakkında</h2>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    Özen Oto olarak Renault ve Dacia araç gruplarında orijinal MAİS parça ve OEM standartlarında kaliteli yedek parça tedariği sağlamaktayız. Şasi numarası ile %100 parça uyumluluk garantisi vererek aracınız için doğru parçayı en hızlı şekilde ulaştırıyoruz.
+                </p>
+            </div>
+        </section>
+
+        <!-- GOOGLE YORUMLARI VE DEĞERLENDİRMELER -->
+        <section id="yorumlar" class="bg-gray-800/80 backdrop-blur-md border border-gray-700/60 rounded-2xl p-6 sm:p-10 shadow-2xl text-center">
+            <div class="mb-8">
+                <span class="text-yellow-500 font-bold text-xs uppercase tracking-widest">Müşteri Deneyimleri</span>
+                <h2 class="text-2xl font-black text-white mt-1">Google Değerlendirmeleri</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-700/50 text-left">
+                    <div class="flex items-center text-yellow-500 text-xs mb-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-300 italic mb-3">"Megane 4 aracımın termostat gövdesini şasi no ile sorgulatıp aldım. Orijinal MAİS kutulu geldi, dürüst esnaf."</p>
+                    <span class="text-[11px] font-bold text-gray-400">- Ahmet Y.</span>
+                </div>
+                <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-700/50 text-left">
+                    <div class="flex items-center text-yellow-500 text-xs mb-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-300 italic mb-3">"Duster için Purflux L1089 filtre aldım. Parça sorgulamasından kargolamaya kadar çok ilgililer."</p>
+                    <span class="text-[11px] font-bold text-gray-400">- Murat K.</span>
+                </div>
+                <div class="bg-gray-900/80 p-5 rounded-xl border border-gray-700/50 text-left">
+                    <div class="flex items-center text-yellow-500 text-xs mb-2">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs text-gray-300 italic mb-3">"Clio 5 buji setini WhatsApp'tan sipariş verdim. Aynı gün kargolandı, faturasıyla teslim aldım."</p>
+                    <span class="text-[11px] font-bold text-gray-400">- Sercan T.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- KONUM VE HARİTA BÖLÜMÜ -->
+        <section id="konum" class="bg-gray-800/80 backdrop-blur-md border border-gray-700/60 rounded-2xl p-6 sm:p-10 shadow-2xl">
+            <div class="text-center mb-8">
+                <span class="text-yellow-500 font-bold text-xs uppercase tracking-widest">Bizi Ziyaret Edin</span>
+                <h2 class="text-2xl font-black text-white mt-1">Mağaza Konumu</h2>
+            </div>
+            
+            <div class="w-full h-80 rounded-xl overflow-hidden border border-gray-700 shadow-lg">
+                <!-- Google Harita Embed -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102000!2d30.28!3d36.36!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDIxJzAwLjAiTiAzMMKDE3AnMDAuMCJF!5e0!3m2!1str!2str!4v1600000000000!5m2!1str!2str" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
     </main>
 
+    <!-- ALT BİLGİ -->
     <footer class="bg-gray-900/90 text-gray-400 text-xs text-center py-6 border-t border-gray-800 mt-12">
         <p>© Özen Oto - Renault & Dacia Orijinal Yedek Parça Kataloğu</p>
     </footer>
@@ -124,7 +197,7 @@
             document.getElementById('uyari-modal').classList.add('hidden');
         }
 
-        // 4 VİDEOLUK ARKA PLAN DÖNGÜSÜ
+        // 4 ADET ARKA PLAN VİDEOSU DÖNGÜSÜ
         const videolar = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
         let mevVideo = 0;
         const bgVid = document.getElementById('bg-video');
