@@ -23,7 +23,7 @@
     </script>
 
     <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
-    <script src="urunler.js?v=3.0"></script>
+    <script src="urunler.js?v=6.0"></script>
 
     <script>
         tailwind.config = {
@@ -60,7 +60,7 @@
     <!-- ÜRÜN DETAY KONTANERI -->
     <main class="container mx-auto px-4 py-8 max-w-5xl flex-1">
         
-        <!-- BREADCRUMB / NAVİGASYON -->
+        <!-- BREADCRUMB -->
         <nav class="flex text-xs text-gray-500 dark:text-gray-400 mb-6 gap-2 items-center">
             <a href="index.html" class="hover:text-yellow-500">Ana Sayfa</a>
             <i class="fa-solid fa-chevron-right text-[10px]"></i>
@@ -74,13 +74,12 @@
             <!-- JavaScript dolduracak -->
         </div>
 
-        <!-- BENZER / ÖNERİLEN DİĞER PARÇALAR -->
+        <!-- BENZER PARÇALAR -->
         <div id="onerilen-parcalar-kapsayici" class="hidden mb-12">
             <h3 class="text-xl font-black uppercase mb-6 text-gray-900 dark:text-white border-l-4 border-yellow-500 pl-3 flex items-center gap-2">
                 <i class="fa-solid fa-layer-group text-yellow-500"></i> İlgili & Uyumlu Diğer Parçalar
             </h3>
             <div id="onerilen-parcalar-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <!-- Benzer ürünler gelecek -->
             </div>
         </div>
 
@@ -98,6 +97,14 @@
     </div>
 
     <script>
+        function resimYolu(resim) {
+            if (!resim) return '';
+            if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
+                return resim;
+            }
+            return 'gorseller/' + resim;
+        }
+
         function temaButonunuGuncelle() {
             const isDark = document.documentElement.classList.contains('dark');
             const ikonav = document.getElementById('tema-ikonu');
@@ -125,6 +132,15 @@
             setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
 
+        function anaGorselDegistir(url) {
+            const anaImg = document.getElementById('ana-urun-gorseli');
+            if (anaImg) anaImg.src = url;
+            document.querySelectorAll('.galeri-thumb').forEach(t => t.classList.remove('border-yellow-500'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('border-yellow-500');
+            }
+        }
+
         window.onload = function() {
             temaButonunuGuncelle();
             
@@ -142,7 +158,24 @@
 
                     const waMesaj = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası hakkında bilgi almak istiyorum. Stokta var mı?`);
 
-                    // Özellikler Tablosu HTML
+                    // GALERİ SİSTEMİ
+                    const resimListesi = (urun.resimler && urun.resimler.length > 0) ? urun.resimler : [urun.resim];
+                    const anaResimUrl = resimYolu(resimListesi[0] || '');
+
+                    let galeriThumbsHtml = '';
+                    if (resimListesi.length > 1) {
+                        galeriThumbsHtml = `
+                            <div class="flex gap-2 mt-3 overflow-x-auto pb-2">
+                                ${resimListesi.map((img, idx) => `
+                                    <button onclick="anaGorselDegistir('${resimYolu(img)}')" class="galeri-thumb w-16 h-16 rounded-lg overflow-hidden border-2 ${idx === 0 ? 'border-yellow-500' : 'border-gray-200 dark:border-gray-700'} flex-shrink-0 bg-gray-100 dark:bg-gray-900">
+                                        <img src="${resimYolu(img)}" alt="Önizleme ${idx+1}" class="w-full h-full object-cover">
+                                    </button>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+
+                    // Özellikler Tablosu
                     let ozelliklerHtml = '';
                     if (urun.ozellikler && Object.keys(urun.ozellikler).length > 0) {
                         const satirListesi = Object.entries(urun.ozellikler).map(([anahtar, deger]) => `
@@ -166,7 +199,7 @@
                         `;
                     }
 
-                    // Usta / Montaj Önerileri HTML
+                    // Usta / Montaj Önerileri
                     let onerilerHtml = '';
                     if (urun.oneriler && urun.oneriler.length > 0) {
                         const maddeler = urun.oneriler.map(o => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i><span>${o}</span></li>`).join('');
@@ -184,12 +217,13 @@
                     kutu.innerHTML = `
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                             
-                            <!-- SOL: ÜRÜN GÖRSELİ -->
+                            <!-- SOL: ÜRÜN ÇOKLU GALERİ -->
                             <div>
                                 <div class="bg-gray-100 dark:bg-gray-900 h-80 md:h-96 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner group relative">
                                     <span class="absolute top-3 left-3 bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded-md uppercase z-10 shadow-md">${urun.etiket}</span>
-                                    ${urun.resim ? `<img src="${urun.resim}" alt="${urun.baslik}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-7xl text-gray-400"></i>`}
+                                    <img id="ana-urun-gorseli" src="${anaResimUrl}" alt="${urun.baslik}" loading="lazy" class="w-full h-full object-cover transition-all duration-300">
                                 </div>
+                                ${galeriThumbsHtml}
                             </div>
 
                             <!-- SAĞ: BİLGİLER VE AKSİYON -->
@@ -199,6 +233,22 @@
                                     <h1 class="text-2xl md:text-3xl font-black mb-3 text-gray-900 dark:text-white leading-tight">${urun.baslik}</h1>
                                     
                                     ${urun.aciklama ? `<p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">${urun.aciklama}</p>` : ''}
+
+                                    <!-- SAATSİZ KARGO VE GÜVEN ROZETLERİ -->
+                                    <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                                        <div class="bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 p-2 rounded-lg">
+                                            <i class="fa-solid fa-truck-fast text-yellow-500 text-base mb-1 block"></i>
+                                            <span class="text-[10px] font-bold block text-gray-800 dark:text-gray-200">Hızlı Kargo</span>
+                                        </div>
+                                        <div class="bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 p-2 rounded-lg">
+                                            <i class="fa-solid fa-box-open text-yellow-500 text-base mb-1 block"></i>
+                                            <span class="text-[10px] font-bold block text-gray-800 dark:text-gray-200">MAİS Kutulu</span>
+                                        </div>
+                                        <div class="bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 p-2 rounded-lg">
+                                            <i class="fa-solid fa-store text-yellow-500 text-base mb-1 block"></i>
+                                            <span class="text-[10px] font-bold block text-gray-800 dark:text-gray-200">Dükkandan Teslim</span>
+                                        </div>
+                                    </div>
 
                                     <!-- OEM VE STOK BİLGİ KUTUSU -->
                                     <div class="bg-gray-50 dark:bg-gray-900/80 p-4 rounded-xl border border-gray-200 dark:border-gray-700 text-xs mb-4 flex items-center justify-between">
@@ -232,28 +282,31 @@
                         </div>
                     `;
 
-                    // Benzer Ürünleri Yükleme
+                    // Benzer Ürünler
                     const benzerler = tumUrunler.filter(u => u.id !== urun.id && u.kategori === urun.kategori).slice(0, 3);
                     if (benzerler.length > 0) {
                         const grid = document.getElementById('onerilen-parcalar-grid');
-                        grid.innerHTML = benzerler.map(b => `
-                            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden kutu-golge flex flex-col justify-between hover:-translate-y-1 transition-all">
-                                <div>
-                                    <a href="urun.html?id=${b.id}" class="bg-gray-100 dark:bg-gray-900 h-40 flex items-center justify-center block relative">
-                                        <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[9px] font-black px-2 py-0.5 rounded uppercase">${b.etiket}</span>
-                                        ${b.resim ? `<img src="${b.resim}" alt="${b.baslik}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-4xl text-gray-400"></i>`}
-                                    </a>
-                                    <div class="p-3">
-                                        <span class="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase">${b.arac}</span>
-                                        <a href="urun.html?id=${b.id}" class="font-bold text-xs text-gray-900 dark:text-white mt-1 line-clamp-1 hover:text-yellow-500 block">${b.baslik}</a>
-                                        <p class="text-[10px] text-gray-400 mt-1">OEM: ${b.oem}</p>
+                        grid.innerHTML = benzerler.map(b => {
+                            const gorselUrl = resimYolu(b.resim);
+                            return `
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden kutu-golge flex flex-col justify-between hover:-translate-y-1 transition-all">
+                                    <div>
+                                        <a href="urun.html?id=${b.id}" class="bg-gray-100 dark:bg-gray-900 h-40 flex items-center justify-center block relative">
+                                            <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[9px] font-black px-2 py-0.5 rounded uppercase">${b.etiket}</span>
+                                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${b.baslik}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-4xl text-gray-400"></i>`}
+                                        </a>
+                                        <div class="p-3">
+                                            <span class="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase">${b.arac}</span>
+                                            <a href="urun.html?id=${b.id}" class="font-bold text-xs text-gray-900 dark:text-white mt-1 line-clamp-1 hover:text-yellow-500 block">${b.baslik}</a>
+                                            <p class="text-[10px] text-gray-400 mt-1">OEM: ${b.oem}</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-2 border-t border-gray-100 dark:border-gray-700/60 bg-gray-50 dark:bg-gray-900/40">
+                                        <a href="urun.html?id=${b.id}" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-1.5 px-2 text-[11px] uppercase rounded text-center block">İncele</a>
                                     </div>
                                 </div>
-                                <div class="p-2 border-t border-gray-100 dark:border-gray-700/60 bg-gray-50 dark:bg-gray-900/40">
-                                    <a href="urun.html?id=${b.id}" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-1.5 px-2 text-[11px] uppercase rounded text-center block">İncele</a>
-                                </div>
-                            </div>
-                        `).join('');
+                            `;
+                        }).join('');
                         document.getElementById('onerilen-parcalar-kapsayici').classList.remove('hidden');
                     }
 
