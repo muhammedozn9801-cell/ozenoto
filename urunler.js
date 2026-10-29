@@ -1,29 +1,26 @@
 const urunler = [
     {
         id: "1",
-        oem: "16 20 854 88R",
-        baslik: "Renault Megane 3 / Fluence / Clio 4 / Duster 1.5 dCi Orijinal Yağ Filtre Kütüğü",
-        arac: "Renault / Dacia",
+        baslik: "Renault Megane 4 Triger Seti Orijinal MAİS",
+        arac: "Megane 4 / Kadjar 1.5 dCi",
+        oem: "130C11508R",
         etiket: "Orijinal MAİS",
-        resim: "dukkan.png",
-        aciklama: "1.5 dCi motorlar için orijinal filtre kütüğü ve süzgeç."
+        resim: "https://via.placeholder.com/300x200?text=Triger+Seti"
     },
     {
         id: "2",
-        oem: "L1089",
-        baslik: "Purflux Renault Clio 5 / Captur 2 / Duster 1.0 & 1.3 TCe Yağ Filtresi",
-        arac: "Renault / Dacia",
-        etiket: "Purflux",
-        resim: "dukkan.png",
-        aciklama: "Euro 6 motorlar ile uyumlu orijinal ekipman filtre."
+        baslik: "Dacia Duster Ön Fren Balatası Takımı",
+        arac: "Duster / Sandero II",
+        oem: "410605536R",
+        etiket: "Orijinal MAİS",
+        resim: "https://via.placeholder.com/300x200?text=Fren+Balatasi"
     },
     {
         id: "3",
-        oem: "SILZKFR8D7G",
-        baslik: "NGK Laser Iridium 1.0 TCe & 1.3 TCe Buji Seti (4 Adet)",
-        arac: "Renault / Dacia",
-        etiket: "NGK",
-        resim: "dukkan.png",
-        aciklama: "1.0 TCe ve 1.3 TCe motorlar için iridyum buji seti."
+        baslik: "Renault Clio 5 Yağ Filtresi",
+        arac: "Clio 5 / Captur II 1.0 TCe",
+        oem: "152092567R",
+        etiket: "Orijinal MAİS",
+        resim: "https://via.placeholder.com/300x200?text=Yag+Filtresi"
     }
 ];
