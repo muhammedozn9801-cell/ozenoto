@@ -111,18 +111,16 @@
         </div>
     </div>
 
-    <!-- ÜST BİLGİ BANTI (CANLI DURUM & NAVİGASYON ENTEGRELİ) -->
+    <!-- ÜST BİLGİ BANTI -->
     <div class="bg-gray-900 text-gray-300 text-xs py-2 border-b border-gray-800">
         <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-yellow-500"></i> Karşıyaka Mah. Kumluca / Antalya</span>
-                <!-- YOL TARİFİ AL BUTONU -->
                 <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-2.5 py-0.5 rounded flex items-center gap-1 transition-colors">
                     <i class="fa-solid fa-diamond-turn-right"></i> Yol Tarifi Al
                 </a>
             </div>
             <div class="flex items-center gap-3">
-                <!-- CANLI ÇALIŞMA DURUMU SİMGESİ -->
                 <div id="calisma-durumu"></div>
                 <div class="font-bold text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>0242 887 89 80</div>
             </div>
@@ -147,7 +145,6 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- ŞASİ NO SORGULA BUTONU -->
                 <button onclick="sasiModalAc()" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-2.5 rounded-lg text-xs font-black uppercase flex items-center gap-2 shadow-md hover:shadow-red-600/30 transition-all active:scale-95">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="hidden sm:inline">Şasi No İle Sorgula</span>
@@ -201,6 +198,7 @@
                 <button onclick="kategoriFiltrele('fren')" class="kategori-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all hover:scale-105">Fren & Direksiyon</button>
                 <button onclick="kategoriFiltrele('bakim')" class="kategori-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all hover:scale-105">Filtre & Bakım</button>
                 <button onclick="kategoriFiltrele('egzoz')" class="kategori-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all hover:scale-105">Egzoz Sistemi</button>
+                <button onclick="kategoriFiltrele('yag')" class="kategori-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-xs font-bold transition-all hover:scale-105">Motor & Şanzıman Yağı</button>
             </div>
         </div>
 
@@ -287,7 +285,7 @@
         </div>
     </div>
 
-    <!-- DÜKKAN & MAPS (NAVİGASYON BUTONU EKLENDİ) -->
+    <!-- DÜKKAN & MAPS -->
     <div id="hakkimizda" class="container mx-auto px-4 py-12">
         <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 kutu-golge rounded-xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -362,6 +360,15 @@
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
 
+        // RESİM YOLU OTOMATİK TAMAMLAYICI (gorseller/ KLASÖRÜ İÇİN)
+        function resimYolu(resim) {
+            if (!resim) return '';
+            if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
+                return resim;
+            }
+            return 'gorseller/' + resim;
+        }
+
         // OTOMATİK CANLI ÇALIŞMA SAATİ KONTROLÜ
         function durumGuncelle() {
             const simdi = new Date();
@@ -371,7 +378,6 @@
 
             if (!rozet) return;
 
-            // Pazartesi - Cumartesi arası (1-6) ve 08:00 - 19:00 arası
             if (gun >= 1 && gun <= 6 && saat >= 8 && saat < 19) {
                 rozet.innerHTML = `
                     <span class="inline-flex items-center gap-1.5 bg-green-500/20 text-green-700 dark:text-green-400 border border-green-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
@@ -453,13 +459,14 @@
 
         function urunKartHtml(u, isYeniUrun) {
             const yeniRozeti = (u.yeni || isYeniUrun) ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded shadow animate-pulse z-10 uppercase">YENİ</span>` : '';
+            const gorselUrl = resimYolu(u.resim);
             return `
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden kutu-golge flex flex-col justify-between hover:-translate-y-1.5 transition-all duration-300 hover:shadow-xl group">
                     <div>
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-48 relative flex items-center justify-center overflow-hidden block">
                             <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase z-10 shadow-sm">${u.etiket}</span>
                             ${yeniRozeti}
-                            ${u.resim ? `<img src="${u.resim}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
+                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
                         </a>
                         <div class="p-4">
                             <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-wide">${u.arac}</span>
@@ -548,17 +555,20 @@
             });
 
             if (eslesenler.length > 0) {
-                kutu.innerHTML = eslesenler.map(u => `
-                    <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
-                        <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-gray-400 overflow-hidden">
-                            ${u.resim ? `<img src="${u.resim}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">${u.baslik}</h4>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400">${u.arac} | OEM: <span class="text-red-600 font-mono font-bold">${u.oem}</span></p>
-                        </div>
-                    </a>
-                `).join('');
+                kutu.innerHTML = eslesenler.map(u => {
+                    const gorselUrl = resimYolu(u.resim);
+                    return `
+                        <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
+                            <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-gray-400 overflow-hidden">
+                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">${u.baslik}</h4>
+                                <p class="text-[10px] text-gray-500 dark:text-gray-400">${u.arac} | OEM: <span class="text-red-600 font-mono font-bold">${u.oem}</span></p>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
                 kutu.classList.remove('hidden');
             } else {
                 kutu.innerHTML = `<div class="p-4 text-xs text-gray-500 text-center">Aradığınız kriterlere uygun parça bulunamadı. <br><a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(hamGirdi)}%20par%C3%A7as%C4%B1%20stokta%20var%20m%C4%B1?" target="_blank" class="text-green-600 font-bold underline mt-1 inline-block">WhatsApp'tan Sorgula</a></div>`;
@@ -583,8 +593,10 @@
             videoElement.play().catch(() => {});
         }
 
-        videoElement.addEventListener('ended', sonrakiVideoyaGec);
-        videoElement.addEventListener('error', sonrakiVideoyaGec);
+        if (videoElement) {
+            videoElement.addEventListener('ended', sonrakiVideoyaGec);
+            videoElement.addEventListener('error', sonrakiVideoyaGec);
+        }
 
         window.onload = function() {
             durumGuncelle();
