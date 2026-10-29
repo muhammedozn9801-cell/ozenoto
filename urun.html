@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürün Detayı | Özen Oto</title>
+    <title>Ürün Detayı | Özen Oto Yedek Parça</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="urunler.js"></script>
+    
+    <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
+    <script src="urunler.js?v=2.0"></script>
+
     <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } } }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#111111' } } } }
+        }
     </script>
 </head>
 <body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between">
@@ -20,15 +26,15 @@
                 <span class="text-2xl font-black text-black dark:text-white">ÖZEN OTO</span>
                 <span class="text-[10px] font-bold text-red-600 tracking-widest">RENAULT & DACIA YEDEK PARÇA</span>
             </a>
-            <a href="index.html" class="text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-yellow-500 flex items-center gap-1">
+            <a href="index.html" class="text-xs font-extrabold text-gray-700 dark:text-gray-300 hover:text-yellow-500 flex items-center gap-1 transition-colors">
                 <i class="fa-solid fa-arrow-left"></i> Ana Sayfaya Dön
             </a>
         </div>
     </header>
 
     <!-- ÜRÜN DETAY ALANI -->
-    <main class="container mx-auto px-4 py-8 max-w-4xl flex-1">
-        <div id="urun-detay-kutu" class="bg-white dark:bg-gray-800 p-6 rounded shadow border border-gray-200 dark:border-gray-700">
+    <main class="container mx-auto px-4 py-10 max-w-4xl flex-1">
+        <div id="urun-detay-kutu" class="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
             <!-- JavaScript ile doldurulacak -->
         </div>
     </main>
@@ -38,33 +44,54 @@
         <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
     </footer>
 
+    <!-- TOAST BİLDİRİM KUTUSU -->
+    <div id="toast-bildirim" class="fixed bottom-10 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-lg shadow-2xl border border-yellow-500 hidden">
+        <span id="toast-mesaj">Kopyalandı!</span>
+    </div>
+
     <script>
+        function toastGoster(mesaj) {
+            const toast = document.getElementById('toast-bildirim');
+            document.getElementById('toast-mesaj').innerText = mesaj;
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+        }
+
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const urunId = urlParams.get('id');
             const kutu = document.getElementById('urun-detay-kutu');
+            const tumUrunler = window.urunler || [];
 
-            if (typeof urunler !== 'undefined' && urunId) {
-                const urun = urunler.find(u => u.id === urunId);
+            if (tumUrunler.length > 0 && urunId) {
+                const urun = tumUrunler.find(u => u.id === urunId);
                 if (urun) {
-                    const waMesaj = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası hakkında bilgi almak istiyorum.`);
+                    const waMesaj = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası stokta var mı? Fiyat alabilir miyim?`);
                     kutu.innerHTML = `
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                            <div class="bg-gray-100 dark:bg-gray-900 h-64 rounded flex items-center justify-center overflow-hidden border">
-                                ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-6xl text-gray-400"></i>`}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="bg-gray-100 dark:bg-gray-900 h-72 rounded-lg flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner group">
+                                ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-400"></i>`}
                             </div>
                             <div>
-                                <span class="bg-yellow-500 text-black text-xs font-black px-2 py-1 rounded uppercase inline-block mb-2">${urun.etiket}</span>
-                                <h1 class="text-xl font-bold mb-2">${urun.baslik}</h1>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1"><strong>Uyumlu Araçlar:</strong> ${urun.arac}</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4"><strong>OEM Kod:</strong> <span class="text-red-600 font-bold">${urun.oem}</span></p>
+                                <span class="bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded uppercase inline-block mb-3 shadow-sm">${urun.etiket}</span>
+                                <h1 class="text-2xl font-black mb-4 text-gray-900 dark:text-white leading-tight">${urun.baslik}</h1>
                                 
-                                <div class="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 p-3 rounded mb-4 text-xs text-red-700 dark:text-red-300">
-                                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Orijinal MAİS logolu ürünlerde iade yapılmamaktadır.
+                                <div class="space-y-3 mb-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700 text-sm">
+                                    <p class="text-gray-600 dark:text-gray-300"><strong>Uyumlu Araçlar:</strong> <span class="text-gray-900 dark:text-white font-semibold">${urun.arac}</span></p>
+                                    <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-2">
+                                        <p class="text-gray-600 dark:text-gray-300"><strong>OEM Kodu:</strong> <span class="text-red-600 font-mono font-bold">${urun.oem}</span></p>
+                                        <button onclick="navigator.clipboard.writeText('${urun.oem}'); toastGoster('OEM Kodu Kopyalandı!');" class="bg-gray-200 dark:bg-gray-700 hover:bg-yellow-500 hover:text-black px-2.5 py-1 rounded text-xs font-bold transition-all flex items-center gap-1">
+                                            <i class="fa-regular fa-copy"></i> Kopyala
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-red-50 dark:bg-red-950/40 border-l-4 border-red-600 p-3 rounded mb-6 text-xs text-red-700 dark:text-red-300 font-semibold">
+                                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Orijinal MAİS logolu ürünlerde kesinlikle iade kabul edilmemektedir.
                                 </div>
 
-                                <a href="https://wa.me/905327249417?text=${waMesaj}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded text-center flex items-center justify-center gap-2">
-                                    <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp ile Fiyat & Stok Sorgula
+                                <a href="https://wa.me/905327249417?text=${waMesaj}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 px-4 rounded-lg text-center flex items-center justify-center gap-2 uppercase tracking-wide transition-all shadow-md hover:shadow-green-600/30 active:scale-95">
+                                    <i class="fa-brands fa-whatsapp text-2xl"></i> WhatsApp ile Fiyat & Stok Sorgula
                                 </a>
                             </div>
                         </div>
@@ -72,7 +99,13 @@
                     return;
                 }
             }
-            kutu.innerHTML = `<p class="text-center text-gray-500 py-8">Ürün bulunamadı veya geçersiz ID.</p>`;
+            kutu.innerHTML = `
+                <div class="text-center py-12">
+                    <i class="fa-solid fa-box-open text-5xl text-gray-400 mb-4"></i>
+                    <p class="text-lg font-bold text-gray-700 dark:text-gray-300">Ürün bulunamadı veya geçersiz ID.</p>
+                    <a href="index.html" class="inline-block mt-4 bg-yellow-500 text-black font-bold py-2 px-6 rounded text-sm hover:bg-yellow-600 transition-colors">Ana Sayfaya Dön</a>
+                </div>
+            `;
         };
     </script>
 </body>
