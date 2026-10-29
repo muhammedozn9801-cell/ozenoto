@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ürün Detayı | Özen Oto Yedek Parça</title>
+    <title>Yedek Parça Detayı | Özen Oto Kumluca</title>
+    <meta name="description" content="Renault ve Dacia orijinal MAİS yedek parça detayları, OEM kodları ve WhatsApp stok sorgulama. Özen Oto Kumluca Antalya.">
+    <meta name="robots" content="index, follow">
+
+    <!-- HIZLANDIRMA: DIŞ SUNUCULARA ÖN BAĞLANTI -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- KOYU MOD HAFIZA KONTROLÜ (Flash Önleme) -->
+    <!-- KOYU MOD HAFIZA KONTROLÜ -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -103,11 +110,12 @@
             if (tumUrunler.length > 0 && urunId) {
                 const urun = tumUrunler.find(u => u.id === urunId);
                 if (urun) {
+                    document.title = `${urun.baslik} | Özen Oto Yedek Parça`;
                     const waMesaj = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası stokta var mı? Fiyat alabilir miyim?`);
                     kutu.innerHTML = `
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div class="bg-gray-100 dark:bg-gray-900 h-72 rounded-lg flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner group">
-                                ${urun.resim ? `<img src="${urun.resim}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-400"></i>`}
+                                ${urun.resim ? `<img src="${urun.resim}" alt="${urun.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-400"></i>`}
                             </div>
                             <div>
                                 <span class="bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded uppercase inline-block mb-3 shadow-sm">${urun.etiket}</span>
