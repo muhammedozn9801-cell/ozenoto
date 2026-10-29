@@ -7,6 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- KOYU MOD HAFIZA KONTROLÜ (Flash Önleme) -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
     <script src="urunler.js?v=2.0"></script>
 
@@ -173,121 +182,25 @@
         </div>
     </div>
 
-    <!-- GOOGLE MÜŞTERİ YORUMLARI BÖLÜMÜ -->
+    <!-- GOOGLE MÜŞTERİ YORUMLARI BÖLÜMÜ (CANLI VE TEK BUTONLU) -->
     <div id="yorumlar" class="bg-gray-50 dark:bg-gray-900/50 py-16 border-t border-b border-gray-200 dark:border-gray-800">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 max-w-2xl text-center">
+            <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full shadow-sm mb-4">
+                <i class="fa-brands fa-google text-red-500 text-lg"></i>
+                <span class="text-xs font-black uppercase text-gray-700 dark:text-gray-300">Özen Oto Baki Özen</span>
+            </div>
             
-            <!-- BAŞLIK & PUAN -->
-            <div class="text-center max-w-2xl mx-auto mb-10">
-                <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full shadow-sm mb-4">
-                    <i class="fa-brands fa-google text-red-500 text-lg"></i>
-                    <span class="text-xs font-black uppercase text-gray-700 dark:text-gray-300">Özen Oto Baki Özen</span>
-                </div>
-                <h2 class="text-3xl font-black uppercase text-gray-900 dark:text-white mb-2">Google Müşteri Değerlendirmeleri</h2>
-                <div class="flex items-center justify-center gap-2 mb-2">
-                    <span class="text-3xl font-black text-yellow-500">4.9</span>
-                    <div class="text-yellow-400 text-lg">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-600 dark:text-gray-400">Google Haritalar üzerindeki gerçek müşteri deneyimleri.</p>
-            </div>
+            <h2 class="text-3xl font-black uppercase text-gray-900 dark:text-white mb-3">Google Müşteri Yorumları</h2>
+            
+            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                Müşterilerimizin Google Haritalar profilimiz üzerinden yaptığı tüm gerçek değerlendirmeleri incelemek veya siz de işletmemiz hakkında yorum yazmak için aşağıdaki butona tıklayabilirsiniz.
+            </p>
 
-            <!-- EKRANDA GÖZÜKEN YORUM KARTLARI -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                
-                <!-- YORUM 1 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm relative flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-yellow-500 text-black font-black flex items-center justify-center text-sm shadow">
-                                    AH
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Ahmet Hakan</h4>
-                                    <span class="text-[10px] text-gray-400">Google Değerlendirmesi</span>
-                                </div>
-                            </div>
-                            <i class="fa-brands fa-google text-red-500 text-xl"></i>
-                        </div>
-                        <div class="text-yellow-400 text-xs mb-3">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                            "Megane 4 aracımın triger ve devirdaim setini Baki Bey'den tedarik ettim. %100 Orijinal MAİS kutulu ve faturalı geldi. Antalya merkezde bulamadığım parçayı aynı gün kargoladılar. Esnaflıklarına 5 yıldız."
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-green-600 font-bold flex items-center gap-1">
-                        <i class="fa-solid fa-circle-check"></i> Doğrulanmış Müşteri
-                    </div>
-                </div>
-
-                <!-- YORUM 2 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm relative flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-black flex items-center justify-center text-sm shadow">
-                                    MÖ
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Mustafa Özkan</h4>
-                                    <span class="text-[10px] text-gray-400">Google Değerlendirmesi</span>
-                                </div>
-                            </div>
-                            <i class="fa-brands fa-google text-red-500 text-xl"></i>
-                        </div>
-                        <div class="text-yellow-400 text-xs mb-3">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                            "Duster 1.3 TCe aracımın termostat kütlesi için WhatsApp'tan şase numarası attım. Hüseyin Bey doğrudan uyumlu OEM kodlu parçayı tespit etti. İlgileri ve hızlı kargoları için teşekkür ederim."
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-green-600 font-bold flex items-center gap-1">
-                        <i class="fa-solid fa-circle-check"></i> Doğrulanmış Müşteri
-                    </div>
-                </div>
-
-                <!-- YORUM 3 -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm relative flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-sm shadow">
-                                    SY
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Serdar Yılmaz</h4>
-                                    <span class="text-[10px] text-gray-400">Google Değerlendirmesi</span>
-                                </div>
-                            </div>
-                            <i class="fa-brands fa-google text-red-500 text-xl"></i>
-                        </div>
-                        <div class="text-yellow-400 text-xs mb-3">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                            "Kumluca dükkanlarına uğrayıp sandık motor ve mekanik aksam sorgusu yaptım. Yıllardır tanıdığımız güvenilir esnaf. Piyasadaki sahte Mais parçalara karşı gözünüz kapalı güvenebilirsiniz."
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-green-600 font-bold flex items-center gap-1">
-                        <i class="fa-solid fa-circle-check"></i> Doğrulanmış Müşteri
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ALTINDAKİ TEK GOOGLE MAPS YORUM TUŞU -->
-            <div class="text-center">
-                <a href="https://www.google.com/maps/place/%C3%96zen+Oto+Baki+%C3%96zen/@36.345617,30.2802085,17z/data=!4m6!3m5!1s0x14c225b301a3ee99:0x8ea1449316f969b!8m2!3d36.345617!4d30.2827972!16s%2Fg%2F11c57m39kn?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-xl text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-blue-600/30 hover:scale-105 active:scale-95">
-                    <i class="fa-brands fa-google text-xl"></i>
-                    <span>Google'da Yorum Yaz / Tüm Yorumları Gör</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-
+            <a href="https://www.google.com/maps/place/%C3%96zen+Oto+Baki+%C3%96zen/@36.345617,30.2802085,17z/data=!4m6!3m5!1s0x14c225b301a3ee99:0x8ea1449316f969b!8m2!3d36.345617!4d30.2827972!16s%2Fg%2F11c57m39kn?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-xl text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-blue-600/30 hover:scale-105 active:scale-95">
+                <i class="fa-brands fa-google text-xl"></i>
+                <span>Google'da Yorum Yaz / Tüm Yorumları Gör</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
         </div>
     </div>
 
@@ -359,6 +272,26 @@
     <script>
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
+
+        function temaButonunuGuncelle() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const ikonav = document.getElementById('tema-ikonu');
+            const yazi = document.getElementById('tema-yazi');
+            if (ikonav) ikonav.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+            if (yazi) yazi.textContent = isDark ? "Açık Mod" : "Koyu Mod";
+        }
+
+        function temaDegistir() {
+            const htmlTag = document.documentElement;
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlTag.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            temaButonunuGuncelle();
+        }
 
         function toastGoster(mesaj) {
             const toast = document.getElementById('toast-bildirim');
@@ -481,19 +414,6 @@
             }
         });
 
-        function temaDegistir() {
-            const htmlTag = document.documentElement;
-            if (htmlTag.classList.contains('dark')) {
-                htmlTag.classList.remove('dark');
-                document.getElementById('tema-ikonu').className = "fa-solid fa-moon";
-                document.getElementById('tema-yazi').textContent = "Koyu Mod";
-            } else {
-                htmlTag.classList.add('dark');
-                document.getElementById('tema-ikonu').className = "fa-solid fa-sun";
-                document.getElementById('tema-yazi').textContent = "Açık Mod";
-            }
-        }
-
         /* 4 VİDEOLU GEÇİŞ SİSTEMİ */
         const videolar = ['renault1.mp4', 'renault2.mp4', 'renault3.mp4', 'renault4.mp4'];
         let videoIndex = 0;
@@ -509,6 +429,7 @@
         videoElement.addEventListener('error', sonrakiVideoyaGec);
 
         window.onload = function() {
+            temaButonunuGuncelle();
             urunleriYukle();
         };
     </script>
