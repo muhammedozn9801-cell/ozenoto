@@ -3,11 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Özen Oto | Renault ve Dacia Orijinal Yedek Parça</title>
+    
+    <!-- TEMEL SEO METATAGLARI -->
+    <title>Özen Oto | Renault & Dacia Orijinal Yedek Parça Kumluca Antalya</title>
+    <meta name="description" content="Kumluca Antalya'da Renault ve Dacia orijinal MAİS yedek parça, mekanik aksam, filtre, fren ve sıfır sandık motor tedariği. Faturalı ve güvenilir oto yedek parça.">
+    <meta name="keywords" content="Renault yedek parça Kumluca, Dacia yedek parça Antalya, MAİS orijinal parça, Kumluca oto sanayi, Megane 4 triger, Duster yedek parça, Özen Oto Baki Özen">
+    <meta name="author" content="Özen Oto Yedek Parça">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://muhammedozn9801-cell.github.io/ozenoto/">
+
+    <!-- SOSYAL MEDYA & WHATSAPP PAYLAŞIM ÖNİZLEMESİ (OPEN GRAPH) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Özen Oto | Renault & Dacia Orijinal Yedek Parça">
+    <meta property="og:description" content="Kumluca'da Renault ve Dacia grubunda %100 Orijinal MAİS yedek parça ve sıfır sandık motor tedarikçisi.">
+    <meta property="og:image" content="https://muhammedozn9801-cell.github.io/ozenoto/dukkan.png">
+    <meta property="og:url" content="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:site_name" content="Özen Oto Yedek Parça">
+
+    <!-- GOOGLE İŞLETME YAPISAL VERİSİ (SCHEMA.ORG JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoPartsStore",
+      "name": "Özen Oto Baki Özen - Renault & Dacia Orijinal Yedek Parça",
+      "image": "https://muhammedozn9801-cell.github.io/ozenoto/dukkan.png",
+      "@id": "https://muhammedozn9801-cell.github.io/ozenoto/",
+      "url": "https://muhammedozn9801-cell.github.io/ozenoto/",
+      "telephone": "+902428878980",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Karşıyaka Mah. Kocakesik Sok. No: 509",
+        "addressLocality": "Kumluca",
+        "addressRegion": "Antalya",
+        "postalCode": "07300",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 36.345617,
+        "longitude": 30.2802085
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "19:00"
+      }
+    }
+    </script>
+
+    <!-- HIZLANDIRMA: DIŞ SUNUCULARA ÖN BAĞLANTI (DNS PRECONNECT) -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- KOYU MOD HAFIZA KONTROLÜ (Flash Önleme) -->
+    <!-- KOYU MOD HAFIZA KONTROLÜ -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -26,10 +86,6 @@
                 extend: { 
                     colors: { 
                         brand: { yellow: '#FFB800', dark: '#111111' } 
-                    },
-                    animation: {
-                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'bounce-slow': 'bounce 2s infinite'
                     }
                 } 
             }
@@ -136,9 +192,9 @@
         </div>
     </nav>
 
-    <!-- VİDEO BANTI -->
+    <!-- VİDEO BANTI (PRELOAD OPTİMİZE EDİLDİ) -->
     <div class="relative w-full h-[360px] md:h-[460px] bg-black overflow-hidden border-b-4 border-yellow-500">
-        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-75 transition-opacity duration-700" src="renault1.mp4">
+        <video id="arka-plan-video" autoplay muted playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-75 transition-opacity duration-700" src="renault1.mp4">
         </video>
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end">
             <div class="container mx-auto px-4 pb-8 text-white">
@@ -182,7 +238,7 @@
         </div>
     </div>
 
-    <!-- GOOGLE MÜŞTERİ YORUMLARI BÖLÜMÜ (CANLI VE TEK BUTONLU) -->
+    <!-- GOOGLE MÜŞTERİ YORUMLARI BÖLÜMÜ -->
     <div id="yorumlar" class="bg-gray-50 dark:bg-gray-900/50 py-16 border-t border-b border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-4 max-w-2xl text-center">
             <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full shadow-sm mb-4">
@@ -204,14 +260,14 @@
         </div>
     </div>
 
-    <!-- DÜKKAN & MAPS -->
+    <!-- DÜKKAN & MAPS (LAZY LOADING EKLENDİ) -->
     <div id="hakkimizda" class="container mx-auto px-4 py-12">
         <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 md:p-8 kutu-golge rounded-xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <div>
                     <h3 class="text-xl font-black border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">Mağazamız</h3>
                     <div class="border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900">
-                        <img src="dukkan.png" alt="Özen Oto Yedek Parça Dükkanı" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
+                        <img src="dukkan.png" alt="Özen Oto Yedek Parça Dükkanı Kumluca" loading="lazy" decoding="async" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
                     </div>
                 </div>
 
@@ -255,7 +311,7 @@
     </footer>
 
     <!-- CANLI YÜZEN WHATSAPP BUTONU -->
-    <a href="https://wa.me/905327249417" target="_blank" class="fixed bottom-6 right-6 z-[90] bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 group active:scale-95">
+    <a href="https://wa.me/905327249417" target="_blank" class="fixed bottom-6 right-6 z-[90] bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 group active:scale-95" aria-label="WhatsApp Destek">
         <span class="absolute -top-1 -right-1 flex h-4 w-4">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-4 w-4 bg-green-400"></span>
@@ -306,7 +362,7 @@
                     <div>
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-48 relative flex items-center justify-center overflow-hidden block">
                             <span class="absolute top-2 left-2 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase z-10 shadow-sm">${u.etiket}</span>
-                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
+                            ${u.resim ? `<img src="${u.resim}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
                         </a>
                         <div class="p-4">
                             <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-wide">${u.arac}</span>
@@ -393,7 +449,7 @@
                 kutu.innerHTML = eslesenler.map(u => `
                     <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-700 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
                         <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-gray-400 overflow-hidden">
-                            ${u.resim ? `<img src="${u.resim}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
+                            ${u.resim ? `<img src="${u.resim}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover">` : `<i class="fa-solid fa-box text-sm"></i>`}
                         </div>
                         <div class="flex-1">
                             <h4 class="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">${u.baslik}</h4>
