@@ -1,4 +1,4 @@
-const urunler = [
+window.urunler = [
   {
     id: "1",
     baslik: "Renault / Dacia Egzoz Askı Lastiği Orijinal MAİS",
