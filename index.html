@@ -107,7 +107,6 @@
     <!-- VİDEO BANTI -->
     <div class="relative w-full h-[380px] md:h-[480px] bg-black overflow-hidden border-b-4 border-yellow-500">
         <video id="arka-plan-video" autoplay loop muted playsinline webkit-playsinline preload="auto" oncontextmenu="return false;" class="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none">
-            <!-- VİDEO İSMİ BURADA (Aynı klasörde renault1.mp4 olmalı) -->
             <source src="renault1.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black/20"></div>
@@ -172,99 +171,17 @@
         </div>
     </div>
 
-    <!-- FOOTER VE ADMİN GİRİŞİ -->
+    <!-- FOOTER (ADMİN BUTONU SİLİNDİ) -->
     <footer class="bg-gray-900 text-gray-400 py-4 text-center text-xs border-t-2 border-yellow-500 relative">
         <p>&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
-        <button onclick="adminGirisAc()" class="text-[10px] text-gray-700 hover:text-yellow-500 mt-2 block mx-auto underline">Admin Girişi</button>
     </footer>
-
-    <!-- ADMİN PANEL MODALI -->
-    <div id="admin-modal" class="fixed inset-0 z-[200] bg-black/90 hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded p-6 relative text-gray-900 dark:text-white max-h-[90vh] overflow-y-auto">
-            <button onclick="document.getElementById('admin-modal').classList.add('hidden')" class="absolute top-3 right-3 text-lg font-bold">✕</button>
-
-            <!-- ŞİFRE EKRANI -->
-            <div id="admin-login-step">
-                <h3 class="text-lg font-bold mb-4 uppercase text-yellow-500"><i class="fa-solid fa-lock mr-2"></i>Yönetici Paneli Girişi</h3>
-                <input type="password" id="admin-sifre" placeholder="Sistem Şifresini Girin..." class="w-full p-2.5 border rounded mb-4 text-sm dark:bg-gray-700 dark:border-gray-600 outline-none">
-                <button onclick="adminGirisYap()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2.5 text-sm uppercase rounded">Giriş Yap</button>
-            </div>
-
-            <!-- ÜRÜN EKLEME FORMU -->
-            <div id="admin-form-step" class="hidden">
-                <h3 class="text-lg font-bold uppercase text-yellow-500 mb-4 border-b pb-2"><i class="fa-solid fa-plus-circle mr-2"></i>Yeni Ürün Ekle</h3>
-                <input type="hidden" id="adm-id">
-
-                <div class="space-y-3 text-xs font-bold">
-                    <div>
-                        <label class="block mb-1">Ürün Adı:</label>
-                        <input type="text" id="adm-baslik" placeholder="Örn: Triger Seti + Devirdaim" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block mb-1">Araç Seçin:</label>
-                            <select id="adm-arac" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                                <option>Renault Megane 4</option>
-                                <option>Renault Megane 3</option>
-                                <option>Renault Clio 5</option>
-                                <option>Renault Clio 4</option>
-                                <option>Renault Kangoo</option>
-                                <option>Renault Symbol</option>
-                                <option>Dacia Duster</option>
-                                <option>Dacia Sandero</option>
-                                <option>Renault / Dacia Genel</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block mb-1">Parça Markası:</label>
-                            <input type="text" id="adm-marka" placeholder="Örn: MAİS" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal" value="MAİS">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block mb-1">OEM / Parça Kodu:</label>
-                            <input type="text" id="adm-oem" placeholder="Örn: 8200537083" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                        </div>
-                        <div>
-                            <label class="block mb-1">Stok Durumu:</label>
-                            <select id="adm-stok" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                                <option value="Stokta Var">Stokta Var</option>
-                                <option value="Sınırlı Stok">Sınırlı Stok</option>
-                                <option value="Tükendi">Tükendi</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Fotoğraf Seç / Çek (Çoklu Seçilebilir):</label>
-                        <input type="file" id="adm-kamera" accept="image/*" multiple class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal">
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Açıklama / Detay:</label>
-                        <textarea id="adm-aciklama" rows="2" placeholder="Orijinal kutulu vs..." class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 font-normal"></textarea>
-                    </div>
-
-                    <button id="adm-btn" onclick="urunKaydet()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-sm uppercase rounded mt-2">
-                        <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Kaydet ve Yayınla
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- SCRIPT'LER VE VERİTABANI BAĞLANTISI -->
     <script>
-        // GOOGLE APPS SCRIPT URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykqHXBDxXmnBQYwtlgHgdG68j8TCoC0w9_3Df2Oe-PNK8E09_U-IrUnVbI3J3CEJxt/exec'; 
         const SHEET_READ_URL = 'https://docs.google.com/spreadsheets/d/1-iTxWmrBoBRHnsm1gklHB33EBIBG6PdiArKrwYxfG7s/export?format=csv&t=' + new Date().getTime();
         
         let aktifUrunler = [];
-        let cokluResimler = [];
         let resimIndeksleri = {};
-        let isAdminLoggedIn = false;
 
         // Dark mod kontrolü
         if (localStorage.getItem('theme') === 'dark') {
@@ -278,44 +195,7 @@
                 modal.classList.add('flex');
             }
             tablodanCek();
-
-            // Fotoğraf seçildiğinde sıkıştırma
-            document.getElementById('adm-kamera').addEventListener('change', function(e) {
-                cokluResimler = [];
-                const files = e.target.files;
-                if (files.length > 0) {
-                    for (let i = 0; i < files.length; i++) {
-                        miniSikistir(files[i], function(base64Data) {
-                            cokluResimler.push(base64Data);
-                        });
-                    }
-                }
-            });
         };
-
-        function miniSikistir(file, callback) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    // Max Genişlik 600px olsun ki çok kasmasın
-                    if (width > 600) {
-                        height = Math.round((height * 600) / width);
-                        width = 600;
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/jpeg', 0.6)); // %60 kalite
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
 
         function tablodanCek() {
             fetch(SHEET_READ_URL)
@@ -396,81 +276,6 @@
                     </div>
                 </div>
             `}).join('');
-        }
-
-        function adminGirisAc() {
-            document.getElementById('admin-login-step').classList.remove('hidden');
-            document.getElementById('admin-form-step').classList.add('hidden');
-            document.getElementById('admin-sifre').value = '';
-            document.getElementById('admin-modal').classList.remove('hidden');
-            document.getElementById('admin-modal').classList.add('flex');
-        }
-
-        function adminGirisYap() {
-            if (document.getElementById('admin-sifre').value === 'ozen123') {
-                isAdminLoggedIn = true;
-                document.getElementById('admin-login-step').classList.add('hidden');
-                document.getElementById('admin-form-step').classList.remove('hidden');
-            } else {
-                alert('Hatalı Şifre!');
-            }
-        }
-
-        function urunKaydet() {
-            const btn = document.getElementById('adm-btn');
-            
-            const baslik = document.getElementById('adm-baslik').value.trim();
-            const oem = document.getElementById('adm-oem').value.trim();
-            const marka = document.getElementById('adm-marka').value.trim();
-            const arac = document.getElementById('adm-arac').value;
-            const stok = document.getElementById('adm-stok').value;
-            const aciklama = document.getElementById('adm-aciklama').value.trim();
-
-            if (!baslik || !oem) {
-                alert('Lütfen Ürün Adı ve OEM kodunu girin!');
-                return;
-            }
-
-            btn.innerText = "Yükleniyor... Lütfen Bekleyin";
-            btn.disabled = true;
-
-            const resimMetni = cokluResimler.length > 0 ? cokluResimler.join('|') : "";
-
-            const payload = {
-                action: "add",
-                id: "PRC-" + Date.now().toString(),
-                baslik: baslik,
-                arac: arac,
-                oem: oem,
-                resimler: resimMetni,
-                etiket: marka ? `Orijinal ${marka}` : "Orijinal MAİS",
-                aciklama: `${stok} | ${aciklama}`
-            };
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                alert('Yeni Ürün Başarıyla Eklendi!');
-                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Kaydet ve Yayınla';
-                btn.disabled = false;
-                
-                // Formu Temizle
-                document.getElementById('adm-baslik').value = '';
-                document.getElementById('adm-oem').value = '';
-                document.getElementById('adm-aciklama').value = '';
-                document.getElementById('adm-kamera').value = '';
-                cokluResimler = [];
-
-                document.getElementById('admin-modal').classList.add('hidden');
-                setTimeout(tablodanCek, 2000); 
-            }).catch(error => {
-                alert("Bağlantı hatası oluştu, ancak ürün kaydedilmiş olabilir. Sayfayı yenileyip kontrol edin.");
-                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Kaydet ve Yayınla';
-                btn.disabled = false;
-            });
         }
 
         function canliAramaYap() {
