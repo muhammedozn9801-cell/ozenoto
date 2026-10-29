@@ -109,8 +109,7 @@
 
     <!-- VİDEO BANTI -->
     <div class="relative w-full h-[380px] md:h-[480px] bg-black overflow-hidden border-b-4 border-yellow-500">
-        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500">
-            <source id="video-kaynak" src="renault1.mp4" type="video/mp4">
+        <video id="arka-plan-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500" src="renault1.mp4">
         </video>
         <div class="absolute inset-0 bg-black/20"></div>
     </div>
@@ -260,15 +259,26 @@
             }
         }
 
-        /* 4 VİDEOLU DÖNGÜ SİSTEMİ */
+        /* AKILLI VE HATAYA DAYANIKLI VİDEO DÖNGÜSÜ */
         const videolar = ['renault1.mp4', 'renault2.mp4', 'renault3.mp4', 'renault4.mp4'];
         let videoIndex = 0;
         const videoElement = document.getElementById('arka-plan-video');
 
-        videoElement.addEventListener('ended', function() {
+        function sonrakiVideoyaGec() {
             videoIndex = (videoIndex + 1) % videolar.length;
             videoElement.src = videolar[videoIndex];
-            videoElement.play();
+            videoElement.play().catch(() => {
+                // Tarayıcı kısıtlaması durumunda sessiz devam et
+            });
+        }
+
+        // Video bittiğinde sıradakine geç
+        videoElement.addEventListener('ended', sonrakiVideoyaGec);
+
+        // Yüklenemeyen video olursa takılmayı önle, direkt diğerine geç
+        videoElement.addEventListener('error', function() {
+            console.warn("Video yüklenemedi: " + videolar[videoIndex] + " - Sonraki deneniyor.");
+            sonrakiVideoyaGec();
         });
 
         function kaydirSag() { document.getElementById('urun-seridi').scrollBy({ left: 300, behavior: 'smooth' }); }
