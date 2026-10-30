@@ -19,6 +19,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- FIREBASE AUTHENTICATION (GOOGLE GİRİŞ ALTYAPISI) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
     <!-- KOYU MOD HAFIZA KONTROLÜ -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
@@ -84,7 +88,7 @@
         <span>ÖNEMLİ UYARI: Sitemizden veya mağazamızdan satın alacağınız <span class="bg-yellow-400 text-black px-2 py-0.5 rounded shadow-sm">Orijinal MAİS</span> logolu ürünlerin kesinlikle iadesi yoktur!</span>
     </div>
 
-    <!-- GÜVENLİK MODALI (TEK SEFERLİK VE DIŞARI TIKLAYINCA KAPANAN AFİŞ) -->
+    <!-- GÜVENLİK MODALI -->
     <div id="guvenlik-uyarisi" onclick="guvenlikKapat()" class="fixed inset-0 z-[120] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
         <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-red-600 w-full max-w-2xl p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal cursor-default">
             <h2 class="text-2xl font-black text-red-600 mb-4 uppercase border-b pb-3 dark:border-gray-800 flex items-center justify-between">
@@ -109,6 +113,62 @@
             <button onclick="guvenlikKapat()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 uppercase rounded-xl tracking-wider transition-all duration-200 shadow-lg hover:shadow-red-600/30 active:scale-98">
                 Okudum, Kapat
             </button>
+        </div>
+    </div>
+
+    <!-- MÜŞTERİ PROFİLİ VE GİRİŞ MODALI -->
+    <div id="profil-modal" onclick="profilModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-md p-6 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
+            <button onclick="profilModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="text-center mb-6">
+                <div id="profil-avatar" class="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 border border-yellow-500/20 text-2xl font-black">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h3 id="profil-baslik" class="text-xl font-black text-gray-900 dark:text-white uppercase">Müşteri Profili</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bilgilerinizi kaydedin, WhatsApp siparişleriniz saniyeler içinde hazırlansın.</p>
+            </div>
+
+            <!-- GOOGLE İLE GİRİŞ BUTONU -->
+            <div id="google-giris-alani" class="mb-5">
+                <button onclick="googleIleGirisYap()" class="w-full bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-white font-bold py-3.5 px-4 rounded-xl border border-gray-300 dark:border-gray-700 text-xs flex items-center justify-center gap-3 shadow-sm transition-all active:scale-98">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                    <span>Google ile Tek Tıkla Giriş Yap</span>
+                </button>
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200 dark:border-gray-800"></div></div>
+                    <div class="relative flex justify-center text-[10px] uppercase"><span class="bg-white dark:bg-brand-cardDark px-2 text-gray-400 font-bold">Veya Bilgilerini Elle Gir</span></div>
+                </div>
+            </div>
+
+            <!-- FORM ALANLARI -->
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-600 dark:text-gray-400 mb-1">Adınız Soyadınız:</label>
+                    <input type="text" id="prof-ad" placeholder="Örn: Baki Özen" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-gray-900 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-600 dark:text-gray-400 mb-1">Telefon Numarası:</label>
+                    <input type="tel" id="prof-tel" placeholder="Örn: 0532 724 94 17" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-gray-900 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-600 dark:text-gray-400 mb-1">Teslimat Adresi:</label>
+                    <textarea id="prof-adres" rows="2" placeholder="Kargo teslimat adresi..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-gray-900 dark:text-white"></textarea>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-600 dark:text-gray-400 mb-1">Şasi No (VIN) <span class="text-gray-400 text-[9px] font-normal">(İsteğe Bağlı)</span>:</label>
+                    <input type="text" id="prof-sasi" maxlength="17" placeholder="Örn: VF1RFB0015487..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-mono font-bold text-xs uppercase outline-none focus:border-yellow-500 text-gray-900 dark:text-white">
+                </div>
+
+                <div class="pt-2 flex gap-2">
+                    <button onclick="profilKaydet()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3 rounded-xl text-xs uppercase shadow-md transition-all active:scale-95">
+                        Bilgileri Kaydet
+                    </button>
+                    <button id="cikis-btn" onclick="cikisYap()" class="hidden bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-3 rounded-xl text-xs transition-all">
+                        Çıkış
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -204,10 +264,16 @@
                 <div id="arama-sonuclari" class="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden max-h-80 overflow-y-auto z-[200]"></div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <button onclick="sasiModalAc()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl text-xs font-black uppercase flex items-center gap-2 shadow-md hover:shadow-red-600/30 transition-all active:scale-95">
+            <div class="flex items-center gap-2 md:gap-3">
+                <!-- GİRİŞ YAP / HESABIM BUTONU -->
+                <button id="profil-header-btn" onclick="profilModalAc()" class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-3.5 py-3 rounded-xl text-xs font-black uppercase flex items-center gap-2 border border-gray-300 dark:border-gray-700 transition-all active:scale-95">
+                    <i class="fa-solid fa-user text-yellow-500"></i>
+                    <span id="profil-header-yazi" class="hidden sm:inline">Giriş Yap</span>
+                </button>
+
+                <button onclick="sasiModalAc()" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-3 rounded-xl text-xs font-black uppercase flex items-center gap-2 shadow-md hover:shadow-red-600/30 transition-all active:scale-95">
                     <i class="fa-solid fa-id-card"></i>
-                    <span class="hidden sm:inline">Şasi No İle Sorgula</span>
+                    <span class="hidden sm:inline">Şasi Sorgula</span>
                 </button>
 
                 <!-- SEPET BUTONU VE SAYACI -->
@@ -218,7 +284,6 @@
 
                 <button onclick="temaDegistir()" class="p-3 rounded-xl border border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center gap-2 transition-all active:scale-95">
                     <i id="tema-ikonu" class="fa-solid fa-moon"></i>
-                    <span id="tema-yazi" class="hidden sm:inline">Koyu Mod</span>
                 </button>
             </div>
         </div>
@@ -453,6 +518,20 @@
         </button>
     </div>
 
+    <!-- ÇEREZ & KVKK BİLDİRİM BANDI -->
+    <div id="cerez-bandi" class="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-[100] bg-gray-900/95 text-white p-4 rounded-2xl shadow-2xl border border-gray-800 cam-efekt hidden animasyon-acilis">
+        <div class="flex items-start gap-3">
+            <i class="fa-solid fa-cookie-bite text-yellow-500 text-xl mt-1 flex-shrink-0"></i>
+            <div class="flex-1">
+                <h5 class="text-xs font-black uppercase text-white mb-1">Çerezler ve Gizlilik</h5>
+                <p class="text-[11px] text-gray-300 leading-relaxed">Sitemizde daha iyi bir alışveriş ve sepet deneyimi yaşamanız için çerezler (hafıza kayıtları) kullanılmaktadır.</p>
+                <button onclick="cerezKabulEt()" class="mt-3 bg-yellow-500 hover:bg-yellow-600 text-black font-black px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all">
+                    Kabul Et & Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST BİLDİRİM KUTUSU -->
     <div id="toast-bildirim" class="fixed bottom-20 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden transition-all duration-300">
         <span id="toast-mesaj">Kopyalandı!</span>
@@ -472,7 +551,7 @@
             return 'gorseller/' + resim;
         }
 
-        // GÜVENLİK MODALI SADECE SİTEYE İLK GİRİŞTE 1 KEZ GÖRÜNÜR
+        // GÜVENLİK MODALI KONTROLÜ
         function guvenlikKontrol() {
             if (!sessionStorage.getItem('guvenlik_uyarisi_goruldu')) {
                 const modal = document.getElementById('guvenlik-uyarisi');
@@ -490,6 +569,115 @@
                 modal.classList.remove('flex');
             }
             sessionStorage.setItem('guvenlik_uyarisi_goruldu', 'true');
+        }
+
+        // ÇEREZ BANDI KONTROLÜ
+        function cerezKontrol() {
+            if (!localStorage.getItem('cerez_kabul')) {
+                document.getElementById('cerez-bandi').classList.remove('hidden');
+            }
+        }
+
+        function cerezKabulEt() {
+            localStorage.setItem('cerez_kabul', 'true');
+            document.getElementById('cerez-bandi').classList.add('hidden');
+        }
+
+        // PROFİL VE MÜŞTERİ YÖNETİMİ
+        function profilArayuzGuncelle() {
+            const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici'));
+            const headerYazi = document.getElementById('profil-header-yazi');
+            const cikisBtn = document.getElementById('cikis-btn');
+            const avatar = document.getElementById('profil-avatar');
+            const baslik = document.getElementById('profil-baslik');
+
+            if (kullanici && kullanici.adSoyad) {
+                headerYazi.textContent = kullanici.adSoyad.split(' ')[0];
+                cikisBtn.classList.remove('hidden');
+                
+                if (kullanici.foto) {
+                    avatar.innerHTML = `<img src="${kullanici.foto}" class="w-full h-full rounded-full object-cover">`;
+                } else {
+                    avatar.innerHTML = `<i class="fa-solid fa-user-check text-green-500"></i>`;
+                }
+                baslik.textContent = `Hoş Geldin, ${kullanici.adSoyad.split(' ')[0]}`;
+
+                document.getElementById('prof-ad').value = kullanici.adSoyad || '';
+                document.getElementById('prof-tel').value = kullanici.telefon || '';
+                document.getElementById('prof-adres').value = kullanici.adres || '';
+                document.getElementById('prof-sasi').value = kullanici.sasi || '';
+            } else {
+                headerYazi.textContent = "Giriş Yap";
+                cikisBtn.classList.add('hidden');
+                avatar.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                baslik.textContent = "Müşteri Profili";
+            }
+        }
+
+        function profilModalAc() {
+            profilArayuzGuncelle();
+            const modal = document.getElementById('profil-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function profilModalKapat() {
+            const modal = document.getElementById('profil-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function profilKaydet() {
+            const adSoyad = document.getElementById('prof-ad').value.trim();
+            const telefon = document.getElementById('prof-tel').value.trim();
+            const adres = document.getElementById('prof-adres').value.trim();
+            const sasi = document.getElementById('prof-sasi').value.trim().toUpperCase();
+
+            if (!adSoyad) {
+                alert("Lütfen adınızı ve soyadınızı giriniz.");
+                return;
+            }
+
+            const mevcuttakiler = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
+            const yeniKullanici = {
+                ...mevcuttakiler,
+                adSoyad: adSoyad,
+                telefon: telefon,
+                adres: adres,
+                sasi: sasi
+            };
+
+            localStorage.setItem('ozen_kullanici', JSON.stringify(yeniKullanici));
+            profilArayuzGuncelle();
+            profilModalKapat();
+            toastGoster("Profil bilgileriniz kaydedildi!");
+        }
+
+        function cikisYap() {
+            localStorage.removeItem('ozen_kullanici');
+            document.getElementById('prof-ad').value = '';
+            document.getElementById('prof-tel').value = '';
+            document.getElementById('prof-adres').value = '';
+            document.getElementById('prof-sasi').value = '';
+            profilArayuzGuncelle();
+            profilModalKapat();
+            toastGoster("Çıkış yapıldı.");
+        }
+
+        function googleIleGirisYap() {
+            // Google ile hızlı simüle giriş
+            const ornekAd = prompt("Google Hesabınızdaki Adınız Soyadınız:", "Müşteri");
+            if (ornekAd) {
+                const kul = {
+                    adSoyad: ornekAd,
+                    telefon: "",
+                    adres: "",
+                    sasi: ""
+                };
+                localStorage.setItem('ozen_kullanici', JSON.stringify(kul));
+                profilArayuzGuncelle();
+                toastGoster("Google ile giriş başarılı!");
+            }
         }
 
         function durumGuncelle() {
@@ -695,9 +883,7 @@
         function temaButonunuGuncelle() {
             const isDark = document.documentElement.classList.contains('dark');
             const ikonav = document.getElementById('tema-ikonu');
-            const yazi = document.getElementById('tema-yazi');
             if (ikonav) ikonav.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
-            if (yazi) yazi.textContent = isDark ? "Açık Mod" : "Koyu Mod";
         }
 
         function temaDegistir() {
@@ -924,6 +1110,7 @@
                 aramaModalKapat();
                 sepetModalKapat();
                 sasiModalKapat();
+                profilModalKapat();
             }
         });
 
@@ -953,7 +1140,9 @@
             temaButonunuGuncelle();
             urunleriYukle();
             sepetArayuzunuGuncelle();
-            guvenlikKontrol(); // Tek seferlik gösterim kontrolü
+            guvenlikKontrol();
+            cerezKontrol();
+            profilArayuzGuncelle();
         };
     </script>
 </body>
