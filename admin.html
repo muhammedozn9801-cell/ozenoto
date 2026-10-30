@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <!-- PANELLER (GİRİŞ SONRASI) -->
+    <!-- PANELLER -->
     <div id="admin-icerik" class="max-w-6xl mx-auto space-y-6 hidden">
         
         <!-- HEADER BARI -->
@@ -52,7 +52,7 @@
                 <div>
                     <h1 class="text-lg font-black uppercase text-white flex items-center gap-2">
                         Özen Oto Parça Yönetimi
-                        <span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-md border border-yellow-500/30">Admin v1.0</span>
+                        <span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-md border border-yellow-500/30">Admin v1.2</span>
                     </h1>
                     <p class="text-xs text-gray-400">Ürün ekle, stok güncelle veya veritabanını indirin.</p>
                 </div>
@@ -62,7 +62,7 @@
             </button>
         </div>
 
-        <!-- 1. MEVCUT ÜRÜN ARAMA & SEÇME ALANI -->
+        <!-- 1. ARAMA & DÜZENLEME -->
         <div class="bg-brand-cardDark border border-gray-800 p-5 rounded-2xl space-y-3">
             <label class="block text-xs font-black uppercase text-yellow-400 flex items-center gap-2">
                 <i class="fa-solid fa-magnifying-glass"></i> Düzenlemek İstediğiniz Ürünü Arayın / Seçin:
@@ -85,7 +85,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Parça Başlığı:</label>
-                    <input type="text" id="p-baslik" placeholder="Örn: Megane 4 Viraj Orta Lastiği" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                    <input type="text" id="p-baslik" placeholder="Örn: Viraj Orta Lastiği" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Marka / Üretici <span class="text-yellow-400">(Yazınız)</span>:</label>
+                    <input type="text" id="p-marka" placeholder="Örn: LUK, ORİJİNAL MAİS, Valeo, Bosch" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
                 </div>
 
                 <div>
@@ -94,8 +99,21 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Uyumlu Araç Model:</label>
-                    <input type="text" id="p-arac" placeholder="Örn: Megane 4 / Kadjar" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Uyumlu Araç Modeli <span class="text-yellow-400">(Seçiniz)</span>:</label>
+                    <select id="p-arac" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                        <option value="Renault Megane 4 / Kadjar">Renault Megane 4 / Kadjar</option>
+                        <option value="Renault Megane 3 / Fluence">Renault Megane 3 / Fluence</option>
+                        <option value="Renault Megane 2 / Scenic">Renault Megane 2 / Scenic</option>
+                        <option value="Renault Clio 5 / Captur">Renault Clio 5 / Captur</option>
+                        <option value="Renault Clio 4 / Captur">Renault Clio 4 / Captur</option>
+                        <option value="Renault Clio 3 / Modus">Renault Clio 3 / Modus</option>
+                        <option value="Renault Symbol / Thalia">Renault Symbol / Thalia</option>
+                        <option value="Renault Austral / Taliant">Renault Austral / Taliant</option>
+                        <option value="Dacia Duster (Tüm Kasalar)">Dacia Duster (Tüm Kasalar)</option>
+                        <option value="Dacia Sandero / Stepway">Dacia Sandero / Stepway</option>
+                        <option value="Dacia Logan / Lodgy / Dokker">Dacia Logan / Lodgy / Dokker</option>
+                        <option value="Tüm Renault & Dacia Modelleri">Tüm Renault & Dacia Modelleri (Evrensel)</option>
+                    </select>
                 </div>
 
                 <div>
@@ -110,25 +128,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Kalite Rozeti (Etiket):</label>
-                    <select id="p-etiket" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
-                        <option value="ORİJİNAL MAİS">Orijinal MAİS</option>
-                        <option value="LUK - A KALİTE">LUK (A Kalite Muadil)</option>
-                        <option value="VALEO - A KALİTE">Valeo (A Kalite Muadil)</option>
-                        <option value="BOSCH - A KALİTE">Bosch (A Kalite Muadil)</option>
-                        <option value="SACHS - A KALİTE">Sachs (A Kalite Muadil)</option>
-                        <option value="DELPHI - A KALİTE">Delphi (A Kalite Muadil)</option>
-                        <option value="DAYCO / GATES">Dayco / Gates</option>
-                    </select>
-                </div>
-
-                <div>
                     <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Görsel Adı / Yolu:</label>
                     <input type="text" id="p-resim" placeholder="Örn: viraj_lastigi.jpg" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
                 </div>
             </div>
 
-            <!-- DÜĞMELER / AKSİYONLAR -->
             <div class="pt-4 flex flex-col sm:flex-row gap-3">
                 <button onclick="urunKaydet()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3.5 rounded-xl text-xs uppercase shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-floppy-disk"></i>
@@ -140,13 +144,13 @@
             </div>
         </div>
 
-        <!-- 3. GÜNCEL KOD JENERATÖRÜ -->
+        <!-- 3. KOD JENERATÖRÜ -->
         <div class="bg-brand-cardDark border border-yellow-500/30 p-5 md:p-8 rounded-2xl space-y-4">
             <div>
                 <h3 class="text-sm font-black uppercase text-yellow-400 flex items-center gap-2">
                     <i class="fa-solid fa-code"></i> Güncellenmiş urunler.js Kod Dosyası
                 </h3>
-                <p class="text-xs text-gray-400 mt-1">Yaptığınız değişikliklerin siteye yansıması için aşağıdaki butona basıp kodu kopyalayın ve `urunler.js` dosyanızın içine yapıştırıp kaydedin.</p>
+                <p class="text-xs text-gray-400 mt-1">Yapılan değişiklikleri kopyalayıp `urunler.js` dosyanızın içine yapıştırın.</p>
             </div>
 
             <textarea id="kod-çıktısı" readonly class="w-full h-40 bg-gray-950 border border-gray-800 rounded-xl p-3 font-mono text-[11px] text-green-400 outline-none select-all"></textarea>
@@ -174,7 +178,7 @@
                 document.getElementById('admin-icerik').classList.remove('hidden');
                 kodUret();
             } else {
-                alert("Hatalı şifre! Lütfen tekrar deneyiniz.");
+                alert("Hatalı şifre!");
             }
         }
 
@@ -190,7 +194,7 @@
             const eslesenler = yerelUrunler.filter(u => 
                 u.baslik.toLowerCase().includes(girdi) || 
                 u.oem.toLowerCase().includes(girdi) || 
-                u.arac.toLowerCase().includes(girdi)
+                (u.arac && u.arac.toLowerCase().includes(girdi))
             );
 
             if (eslesenler.length > 0) {
@@ -216,10 +220,10 @@
 
             document.getElementById('p-id').value = u.id;
             document.getElementById('p-baslik').value = u.baslik;
+            document.getElementById('p-marka').value = u.marka || u.etiket || '';
             document.getElementById('p-oem').value = u.oem;
-            document.getElementById('p-arac').value = u.arac;
+            document.getElementById('p-arac').value = u.arac || 'Renault Megane 4 / Kadjar';
             document.getElementById('p-kategori').value = u.kategori || 'motor';
-            document.getElementById('p-etiket').value = u.etiket || 'ORİJİNAL MAİS';
             document.getElementById('p-resim').value = u.resim || '';
 
             document.getElementById('form-baslik').innerText = "Ürün Düzenleme Modu";
@@ -231,10 +235,10 @@
         function urunKaydet() {
             const id = document.getElementById('p-id').value || 'u_' + Date.now();
             const baslik = document.getElementById('p-baslik').value.trim();
+            const marka = document.getElementById('p-marka').value.trim() || 'ORİJİNAL MAİS';
             const oem = document.getElementById('p-oem').value.trim().toUpperCase();
-            const arac = document.getElementById('p-arac').value.trim();
+            const arac = document.getElementById('p-arac').value;
             const kategori = document.getElementById('p-kategori').value;
-            const etiket = document.getElementById('p-etiket').value;
             const resim = document.getElementById('p-resim').value.trim();
 
             if (!baslik || !oem) {
@@ -243,7 +247,7 @@
             }
 
             const varOlanIndex = yerelUrunler.findIndex(item => item.id === id);
-            const yeniObje = { id, baslik, oem, arac, kategori, etiket, resim };
+            const yeniObje = { id, baslik, oem, arac, kategori, etiket: marka, marka: marka, resim };
 
             if (varOlanIndex > -1) {
                 yerelUrunler[varOlanIndex] = yeniObje;
@@ -253,7 +257,7 @@
 
             kodUret();
             paneliSifirla();
-            alert("Ürün başarıyla listeye işlendi! Aşağıdaki güncellenmiş kodu kopyalayıp urunler.js dosyasına yapıştırın.");
+            alert("Ürün kaydedildi! Güncellenmiş kodu urunler.js dosyasına yapıştırın.");
         }
 
         function urunSil() {
@@ -271,8 +275,8 @@
         function paneliSifirla() {
             document.getElementById('p-id').value = '';
             document.getElementById('p-baslik').value = '';
+            document.getElementById('p-marka').value = '';
             document.getElementById('p-oem').value = '';
-            document.getElementById('p-arac').value = '';
             document.getElementById('p-resim').value = '';
             document.getElementById('admin-arama').value = '';
             document.getElementById('form-baslik').innerText = "Yeni Ürün Ekle";
@@ -289,7 +293,7 @@
             const txt = document.getElementById('kod-çıktısı');
             txt.select();
             navigator.clipboard.writeText(txt.value);
-            alert("urunler.js kodu kopyalandı! Bilgisayarınızdaki urunler.js dosyasına yapıştırıp kaydedebilirsiniz.");
+            alert("Kopyalandı! urunler.js dosyasına yapıştırabilirsiniz.");
         }
 
         function koduIndir() {
