@@ -42,7 +42,6 @@
         body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
         .kutu-golge { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05); }
         
-        /* ÖZEL ANİMASYONLAR */
         @keyframes acilisFade {
             from { opacity: 0; transform: translateY(12px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
@@ -51,15 +50,10 @@
             from { opacity: 0; transform: scale(0.96); }
             to { opacity: 1; transform: scale(1); }
         }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 184, 0, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(255, 184, 0, 0.45); }
-        }
 
         .animasyon-acilis { animation: acilisFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animasyon-modal { animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        /* ŞIK MİKRO ETKİLEŞİMLER */
         .kart-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -76,7 +70,6 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* ÖZEL SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
@@ -91,9 +84,9 @@
         <span>ÖNEMLİ UYARI: Sitemizden veya mağazamızdan satın alacağınız <span class="bg-yellow-400 text-black px-2 py-0.5 rounded shadow-sm">Orijinal MAİS</span> logolu ürünlerin kesinlikle iadesi yoktur!</span>
     </div>
 
-    <!-- GÜVENLİK MODALI -->
-    <div id="guvenlik-uyarisi" class="fixed inset-0 z-[120] bg-black/80 cam-efekt flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-brand-cardDark border-t-4 border-red-600 w-full max-w-2xl p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal">
+    <!-- GÜVENLİK MODALI (TEK SEFERLİK VE DIŞARI TIKLAYINCA KAPANAN AFİŞ) -->
+    <div id="guvenlik-uyarisi" onclick="guvenlikKapat()" class="fixed inset-0 z-[120] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-red-600 w-full max-w-2xl p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal cursor-default">
             <h2 class="text-2xl font-black text-red-600 mb-4 uppercase border-b pb-3 dark:border-gray-800 flex items-center justify-between">
                 <span><i class="fa-solid fa-shield-halved mr-2"></i>Önemli Güvenlik Uyarısı</span>
                 <span class="text-xs bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300 px-2.5 py-1 rounded-full font-bold">Müşteri Bilgilendirmesi</span>
@@ -113,15 +106,15 @@
                 </table>
             </div>
             
-            <button onclick="document.getElementById('guvenlik-uyarisi').style.display='none'" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 uppercase rounded-xl tracking-wider transition-all duration-200 shadow-lg hover:shadow-red-600/30 active:scale-98">
-                Okudum, Anladım
+            <button onclick="guvenlikKapat()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 uppercase rounded-xl tracking-wider transition-all duration-200 shadow-lg hover:shadow-red-600/30 active:scale-98">
+                Okudum, Kapat
             </button>
         </div>
     </div>
 
     <!-- ŞASİ NO SORGULAMA MODALI -->
-    <div id="sasi-modal" class="fixed inset-0 z-[120] bg-black/80 cam-efekt hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal relative">
+    <div id="sasi-modal" onclick="sasiModalKapat()" class="fixed inset-0 z-[120] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
             <button onclick="sasiModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="text-center mb-6">
@@ -146,11 +139,9 @@
         </div>
     </div>
 
-    <!-- TAM EKRAN (FULL SCREEN) ARAMA SONUÇLARI PENCERESİ -->
+    <!-- TAM EKRAN ARAMA SONUÇLARI PENCERESİ -->
     <div id="arama-liste-modal" class="fixed inset-0 z-[150] bg-black/90 cam-efekt hidden flex-col p-3 md:p-6 animasyon-acilis overflow-hidden">
         <div class="max-w-7xl mx-auto w-full h-full flex flex-col bg-white dark:bg-brand-cardDark rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4 md:p-8 relative overflow-hidden">
-            
-            <!-- Modal Üst Başlık & Kapat Butonu -->
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800 gap-4 flex-shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-yellow-500/20 text-yellow-500 rounded-xl flex items-center justify-center font-black">
@@ -167,12 +158,9 @@
                 </button>
             </div>
 
-            <!-- Tam Ekran Arama Sonuçları Izgarası (Kaydırılabilir Alan) -->
             <div id="arama-modal-liste" class="flex-1 overflow-y-auto py-6 pr-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- JavaScript burayı ferah kartlarla dolduracak -->
             </div>
 
-            <!-- Modal Alt Bilgi Bandı -->
             <div class="pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                 <span><i class="fa-solid fa-keyboard mr-1"></i>Kapatmak için <strong>ESC</strong> tuşuna basabilirsiniz.</span>
                 <span class="font-bold text-yellow-600 dark:text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>Bulamadığınız parçalar için direkt arayın: 0242 887 89 80</span>
@@ -213,7 +201,6 @@
                         <span>ARA</span>
                     </button>
                 </div>
-                <!-- Canlı Hızlı Açılır Liste -->
                 <div id="arama-sonuclari" class="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden max-h-80 overflow-y-auto z-[200]"></div>
             </div>
 
@@ -314,7 +301,7 @@
         </div>
     </div>
 
-    <!-- SIKÇA SORULAN SORULAR (SSS) BÖLÜMÜ -->
+    <!-- SIKÇA SORULAN SORULAR -->
     <div id="sss" class="container mx-auto px-4 py-16 border-b border-gray-200 dark:border-gray-800">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-black uppercase text-center mb-2 text-gray-900 dark:text-white">Sıkça Sorulan Sorular</h2>
@@ -399,7 +386,6 @@
                             </div>
                         </div>
 
-                        <!-- HARİTA NAVİGASYON BUTONU -->
                         <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="w-full mb-6 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-blue-600/30 transition-all active:scale-98">
                             <i class="fa-solid fa-location-arrow text-base"></i>
                             <span>Google Haritalar'da Dükkana Rota Oluştur</span>
@@ -430,8 +416,8 @@
     </a>
 
     <!-- SEPET MODALI -->
-    <div id="sepet-modal" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 kutu-golge rounded-2xl animasyon-modal relative flex flex-col max-h-[85vh]">
+    <div id="sepet-modal" onclick="sepetModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 kutu-golge rounded-2xl animasyon-modal relative flex flex-col max-h-[85vh] cursor-default">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800">
                 <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
                     <i class="fa-solid fa-cart-shopping text-yellow-500"></i> Parça Sepetiniz
@@ -439,7 +425,6 @@
                 <button onclick="sepetModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Ürün Listesi Kaydırma Alanı -->
             <div id="sepet-modal-liste" class="flex-1 overflow-y-auto py-4 space-y-3 pr-1">
             </div>
 
@@ -452,7 +437,7 @@
         </div>
     </div>
 
-    <!-- MOBİL PERSISTENT (YÜZEN) SEPET BARI -->
+    <!-- MOBİL PERSISTENT SEPET BARI -->
     <div id="mobil-sepet-bar" class="fixed bottom-0 left-0 right-0 z-[110] bg-gray-900 border-t-2 border-yellow-500 p-3 shadow-2xl transition-transform duration-300 translate-y-full md:hidden flex items-center justify-between">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-yellow-500 text-black rounded-xl flex items-center justify-center font-black">
@@ -473,13 +458,12 @@
         <span id="toast-mesaj">Kopyalandı!</span>
     </div>
 
-    <!-- SCRIPT'LER (TÜM MANTIKSAL KODLAR DAHİLİ) -->
+    <!-- SCRIPT'LER -->
     <script>
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
         let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
 
-        // RESİM YOLU TAMAMLAYICI
         function resimYolu(resim) {
             if (!resim) return '';
             if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
@@ -488,7 +472,26 @@
             return 'gorseller/' + resim;
         }
 
-        // OTOMATİK CANLI ÇALIŞMA SAATİ KONTROLÜ
+        // GÜVENLİK MODALI SADECE SİTEYE İLK GİRİŞTE 1 KEZ GÖRÜNÜR
+        function guvenlikKontrol() {
+            if (!sessionStorage.getItem('guvenlik_uyarisi_goruldu')) {
+                const modal = document.getElementById('guvenlik-uyarisi');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+            }
+        }
+
+        function guvenlikKapat() {
+            const modal = document.getElementById('guvenlik-uyarisi');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+            sessionStorage.setItem('guvenlik_uyarisi_goruldu', 'true');
+        }
+
         function durumGuncelle() {
             const simdi = new Date();
             const gun = simdi.getDay();
@@ -920,6 +923,7 @@
             if (e.key === 'Escape') {
                 aramaModalKapat();
                 sepetModalKapat();
+                sasiModalKapat();
             }
         });
 
@@ -929,7 +933,6 @@
             }
         });
 
-        /* 4 VİDEOLU GEÇİŞ SİSTEMİ */
         const videolar = ['renault1.mp4', 'renault2.mp4', 'renault3.mp4', 'renault4.mp4'];
         let videoIndex = 0;
         const videoElement = document.getElementById('arka-plan-video');
@@ -950,6 +953,7 @@
             temaButonunuGuncelle();
             urunleriYukle();
             sepetArayuzunuGuncelle();
+            guvenlikKontrol(); // Tek seferlik gösterim kontrolü
         };
     </script>
 </body>
