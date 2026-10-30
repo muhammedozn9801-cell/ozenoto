@@ -1,225 +1,566 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr" class="light scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Özen Oto - Yönetim Paneli</title>
+    
+    <!-- SEO METATAGLARI -->
+    <title>Özen Oto | Renault & Dacia Orijinal Yedek Parça Kumluca</title>
+    <meta name="description" content="Kumluca Antalya'da Renault ve Dacia orijinal MAİS yedek parça, mekanik aksam, filtre, fren ve motor tedariği. Baki Özen güvencesiyle.">
+    <meta name="keywords" content="Renault yedek parça Kumluca, Dacia yedek parça Antalya, MAİS orijinal parça, Özen Oto Baki Özen, Megane 4 triger, Duster yedek parça">
+    <meta name="author" content="Özen Oto Baki Özen">
+    <meta name="robots" content="index, follow">
+    
+    <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA KODU -->
+    <meta name="google-site-verification" content="Nqj9TyUHW2uT_kmgBTZkaphMY7VWy-q1mGs-LkteevM" />
+
+    <!-- CANONICAL & SOCIAL MEDIA (OPEN GRAPH) -->
+    <link rel="canonical" href="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:title" content="Özen Oto | Renault & Dacia Orijinal Yedek Parça">
+    <meta property="og:description" content="Kumluca Antalya'da Orijinal MAİS ve A Kalite Muadil Parça Tedarik Merkezi.">
+    <meta property="og:image" content="https://muhammedozn9801-cell.github.io/ozenoto/dukkan.png">
+    <meta property="og:url" content="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:type" content="website">
+
+    <!-- GOOGLE ANALYTICS (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <script src="urunler.js?v=8.0"></script>
 
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#121212', cardDark: '#1E1E1E' } } } }
+            theme: { 
+                extend: { 
+                    colors: { 
+                        brand: { yellow: '#FFB800', dark: '#121212', cardDark: '#1E1E1E', borderDark: '#2C2C2C' } 
+                    } 
+                } 
+            }
         }
     </script>
+    
+    <style>
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .cam-efekt { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .kart-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .kart-hover:hover { transform: translateY(-4px); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 3px; }
+    </style>
 </head>
-<body class="bg-brand-dark text-gray-100 min-h-screen p-4 antialiased">
+<body class="bg-gray-50 dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-200 antialiased selection:bg-yellow-500 selection:text-black">
 
-    <!-- ŞİFRE EKRANI -->
-    <div id="sifre-ekrani" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
-        <div class="bg-brand-cardDark border border-gray-800 w-full max-w-sm p-6 rounded-2xl text-center space-y-4">
-            <h2 class="text-lg font-black uppercase text-white">Yönetici Girişi</h2>
-            <input type="password" id="admin-sifre-girdi" placeholder="Giriş Şifresi..." class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 text-center font-bold text-sm text-white">
-            <button onclick="sifreKontrolEt()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3 rounded-xl text-xs uppercase">
-                Giriş Yap
+    <!-- UYARI ŞERİDİ -->
+    <div class="bg-red-700 text-white text-xs font-bold py-2 px-4 text-center border-b border-red-800 tracking-wide uppercase flex items-center justify-center gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-yellow-300"></i>
+        <span>Müşteri Bilgisine: <strong class="underline decoration-yellow-400">Orijinal MAİS</strong> ambalajı açılmış ürünlerde iade yapılmamaktadır.</span>
+    </div>
+
+    <!-- GÜVENLİK UYARISI MODALI -->
+    <div id="guvenlik-uyarisi" onclick="guvenlikKapat()" class="fixed inset-0 z-[120] bg-black/75 cam-efekt hidden items-center justify-center p-4">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-red-600 w-full max-w-lg p-6 rounded-2xl shadow-2xl">
+            <h2 class="text-lg font-black text-red-600 mb-3 uppercase flex items-center justify-between border-b dark:border-brand-borderDark pb-2">
+                <span><i class="fa-solid fa-shield-halved mr-2"></i>Yetkili İletişim Uyarısı</span>
+            </h2>
+            <p class="text-gray-700 dark:text-gray-300 text-xs mb-4 font-semibold leading-relaxed">
+                Dolandırıcılık mağduriyeti yaşamamanız için ödeme ve siparişlerinizi SADECE dükkanımızın yetkili telefon numaraları üzerinden teyit ediniz:
+            </p>
+            
+            <div class="bg-gray-100 dark:bg-black/40 rounded-xl p-3 mb-5 space-y-2 text-xs font-bold">
+                <div class="flex justify-between border-b dark:border-gray-800 pb-1.5"><span>İş Yeri Sabit:</span><span class="text-yellow-600 dark:text-yellow-400 font-mono">0242 887 89 80</span></div>
+                <div class="flex justify-between border-b dark:border-gray-800 pb-1.5"><span>Baki Özen:</span><span class="font-mono">0532 724 94 17</span></div>
+                <div class="flex justify-between border-b dark:border-gray-800 pb-1.5"><span>Hüseyin Özen:</span><span class="font-mono">0533 925 19 33</span></div>
+                <div class="flex justify-between"><span>Muhammed Ali:</span><span class="font-mono">0539 877 98 07</span></div>
+            </div>
+            
+            <button onclick="guvenlikKapat()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider transition-all">
+                Anladım, Kapat
             </button>
         </div>
     </div>
 
-    <!-- PANELLER -->
-    <div id="admin-icerik" class="max-w-5xl mx-auto space-y-6 hidden">
-        
-        <div class="flex items-center justify-between bg-brand-cardDark border border-gray-800 p-4 rounded-xl">
-            <h1 class="text-base font-black uppercase text-white">Özen Oto Parça Yönetimi</h1>
-            <button onclick="paneliSifirla()" class="bg-gray-800 text-gray-300 font-bold px-3 py-2 rounded-lg text-xs">Formu Sıfırla</button>
-        </div>
+    <!-- MÜŞTERİ & ŞASİ BİLGİ MODALI -->
+    <div id="profil-modal" onclick="profilModalKapat()" class="fixed inset-0 z-[160] bg-black/75 cam-efekt hidden items-center justify-center p-4">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-borderDark w-full max-w-md p-6 rounded-2xl shadow-2xl relative">
+            <button onclick="profilModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-lg font-bold"><i class="fa-solid fa-xmark"></i></button>
 
-        <!-- 1. ARAMA -->
-        <div class="bg-brand-cardDark border border-gray-800 p-4 rounded-xl space-y-2">
-            <label class="block text-xs font-black uppercase text-yellow-400">Mevcut Ürünlerde Ara / Düzenle:</label>
-            <input type="text" id="admin-arama" oninput="adminUrunAra()" placeholder="Parça adı veya OEM yazın..." class="w-full px-4 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs text-white">
-            <div id="admin-arama-liste" class="hidden max-h-48 overflow-y-auto bg-gray-900 border border-gray-800 rounded-xl"></div>
-        </div>
-
-        <!-- 2. FORM -->
-        <div class="bg-brand-cardDark border border-gray-800 p-6 rounded-xl space-y-4">
-            <h3 id="form-baslik" class="text-xs font-black uppercase text-yellow-400 border-b border-gray-800 pb-2">Ürün Bilgileri</h3>
-            <input type="hidden" id="p-id">
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Parça Başlığı:</label>
-                    <input type="text" id="p-baslik" placeholder="Örn: Viraj Orta Lastiği" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
+            <div class="text-center mb-5">
+                <div class="w-12 h-12 bg-yellow-500/10 text-yellow-500 rounded-xl flex items-center justify-center mx-auto mb-2 text-xl font-bold">
+                    <i class="fa-solid fa-id-card"></i>
                 </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Marka / Üretici (Elle Yazın):</label>
-                    <input type="text" id="p-marka" placeholder="Örn: LUK, MAİS, Valeo, Bosch" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
-                </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">OEM Parça Kodu:</label>
-                    <input type="text" id="p-oem" placeholder="Örn: 8200123456" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-mono font-bold uppercase">
-                </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Uyumlu Araç Modeli:</label>
-                    <select id="p-arac" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
-                        <option value="Renault Megane 4 / Kadjar">Renault Megane 4 / Kadjar</option>
-                        <option value="Renault Megane 3 / Fluence">Renault Megane 3 / Fluence</option>
-                        <option value="Renault Megane 2 / Scenic">Renault Megane 2 / Scenic</option>
-                        <option value="Renault Clio 5 / Captur">Renault Clio 5 / Captur</option>
-                        <option value="Renault Clio 4 / Captur">Renault Clio 4 / Captur</option>
-                        <option value="Dacia Duster (Tüm Kasalar)">Dacia Duster (Tüm Kasalar)</option>
-                        <option value="Dacia Sandero / Stepway">Dacia Sandero / Stepway</option>
-                        <option value="Tüm Renault & Dacia Modelleri">Tüm Renault & Dacia Modelleri</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Stok Durumu:</label>
-                    <select id="p-stok" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
-                        <option value="var">🟢 Stokta Var</option>
-                        <option value="sinirli">🟡 Sınırlı Stok</option>
-                        <option value="tukendi">🔴 Sipariş Üzerine / Tükendi</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Kategori:</label>
-                    <select id="p-kategori" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
-                        <option value="motor">Motor</option>
-                        <option value="fren">Fren</option>
-                        <option value="bakim">Filtre & Bakım</option>
-                        <option value="yag">Motor Yağı</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-gray-400 mb-1">Görsel Adı (gorseller/ Klasöründe):</label>
-                    <input type="text" id="p-resim" placeholder="Örn: viraj_lastigi.jpg" class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white font-bold">
-                </div>
+                <h3 class="text-base font-black uppercase text-gray-900 dark:text-white">Müşteri & Şasi Bilgisi</h3>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Bilgilerinizi bir kez kaydedin, WhatsApp siparişlerinde şasi aramakla uğraşmayın.</p>
             </div>
 
-            <div class="pt-2 flex gap-2">
-                <button onclick="urunKaydet()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3 rounded-xl text-xs uppercase">
-                    Ürünü Kaydet / Güncelle
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">Ad Soyad:</label>
+                    <input type="text" id="prof-ad" placeholder="Örn: Baki Özen" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-semibold outline-none focus:border-yellow-500 dark:text-white">
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">Telefon No:</label>
+                    <input type="tel" id="prof-tel" placeholder="Örn: 0532 724 94 17" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-semibold outline-none focus:border-yellow-500 dark:text-white">
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-700 dark:text-gray-300 mb-1">Şasi Numarası (VIN) <span class="text-gray-400 font-normal">(Ruhsatta Yazar)</span>:</label>
+                    <input type="text" id="prof-sasi" maxlength="17" placeholder="Örn: VF1RFB0015487..." class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 font-mono uppercase font-bold outline-none focus:border-yellow-500 dark:text-white">
+                </div>
+
+                <div class="pt-2 flex gap-2">
+                    <button onclick="profilKaydet()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-2.5 rounded-lg text-xs uppercase shadow transition-all">
+                        Kaydet
+                    </button>
+                    <button id="cikis-btn" onclick="cikisYap()" class="hidden bg-gray-700 hover:bg-red-600 text-white font-bold px-3 py-2.5 rounded-lg text-xs transition-all">
+                        Temizle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARAMA MODALI -->
+    <div id="arama-liste-modal" class="fixed inset-0 z-[150] bg-black/80 cam-efekt hidden flex-col p-4 overflow-hidden">
+        <div class="max-w-5xl mx-auto w-full h-full flex flex-col bg-white dark:bg-brand-cardDark rounded-2xl shadow-2xl border border-gray-200 dark:border-brand-borderDark p-5 relative overflow-hidden">
+            <div class="flex items-center justify-between pb-3 border-b dark:border-brand-borderDark gap-4 flex-shrink-0">
+                <h3 class="text-base font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass text-yellow-500"></i> Arama Kataloğu
+                </h3>
+                <button onclick="aramaModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="arama-modal-liste" class="flex-1 overflow-y-auto py-4 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+        </div>
+    </div>
+
+    <!-- ÜST BİLGİ BANTI -->
+    <div class="bg-black text-gray-300 text-xs py-1.5 border-b border-gray-800">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-1.5">
+            <div class="flex items-center gap-3">
+                <span class="text-gray-400"><i class="fa-solid fa-location-dot text-yellow-500 mr-1"></i> Karşıyaka Mah. Kumluca / Antalya</span>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-0.5 rounded transition-all">
+                    <i class="fa-solid fa-diamond-turn-right mr-1"></i> Navigasyon
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="calisma-durumu"></div>
+                <div class="font-black text-yellow-400"><i class="fa-solid fa-phone mr-1"></i> 0242 887 89 80</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white/95 dark:bg-brand-dark/95 cam-efekt py-3.5 border-b dark:border-brand-borderDark sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
+            
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">ÖZEN OTO</span>
+                    <span class="text-[9px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
+                </div>
+                <div class="flex items-center gap-2 pl-2 border-l border-gray-300 dark:border-gray-800">
+                    <span class="text-xs font-black px-1.5 py-0.5 rounded bg-yellow-500 text-black">MAİS</span>
+                    <span class="text-xs font-black px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800 dark:text-white">DɅCIɅ</span>
+                </div>
+            </a>
+
+            <!-- ARAMA BARI -->
+            <div class="flex-1 w-full max-w-lg relative">
+                <div class="flex border-2 border-yellow-500 rounded-xl overflow-hidden bg-white dark:bg-gray-900">
+                    <input type="text" id="arama-girdisi" oninput="canliAramaYap()" onkeypress="if(event.key === 'Enter') aramaModalAc()" placeholder="Parça adı veya OEM kodu yazın... (Örn: 8200, Triger, Buji)" class="w-full px-4 py-2.5 text-xs outline-none bg-transparent dark:text-white">
+                    <button onclick="aramaModalAc()" class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 font-black text-xs uppercase flex items-center gap-1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div id="arama-sonuclari" class="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-borderDark rounded-xl shadow-2xl hidden max-h-72 overflow-y-auto z-[200]"></div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="profilModalAc()" class="bg-gray-100 dark:bg-brand-cardDark hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-800 dark:text-white px-3 py-2 rounded-xl text-xs font-bold border border-gray-300 dark:border-brand-borderDark flex items-center gap-1.5">
+                    <i class="fa-solid fa-user text-yellow-500"></i>
+                    <span id="profil-header-yazi" class="hidden sm:inline">Şasi / Profil</span>
                 </button>
-                <button id="btn-sil" onclick="urunSil()" class="hidden bg-red-600 hover:bg-red-700 text-white font-black px-4 py-3 rounded-xl text-xs uppercase">
-                    Sil
+
+                <button onclick="sepetModalAc()" class="relative p-2.5 rounded-xl border border-gray-300 dark:border-brand-borderDark hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-xs" title="Sepetim">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span id="sepet-sayac" class="absolute -top-1 -right-1 bg-red-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+
+                <button onclick="temaDegistir()" class="p-2.5 rounded-xl border border-gray-300 dark:border-brand-borderDark hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-xs">
+                    <i id="tema-ikonu" class="fa-solid fa-moon"></i>
                 </button>
             </div>
         </div>
+    </header>
 
-        <!-- 3. KOD -->
-        <div class="bg-brand-cardDark border border-gray-800 p-4 rounded-xl space-y-2">
-            <h3 class="text-xs font-black uppercase text-yellow-400">Güncellenmiş urunler.js Kodu</h3>
-            <textarea id="kod-çıktısı" readonly class="w-full h-32 bg-gray-950 border border-gray-800 rounded-lg p-2 font-mono text-[10px] text-green-400 select-all"></textarea>
-            <button onclick="koduKopyala()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-2.5 rounded-lg text-xs uppercase">
-                Kodu Kopyala
+    <!-- MENÜ BARI -->
+    <nav class="bg-yellow-500 text-black font-black text-xs uppercase tracking-wider">
+        <div class="container mx-auto px-4 flex overflow-x-auto">
+            <a href="index.html" class="px-5 py-3 bg-black text-white whitespace-nowrap"><i class="fa-solid fa-house mr-1.5"></i>Ana Sayfa</a>
+            <a href="#urunler" class="px-5 py-3 hover:bg-black hover:text-white transition-colors whitespace-nowrap"><i class="fa-solid fa-bolt mr-1.5 text-red-600"></i>Parça Kataloğu</a>
+            <a href="#yorumlar" class="px-5 py-3 hover:bg-black hover:text-white transition-colors whitespace-nowrap"><i class="fa-solid fa-star mr-1.5"></i>Müşteri Yorumları</a>
+            <a href="#hakkimizda" class="px-5 py-3 hover:bg-black hover:text-white transition-colors whitespace-nowrap"><i class="fa-solid fa-store mr-1.5"></i>Dükkanımız</a>
+        </div>
+    </nav>
+
+    <!-- VİDEO BANTI (iPhone iOS Uyumlu) -->
+    <div class="relative w-full h-[320px] md:h-[400px] bg-black overflow-hidden">
+        <video id="arka-plan-video" autoplay muted playsinline loop poster="dukkan.png" class="absolute inset-0 w-full h-full object-cover opacity-70" src="renault1.mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end">
+            <div class="container mx-auto px-4 pb-8 text-white">
+                <span class="bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Orijinal MAİS & A Kalite Tedarik</span>
+                <h1 class="text-xl md:text-4xl font-black uppercase tracking-tight">Renault & Dacia Parça Tedarik Merkezi</h1>
+                <p class="text-xs md:text-sm text-gray-300 mt-1 max-w-lg">Kumluca dükkanımızdan aynı gün kargo veya mağazadan elden teslim imkanıyla.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SATIŞINI YAPTIĞIMIZ MARKALAR -->
+    <div class="bg-gray-900 border-y border-gray-800 py-3 overflow-x-auto">
+        <div class="container mx-auto px-4 flex items-center justify-between min-w-[700px] gap-6 text-gray-300 font-black text-xs uppercase">
+            <div class="text-yellow-400 font-bold border-r border-gray-800 pr-4 flex-shrink-0">
+                SATIŞINI YAPTIĞIMIZ MARKALAR:
+            </div>
+            <span class="text-white font-black">RENAULT MAİS</span>
+            <span class="text-yellow-400 font-black">DACIA</span>
+            <span class="bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/20">LUK</span>
+            <span>VALEO</span>
+            <span>BOSCH</span>
+            <span>SACHS</span>
+            <span>DELPHI</span>
+            <span>DAYCO / GATES</span>
+        </div>
+    </div>
+
+    <!-- ÜRÜN KATALOĞU -->
+    <div id="urunler" class="container mx-auto px-4 py-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 border-b-2 border-yellow-500 pb-3 gap-3">
+            <div>
+                <h2 class="text-xl md:text-2xl font-black uppercase text-gray-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-yellow-500"></i> Öne Çıkan Parçalar
+                </h2>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5" id="kategori-butonlari">
+                <button onclick="kategoriFiltrele('hepsi')" class="kategori-btn active bg-yellow-500 text-black px-3 py-1.5 rounded-lg text-xs font-black">Tümü</button>
+                <button onclick="kategoriFiltrele('motor')" class="kategori-btn bg-gray-200 dark:bg-brand-cardDark text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold">Motor</button>
+                <button onclick="kategoriFiltrele('fren')" class="kategori-btn bg-gray-200 dark:bg-brand-cardDark text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold">Fren</button>
+                <button onclick="kategoriFiltrele('bakim')" class="kategori-btn bg-gray-200 dark:bg-brand-cardDark text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold">Filtre & Bakım</button>
+                <button onclick="kategoriFiltrele('yag')" class="kategori-btn bg-gray-200 dark:bg-brand-cardDark text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold">Motor Yağı</button>
+            </div>
+        </div>
+
+        <div id="urun-izgarasi" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
+
+        <div class="text-center mt-8" id="daha-fazla-kapsayici">
+            <button onclick="dahaFazlaYukle()" class="bg-gray-900 hover:bg-black dark:bg-brand-cardDark text-yellow-400 font-black px-6 py-3 rounded-xl text-xs uppercase border border-gray-800">
+                Tüm Parçaları Listele
             </button>
+        </div>
+    </div>
+
+    <!-- DÜKKAN BİLGİSİ -->
+    <div id="hakkimizda" class="container mx-auto px-4 py-10">
+        <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-borderDark p-6 rounded-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="text-lg font-black border-l-4 border-yellow-500 pl-3 mb-3 uppercase text-gray-900 dark:text-white">Özen Oto Baki Özen Mağazamız</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed mb-4">
+                        Kumluca Sanayi Sitesi'nde Renault ve Dacia araç grubunda orijinal MAİS yedek parça, mekanik aksam ve sıfır sandık motor tedariği sağlıyoruz. Şasi numarası teyitli doğru parça garantisi.
+                    </p>
+                    <div class="text-xs space-y-2 mb-4 font-semibold">
+                        <p><i class="fa-solid fa-location-dot text-red-600 mr-2"></i>Karşıyaka Mah. Kocakesik Sok. No: 509, Kumluca / Antalya</p>
+                        <p><i class="fa-solid fa-phone text-yellow-600 mr-2"></i>0242 887 89 80 | Baki Özen: 0532 724 94 17</p>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-2.5 px-4 rounded-xl text-xs uppercase">
+                        <i class="fa-solid fa-location-arrow"></i> Google Maps ile Rota Al
+                    </a>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-brand-borderDark h-56">
+                    <img src="dukkan.png" alt="Özen Oto Dükkan" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-gray-500 py-6 text-center text-xs border-t border-gray-800">
+        <p class="font-bold text-gray-400">&copy; 2026 Özen Oto Baki Özen - Kumluca / Antalya</p>
+    </footer>
+
+    <!-- WHATSAPP BUTONU -->
+    <a href="https://wa.me/905327249417" target="_blank" class="fixed bottom-5 right-5 z-[90] bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-2xl">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- SEPET MODALI -->
+    <div id="sepet-modal" onclick="sepetModalKapat()" class="fixed inset-0 z-[160] bg-black/75 cam-efekt hidden items-center justify-center p-4">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-borderDark w-full max-w-lg p-5 rounded-2xl flex flex-col max-h-[80vh]">
+            <div class="flex items-center justify-between pb-3 border-b dark:border-brand-borderDark">
+                <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-yellow-500"></i> Parça Sepetiniz
+                </h3>
+                <button onclick="sepetModalKapat()" class="text-gray-400 hover:text-red-500 text-lg font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="sepet-modal-liste" class="flex-1 overflow-y-auto py-3 space-y-2"></div>
+
+            <div class="pt-3 border-t dark:border-brand-borderDark">
+                <button onclick="whatsappSiparisGonder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl text-xs uppercase flex items-center justify-center gap-2 shadow">
+                    <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp'a Sipariş Talebi Gönder
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        let yerelUrunler = [...(window.urunler || [])];
+        let mevcutKategori = 'hepsi';
+        let goruntulenenSayisi = 8;
+        let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
 
-        function sifreKontrolEt() {
-            if (document.getElementById('admin-sifre-girdi').value === 'ozen2026') {
-                document.getElementById('sifre-ekrani').classList.add('hidden');
-                document.getElementById('admin-icerik').classList.remove('hidden');
-                kodUret();
-            } else alert("Hatalı şifre!");
+        function resimYolu(resim) {
+            if (!resim) return '';
+            if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) return resim;
+            return 'gorseller/' + resim;
         }
 
-        function adminUrunAra() {
-            const girdi = document.getElementById('admin-arama').value.toLowerCase().trim();
-            const liste = document.getElementById('admin-arama-liste');
-            if (!girdi) { liste.classList.add('hidden'); return; }
-
-            const eslesenler = yerelUrunler.filter(u => u.baslik.toLowerCase().includes(girdi) || u.oem.toLowerCase().includes(girdi));
-            if (eslesenler.length > 0) {
-                liste.innerHTML = eslesenler.map(u => `
-                    <div onclick="urunFormaYukle('${u.id}')" class="p-2 border-b border-gray-800 hover:bg-yellow-500/10 cursor-pointer flex justify-between text-xs">
-                        <strong class="text-white">${u.baslik}</strong>
-                        <span class="text-yellow-500">Düzenle</span>
-                    </div>
-                `).join('');
-                liste.classList.remove('hidden');
-            } else liste.classList.add('hidden');
+        function guvenlikKapat() {
+            document.getElementById('guvenlik-uyarisi').classList.add('hidden');
+            sessionStorage.setItem('guvenlik_uyarisi_goruldu', 'true');
         }
 
-        function urunFormaYukle(id) {
-            const u = yerelUrunler.find(item => item.id === id);
-            if (!u) return;
+        function profilArayuzGuncelle() {
+            const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici'));
+            const headerYazi = document.getElementById('profil-header-yazi');
+            const cikisBtn = document.getElementById('cikis-btn');
 
-            document.getElementById('p-id').value = u.id;
-            document.getElementById('p-baslik').value = u.baslik;
-            document.getElementById('p-marka').value = u.marka || u.etiket || '';
-            document.getElementById('p-oem').value = u.oem;
-            document.getElementById('p-arac').value = u.arac || 'Renault Megane 4 / Kadjar';
-            document.getElementById('p-stok').value = u.stok || 'var';
-            document.getElementById('p-kategori').value = u.kategori || 'motor';
-            document.getElementById('p-resim').value = u.resim || '';
-
-            document.getElementById('form-baslik').innerText = "Ürün Düzenleme Modu";
-            document.getElementById('btn-sil').classList.remove('hidden');
-            document.getElementById('admin-arama-liste').classList.add('hidden');
-        }
-
-        function urunKaydet() {
-            const id = document.getElementById('p-id').value || 'u_' + Date.now();
-            const baslik = document.getElementById('p-baslik').value.trim();
-            const marka = document.getElementById('p-marka').value.trim() || 'MAİS';
-            const oem = document.getElementById('p-oem').value.trim().toUpperCase();
-            const arac = document.getElementById('p-arac').value;
-            const stok = document.getElementById('p-stok').value;
-            const kategori = document.getElementById('p-kategori').value;
-            const resim = document.getElementById('p-resim').value.trim();
-
-            if (!baslik || !oem) { alert("Başlık ve OEM alanları zorunludur."); return; }
-
-            const varOlanIndex = yerelUrunler.findIndex(item => item.id === id);
-            const yeniObje = { id, baslik, oem, arac, kategori, etiket: marka, marka, stok, resim };
-
-            if (varOlanIndex > -1) yerelUrunler[varOlanIndex] = yeniObje;
-            else yerelUrunler.push(yeniObje);
-
-            kodUret(); paneliSifirla();
-            alert("Ürün kaydedildi! Kodu kopyalayıp urunler.js dosyasına yapıştırın.");
-        }
-
-        function urunSil() {
-            const id = document.getElementById('p-id').value;
-            if (id && confirm("Silmek istiyor musunuz?")) {
-                yerelUrunler = yerelUrunler.filter(item => item.id !== id);
-                kodUret(); paneliSifirla();
+            if (kullanici && kullanici.adSoyad) {
+                headerYazi.textContent = kullanici.adSoyad.split(' ')[0];
+                cikisBtn.classList.remove('hidden');
+                document.getElementById('prof-ad').value = kullanici.adSoyad || '';
+                document.getElementById('prof-tel').value = kullanici.telefon || '';
+                document.getElementById('prof-sasi').value = kullanici.sasi || '';
+            } else {
+                headerYazi.textContent = "Şasi / Profil";
+                cikisBtn.classList.add('hidden');
             }
         }
 
-        function paneliSifirla() {
-            document.getElementById('p-id').value = '';
-            document.getElementById('p-baslik').value = '';
-            document.getElementById('p-marka').value = '';
-            document.getElementById('p-oem').value = '';
-            document.getElementById('p-resim').value = '';
-            document.getElementById('admin-arama').value = '';
-            document.getElementById('btn-sil').classList.add('hidden');
+        function profilModalAc() { profilArayuzGuncelle(); document.getElementById('profil-modal').classList.remove('hidden'); document.getElementById('profil-modal').classList.add('flex'); }
+        function profilModalKapat() { document.getElementById('profil-modal').classList.add('hidden'); document.getElementById('profil-modal').classList.remove('flex'); }
+
+        function profilKaydet() {
+            const adSoyad = document.getElementById('prof-ad').value.trim();
+            const telefon = document.getElementById('prof-tel').value.trim();
+            const sasi = document.getElementById('prof-sasi').value.trim().toUpperCase();
+
+            if (!adSoyad) { alert("Lütfen adınızı giriniz."); return; }
+
+            localStorage.setItem('ozen_kullanici', JSON.stringify({ adSoyad, telefon, sasi }));
+            profilArayuzGuncelle();
+            profilModalKapat();
         }
 
-        function kodUret() {
-            document.getElementById('kod-çıktısı').value = `window.urunler = ${JSON.stringify(yerelUrunler, null, 4)};`;
+        function cikisYap() {
+            localStorage.removeItem('ozen_kullanici');
+            document.getElementById('prof-ad').value = '';
+            document.getElementById('prof-tel').value = '';
+            document.getElementById('prof-sasi').value = '';
+            profilArayuzGuncelle();
+            profilModalKapat();
         }
 
-        function koduKopyala() {
-            const txt = document.getElementById('kod-çıktısı');
-            txt.select();
-            navigator.clipboard.writeText(txt.value);
-            alert("Kopyalandı! urunler.js dosyasına yapıştırabilirsiniz.");
+        function durumGuncelle() {
+            const simdi = new Date();
+            const gun = simdi.getDay();
+            const saat = simdi.getHours();
+            const rozet = document.getElementById('calisma-durumu');
+            if (!rozet) return;
+
+            if (gun >= 1 && gun <= 6 && saat >= 8 && saat < 19) {
+                rozet.innerHTML = `<span class="text-green-500 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i>AÇIK</span>`;
+            } else {
+                rozet.innerHTML = `<span class="text-red-500 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i>KAPALI</span>`;
+            }
         }
+
+        function turkceNormalize(str) {
+            if (!str) return '';
+            return str.toLowerCase().replace(/ı/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[^a-z0-9 ]/g, '');
+        }
+
+        function sepeteEkle(urunId) {
+            const tumUrunler = window.urunler || [];
+            const urun = tumUrunler.find(u => u.id === urunId);
+            if (!urun) return;
+
+            const varOlan = sepet.find(item => item.id === urunId);
+            if (varOlan) varOlan.adet += 1;
+            else sepet.push({ id: urun.id, baslik: urun.baslik, oem: urun.oem, arac: urun.arac, adet: 1 });
+
+            sepetiKaydet();
+            sepetArayuzunuGuncelle();
+        }
+
+        function sepetiKaydet() { localStorage.setItem('ozen_sepet', JSON.stringify(sepet)); }
+
+        function sepetArayuzunuGuncelle() {
+            const toplamAdet = sepet.reduce((toplam, item) => toplam + item.adet, 0);
+            const headerSayac = document.getElementById('sepet-sayac');
+            if (headerSayac) { headerSayac.textContent = toplamAdet; headerSayac.style.display = toplamAdet > 0 ? 'flex' : 'none'; }
+
+            const sepetListe = document.getElementById('sepet-modal-liste');
+            if (sepetListe) {
+                if (sepet.length === 0) {
+                    sepetListe.innerHTML = `<p class="text-center py-8 text-gray-500 text-xs">Sepetiniz boş.</p>`;
+                } else {
+                    sepetListe.innerHTML = sepet.map(item => `
+                        <div class="flex items-center justify-between p-2.5 bg-gray-100 dark:bg-gray-900 rounded-lg text-xs">
+                            <div>
+                                <strong class="block dark:text-white">${item.baslik}</strong>
+                                <span class="text-[10px] text-gray-500 font-mono">OEM: ${item.oem}</span>
+                            </div>
+                            <span class="font-bold text-yellow-500">${item.adet} Adet</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function whatsappSiparisGonder() {
+            if (sepet.length === 0) return;
+            const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
+
+            let mesaj = `🛒 *ÖZEN OTO - SİPARİŞ SORGUSU*\n\n`;
+            if (kullanici.adSoyad) {
+                mesaj += `👤 Müşteri: ${kullanici.adSoyad}\n`;
+                if (kullanici.sasi) mesaj += `🚘 Şasi No: ${kullanici.sasi}\n`;
+                mesaj += `---------------------\n`;
+            }
+            sepet.forEach((item, i) => { mesaj += `${i+1}. ${item.baslik} (OEM: ${item.oem}) x${item.adet}\n`; });
+
+            window.open(`https://wa.me/905327249417?text=${encodeURIComponent(mesaj)}`, '_blank');
+        }
+
+        function sepetModalAc() { document.getElementById('sepet-modal').classList.remove('hidden'); document.getElementById('sepet-modal').classList.add('flex'); }
+        function sepetModalKapat() { document.getElementById('sepet-modal').classList.add('hidden'); document.getElementById('sepet-modal').classList.remove('flex'); }
+
+        function temaDegistir() {
+            const htmlTag = document.documentElement;
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark'); localStorage.setItem('theme', 'light');
+            } else {
+                htmlTag.classList.add('dark'); localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function urunKartHtml(u) {
+            const gorselUrl = resimYolu(u.resim);
+            const etiket = u.marka || u.etiket || 'MAİS';
+            
+            let stokBadge = `<span class="bg-green-600 text-white text-[9px] font-bold px-2 py-0.5 rounded">Stokta Var</span>`;
+            if (u.stok === 'sinirli') stokBadge = `<span class="bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 rounded">Sınırlı Stok</span>`;
+            if (u.stok === 'tukendi') stokBadge = `<span class="bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded">Sipariş Üzerine</span>`;
+
+            return `
+                <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-borderDark rounded-xl overflow-hidden shadow-sm flex flex-col justify-between kart-hover">
+                    <div>
+                        <div class="bg-gray-100 dark:bg-gray-900 h-48 relative flex items-center justify-center">
+                            <span class="absolute top-2.5 left-2.5 bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded uppercase z-10">${etiket}</span>
+                            <div class="absolute top-2.5 right-2.5 z-10">${stokBadge}</div>
+                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-5xl text-gray-300 dark:text-gray-700"></i>`}
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[10px] font-black text-red-600 dark:text-red-400 uppercase block mb-1">${u.arac}</span>
+                            <h4 class="font-bold text-xs text-gray-900 dark:text-white line-clamp-2">${u.baslik}</h4>
+                            <p class="text-[11px] text-gray-500 font-mono mt-2">OEM: <strong class="text-gray-800 dark:text-gray-200">${u.oem}</strong></p>
+                        </div>
+                    </div>
+                    <div class="p-3 border-t dark:border-brand-borderDark bg-gray-50 dark:bg-gray-900/50 flex gap-2">
+                        <button onclick="sepeteEkle('${u.id}')" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-2 text-[11px] uppercase rounded-lg">
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function urunleriYukle() {
+            const izgara = document.getElementById('urun-izgarasi');
+            const tumUrunler = window.urunler || [];
+            let suzulenler = [...tumUrunler].reverse();
+
+            if (mevcutKategori !== 'hepsi') {
+                suzulenler = suzulenler.filter(u => u.kategori === mevcutKategori);
+            }
+
+            izgara.innerHTML = suzulenler.slice(0, goruntulenenSayisi).map(u => urunKartHtml(u)).join('');
+        }
+
+        function kategoriFiltrele(kat) {
+            mevcutKategori = kat;
+            goruntulenenSayisi = 8;
+            urunleriYukle();
+        }
+
+        function dahaFazlaYukle() { goruntulenenSayisi += 8; urunleriYukle(); }
+
+        function canliAramaYap() {
+            const aranan = turkceNormalize(document.getElementById('arama-girdisi').value.trim());
+            const kutu = document.getElementById('arama-sonuclari');
+            const tumUrunler = window.urunler || [];
+
+            if (!aranan) { kutu.classList.add('hidden'); return; }
+
+            const eslesenler = tumUrunler.filter(u => 
+                turkceNormalize(u.baslik).includes(aranan) || 
+                turkceNormalize(u.oem).includes(aranan) || 
+                turkceNormalize(u.arac || '').includes(aranan)
+            ).slice(0, 5);
+
+            if (eslesenler.length > 0) {
+                kutu.innerHTML = eslesenler.map(u => `
+                    <a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(u.baslik)}%20(OEM:%20${u.oem})%20stokta%20var%20mı?" target="_blank" class="p-2.5 border-b dark:border-gray-800 hover:bg-yellow-500/10 flex items-center justify-between text-xs block">
+                        <div>
+                            <strong class="text-gray-900 dark:text-white block">${u.baslik}</strong>
+                            <span class="text-[10px] text-gray-500">OEM: ${u.oem} | ${u.arac}</span>
+                        </div>
+                        <span class="text-green-600 font-bold"><i class="fa-brands fa-whatsapp"></i> Sor</span>
+                    </a>
+                `).join('');
+                kutu.classList.remove('hidden');
+            } else {
+                kutu.classList.add('hidden');
+            }
+        }
+
+        window.onload = function() {
+            durumGuncelle();
+            urunleriYukle();
+            sepetArayuzunuGuncelle();
+            profilArayuzGuncelle();
+            if (!sessionStorage.getItem('guvenlik_uyarisi_goruldu')) {
+                document.getElementById('guvenlik-uyarisi').classList.remove('hidden');
+                document.getElementById('guvenlik-uyarisi').classList.add('flex');
+            }
+        };
     </script>
 </body>
 </html>
