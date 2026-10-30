@@ -7,10 +7,19 @@
     <!-- SEO METATAGLARI -->
     <title>Özen Oto | Renault & Dacia Orijinal Yedek Parça Kumluca Antalya</title>
     <meta name="description" content="Kumluca Antalya'da Renault ve Dacia orijinal MAİS yedek parça, mekanik aksam, filtre, fren ve sıfır sandık motor tedariği. Faturalı ve güvenilir oto yedek parça.">
-    <meta name="keywords" content="Renault yedek parça Kumluca, Dacia yedek parça Antalya, MAİS orijinal parça, Kumluca oto sanayi, Megane 4 triger, Duster yedek parça, Özen Oto Baki Özen">
+    <meta name="keywords" content="Renault yedek parça Kumluca, Dacia yedek parça Antalya, MAİS orijinal parça, Kumluca oto sanayi, Megane 4 triger, Duster yedek parça, LUK debriyaj, Valeo fren">
     <meta name="author" content="Özen Oto Yedek Parça">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://muhammedozn9801-cell.github.io/ozenoto/">
+
+    <!-- GOOGLE ANALYTICS CANLI SAYAÇ KODU (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0K902SVRH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L0K902SVRH');
+    </script>
 
     <!-- PRECONNECT HIZLANDIRMA -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
@@ -19,10 +28,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- FIREBASE AUTHENTICATION (GOOGLE GİRİŞ ALTYAPISI) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-
     <!-- KOYU MOD HAFIZA KONTROLÜ -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
@@ -88,7 +93,7 @@
         <span>ÖNEMLİ UYARI: Sitemizden veya mağazamızdan satın alacağınız <span class="bg-yellow-400 text-black px-2 py-0.5 rounded shadow-sm">Orijinal MAİS</span> logolu ürünlerin kesinlikle iadesi yoktur!</span>
     </div>
 
-    <!-- GÜVENLİK MODALI (TEK SEFERLİK VE DIŞARI TIKLAYINCA KAPANAN AFİŞ) -->
+    <!-- GÜVENLİK MODALI -->
     <div id="guvenlik-uyarisi" onclick="guvenlikKapat()" class="fixed inset-0 z-[120] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
         <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-red-600 w-full max-w-2xl p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal cursor-default">
             <h2 class="text-2xl font-black text-red-600 mb-4 uppercase border-b pb-3 dark:border-gray-800 flex items-center justify-between">
@@ -245,9 +250,20 @@
     <!-- HEADER -->
     <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 kutu-golge border-b dark:border-gray-800/80 sticky top-0 z-50 transition-colors">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <a href="index.html" class="flex flex-col group">
-                <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight group-hover:text-yellow-500 transition-colors">ÖZEN OTO</span>
-                <span class="text-[10px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
+            
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="flex flex-col">
+                    <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight group-hover:text-yellow-500 transition-colors">ÖZEN OTO</span>
+                    <span class="text-[10px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
+                </div>
+                <div class="flex items-center gap-1.5 pl-2 border-l-2 border-gray-300 dark:border-gray-800">
+                    <div class="w-7 h-7 bg-yellow-500 text-black rounded-lg flex items-center justify-center shadow-sm font-black text-xs" title="Renault Uzmanlığı">
+                        <i class="fa-solid fa-diamond"></i>
+                    </div>
+                    <div class="w-7 h-7 bg-gray-900 text-white dark:bg-gray-800 rounded-lg flex items-center justify-center shadow-sm font-black text-[10px]" title="Dacia Uzmanlığı">
+                        DAC
+                    </div>
+                </div>
             </a>
 
             <!-- ARAMA ALANI -->
@@ -297,15 +313,40 @@
     </nav>
 
     <!-- VİDEO BANTI -->
-    <div class="relative w-full h-[360px] md:h-[460px] bg-black overflow-hidden border-b-4 border-yellow-500">
+    <div class="relative w-full h-[360px] md:h-[460px] bg-black overflow-hidden">
         <video id="arka-plan-video" autoplay muted playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-75 transition-opacity duration-700" src="renault1.mp4">
         </video>
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end">
             <div class="container mx-auto px-4 pb-10 text-white">
-                <span class="bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider mb-2 inline-block shadow-lg">Orijinal Güvence</span>
-                <h1 class="text-2xl md:text-5xl font-black uppercase tracking-tight">Renault & Dacia Sıfır Orijinal Parça Tedariği</h1>
-                <p class="text-xs md:text-base text-gray-300 mt-2 max-w-xl leading-relaxed">Aynı gün kargo ve mağazamızdan direkt teslimat imkanıyla aracınıza %100 uyumlu MAİS parçaları.</p>
+                <span class="bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider mb-2 inline-block shadow-lg">Orijinal & A Kalite Tedarik</span>
+                <h1 class="text-2xl md:text-5xl font-black uppercase tracking-tight">Renault & Dacia Yedek Parça Tedarik Merkezi</h1>
+                <p class="text-xs md:text-base text-gray-300 mt-2 max-w-xl leading-relaxed">Orijinal MAİS ve A kalite muadil üretici parçaları aynı gün kargo ve mağazamızdan direkt teslimat imkanıyla.</p>
             </div>
+        </div>
+    </div>
+
+    <!-- MARKA GÜVEN BANDI (RENAULT, DACIA, LUK, VALEO, BOSCH, SACHS, DELPHI, DAYCO) -->
+    <div class="bg-gray-900 border-y border-gray-800 py-4 shadow-inner overflow-x-auto">
+        <div class="container mx-auto px-4 flex items-center justify-between min-w-[700px] gap-6 text-gray-400 font-black text-xs uppercase">
+            <div class="flex items-center gap-2 text-yellow-400 font-bold border-r border-gray-800 pr-4">
+                <i class="fa-solid fa-shield-halved text-base"></i>
+                <span>ANLAŞMALI MARKALARIMIZ</span>
+            </div>
+            
+            <span class="flex items-center gap-1.5 hover:text-white transition-colors cursor-default" title="Orijinal MAİS Parça">
+                <i class="fa-solid fa-diamond text-yellow-500"></i> RENAULT MAİS
+            </span>
+            <span class="flex items-center gap-1.5 hover:text-white transition-colors cursor-default" title="Dacia Orijinal Tedarik">
+                <span class="text-yellow-500 font-black">DAC</span> DACIA
+            </span>
+            <span class="bg-yellow-500/10 text-yellow-400 px-2.5 py-1 rounded-md border border-yellow-500/20 font-black" title="LUK Debriyaj ve Oynar Volan">
+                LUK
+            </span>
+            <span class="hover:text-white transition-colors cursor-default">VALEO</span>
+            <span class="hover:text-white transition-colors cursor-default">BOSCH</span>
+            <span class="hover:text-white transition-colors cursor-default">SACHS</span>
+            <span class="hover:text-white transition-colors cursor-default">DELPHI</span>
+            <span class="hover:text-white transition-colors cursor-default">DAYCO / GATES</span>
         </div>
     </div>
 
@@ -316,7 +357,7 @@
                 <h2 class="text-2xl md:text-3xl font-black uppercase text-gray-900 dark:text-white flex items-center gap-3">
                     <i class="fa-solid fa-bolt text-yellow-500 animate-pulse"></i> Yeni Eklenen & Öne Çıkan Parçalar
                 </h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Stoklarımıza en son giren orijinal parçalar otomatik olarak en başta listelenir.</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Stoklarımıza en son giren orijinal ve A kalite parçalar en başta listelenir.</p>
             </div>
 
             <div class="flex flex-wrap gap-2" id="kategori-butonlari">
@@ -340,7 +381,7 @@
         </div>
     </div>
 
-    <!-- GOOGLE MÜŞTERİ YORUMLARI BÖLÜMÜ -->
+    <!-- GOOGLE MÜŞTERİ YORUMLARI -->
     <div id="yorumlar" class="bg-gray-50 dark:bg-gray-900/50 py-16 border-t border-b border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-4 max-w-2xl text-center">
             <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full shadow-sm mb-4">
@@ -375,7 +416,7 @@
                         <i class="fa-solid fa-chevron-down text-xs transition-transform group-open:rotate-180 text-yellow-500"></i>
                     </summary>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mt-3 leading-relaxed border-t pt-3 dark:border-gray-800">
-                        Evet, stoklarımızda yer alan MAİS logolu ürünlerin tamamı yetkili tedarik kanallarından sağlanan %100 orijinal, ambalajlı ve faturalı ürünlerdir.
+                        Evet, stoklarımızda yer alan MAİS logolu ürünlerin tamamı yetkili tedarik kanallarından sağlanan %100 orijinal, ambalajlı ve faturalı ürünlerdir. Muadil ürünlerimiz ise LUK, Valeo, Bosch gibi lider üreticilerdir.
                     </p>
                 </details>
 
@@ -514,82 +555,6 @@
         </button>
     </div>
 
-    <!-- ÇEREZ & KVKK BİLDİRİM BANDI -->
-    <div id="cerez-bandi" class="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-xl z-[100] bg-gray-900/95 text-white p-5 rounded-2xl shadow-2xl border border-yellow-500/30 cam-efekt hidden animasyon-acilis">
-        <div class="flex items-start gap-3">
-            <i class="fa-solid fa-cookie-bite text-yellow-500 text-2xl mt-1 flex-shrink-0"></i>
-            <div class="flex-1">
-                <h5 class="text-xs font-black uppercase text-white mb-1">Çerez ve Gizlilik Tercihleriniz</h5>
-                <p class="text-[11px] text-gray-300 leading-relaxed">
-                    Özen Oto olarak, sitemizde alışveriş deneyiminizi iyileştirmek, sepet hafızasını korumak ve ziyaretçi trafiğimizi analiz etmek amacıyla çerezler kullanmaktayız.
-                </p>
-                <div class="mt-4 flex flex-wrap gap-2">
-                    <button onclick="cerezTumunuKabulEt()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-black px-4 py-2 rounded-xl text-[11px] uppercase tracking-wider transition-all active:scale-95 shadow-md">
-                        Tümünü Kabul Et
-                    </button>
-                    <button onclick="cerezSadeceZorunlu()" class="bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold px-3.5 py-2 rounded-xl text-[11px] uppercase transition-all active:scale-95">
-                        Sadece Zorunlular
-                    </button>
-                    <button onclick="cerezModalAc()" class="bg-transparent hover:bg-gray-800 text-yellow-400 font-bold px-3 py-2 rounded-xl text-[11px] uppercase underline transition-all">
-                        Tercihleri Yönet
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DETAYLI ÇEREZ TERCİHLERİ MODALI -->
-    <div id="cerez-modal" onclick="cerezModalKapat()" class="fixed inset-0 z-[170] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
-        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
-            <button onclick="cerezModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
-
-            <div class="mb-5">
-                <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-yellow-500"></i> Çerez Tercihleri
-                </h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Hangi çerez kategorilerine izin vermek istediğinizi aşağıdan özelleştirebilirsiniz.</p>
-            </div>
-
-            <div class="space-y-4">
-                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
-                    <div>
-                        <strong class="text-xs font-black text-gray-900 dark:text-white block uppercase">1. Zorunlu Çerezler</strong>
-                        <p class="text-[10px] text-gray-500 mt-0.5">Sepet içeriği, gece modu ve oturum bilgileri için şarttır.</p>
-                    </div>
-                    <span class="text-[10px] bg-green-500/20 text-green-600 dark:text-green-400 font-black px-2.5 py-1 rounded-md uppercase">Her Zaman Aktif</span>
-                </div>
-
-                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
-                    <div>
-                        <strong class="text-xs font-black text-gray-900 dark:text-white block uppercase">2. Analitik ve Performans</strong>
-                        <p class="text-[10px] text-gray-500 mt-0.5">Google Analytics ile ziyaretçi trafiğini anonim ölçümlememizi sağlar.</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="cerez-analitik-check" class="sr-only peer" checked>
-                        <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500"></div>
-                    </label>
-                </div>
-
-                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
-                    <div>
-                        <strong class="text-xs font-black text-gray-900 dark:text-white block uppercase">3. Pazarlama & Reklam</strong>
-                        <p class="text-[10px] text-gray-500 mt-0.5">İlginizi çekebilecek özel kampanya ve ürün duyuruları sunar.</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="cerez-pazarlama-check" class="sr-only peer">
-                        <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500"></div>
-                    </label>
-                </div>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800">
-                <button onclick="cerezTercihleriKaydet()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3 rounded-xl text-xs uppercase shadow-md transition-all active:scale-95">
-                    Tercihlerimi Kaydet
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- TOAST BİLDİRİM KUTUSU -->
     <div id="toast-bildirim" class="fixed bottom-20 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden transition-all duration-300">
         <span id="toast-mesaj">Kopyalandı!</span>
@@ -609,7 +574,6 @@
             return 'gorseller/' + resim;
         }
 
-        // GÜVENLİK MODALI KONTROLÜ
         function guvenlikKontrol() {
             if (!sessionStorage.getItem('guvenlik_uyarisi_goruldu')) {
                 const modal = document.getElementById('guvenlik-uyarisi');
@@ -629,52 +593,6 @@
             sessionStorage.setItem('guvenlik_uyarisi_goruldu', 'true');
         }
 
-        // ÇEREZ BİLDİRİM FONKSİYONLARI
-        function cerezKontrol() {
-            if (!localStorage.getItem('cerez_tercihi')) {
-                document.getElementById('cerez-bandi').classList.remove('hidden');
-            }
-        }
-
-        function cerezTumunuKabulEt() {
-            const tercihler = { zorunlu: true, analitik: true, pazarlama: true };
-            localStorage.setItem('cerez_tercihi', JSON.stringify(tercihler));
-            document.getElementById('cerez-bandi').classList.add('hidden');
-            toastGoster("Tüm çerez tercihleri kabul edildi.");
-        }
-
-        function cerezSadeceZorunlu() {
-            const tercihler = { zorunlu: true, analitik: false, pazarlama: false };
-            localStorage.setItem('cerez_tercihi', JSON.stringify(tercihler));
-            document.getElementById('cerez-bandi').classList.add('hidden');
-            toastGoster("Sadece zorunlu çerezler aktif edildi.");
-        }
-
-        function cerezModalAc() {
-            const modal = document.getElementById('cerez-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function cerezModalKapat() {
-            const modal = document.getElementById('cerez-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function cerezTercihleriKaydet() {
-            const analitik = document.getElementById('cerez-analitik-check').checked;
-            const pazarlama = document.getElementById('cerez-pazarlama-check').checked;
-
-            const tercihler = { zorunlu: true, analitik: analitik, pazarlama: pazarlama };
-            localStorage.setItem('cerez_tercihi', JSON.stringify(tercihler));
-            
-            cerezModalKapat();
-            document.getElementById('cerez-bandi').classList.add('hidden');
-            toastGoster("Çerez tercihleriniz güncellendi.");
-        }
-
-        // PROFİL VE MÜŞTERİ YÖNETİMİ
         function profilArayuzGuncelle() {
             const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici'));
             const headerYazi = document.getElementById('profil-header-yazi');
@@ -758,12 +676,7 @@
         function googleIleGirisYap() {
             const ornekAd = prompt("Google Hesabınızdaki Adınız Soyadınız:", "Müşteri");
             if (ornekAd) {
-                const kul = {
-                    adSoyad: ornekAd,
-                    telefon: "",
-                    adres: "",
-                    sasi: ""
-                };
+                const kul = { adSoyad: ornekAd, telefon: "", adres: "", sasi: "" };
                 localStorage.setItem('ozen_kullanici', JSON.stringify(kul));
                 profilArayuzGuncelle();
                 toastGoster("Google ile giriş başarılı!");
@@ -809,7 +722,6 @@
                 .replace(/[^a-z0-9 ]/g, '');
         }
 
-        // AKILLI SEPET FONKSİYONLARI
         function sepeteEkle(urunId) {
             const tumUrunler = window.urunler || [];
             const urun = tumUrunler.find(u => u.id === urunId);
@@ -1201,7 +1113,6 @@
                 sepetModalKapat();
                 sasiModalKapat();
                 profilModalKapat();
-                cerezModalKapat();
             }
         });
 
@@ -1232,7 +1143,6 @@
             urunleriYukle();
             sepetArayuzunuGuncelle();
             guvenlikKontrol();
-            cerezKontrol();
             profilArayuzGuncelle();
         };
     </script>
