@@ -1,8 +1,3 @@
-Bütün sepet modülleri, butonlar, mobil yüzen çubuk ve WhatsApp entegrasyonu `index.html` dosyana eksiksiz şekilde eklendi.
-
-Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.html`** dosyasının içine yapıştırman yeterlidir:
-
-```html
 <!DOCTYPE html>
 <html lang="tr" class="light scroll-smooth">
 <head>
@@ -201,7 +196,7 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
         </div>
     </div>
 
-    <!-- HEADER (CAM EFEKT & YAPAY ZEKA DIŞI TASARIM) -->
+    <!-- HEADER -->
     <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 kutu-golge border-b dark:border-gray-800/80 sticky top-0 z-50 transition-colors">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <a href="index.html" class="flex flex-col group">
@@ -218,7 +213,7 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
                         <span>ARA</span>
                     </button>
                 </div>
-                <!-- Canlı Hızlı Açılır Liste (Kanal Önizlemesi) -->
+                <!-- Canlı Hızlı Açılır Liste -->
                 <div id="arama-sonuclari" class="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden max-h-80 overflow-y-auto z-[200]"></div>
             </div>
 
@@ -228,7 +223,7 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
                     <span class="hidden sm:inline">Şasi No İle Sorgula</span>
                 </button>
 
-                <!-- SEPET BUTONU & SAYAÇ -->
+                <!-- SEPET BUTONU VE SAYACI -->
                 <button onclick="sepetModalAc()" class="relative p-3 rounded-xl border border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center justify-center transition-all active:scale-95" title="Sepetim">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                     <span id="sepet-sayac" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-brand-dark hidden">0</span>
@@ -446,7 +441,6 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
 
             <!-- Ürün Listesi Kaydırma Alanı -->
             <div id="sepet-modal-liste" class="flex-1 overflow-y-auto py-4 space-y-3 pr-1">
-                <!-- sepet.js burayı dolduracak -->
             </div>
 
             <div class="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
@@ -479,12 +473,13 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
         <span id="toast-mesaj">Kopyalandı!</span>
     </div>
 
-    <!-- SCRIPT'LER -->
+    <!-- SCRIPT'LER (TÜM MANTIKSAL KODLAR DAHİLİ) -->
     <script>
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
+        let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
 
-        // RESİM YOLU TAMAMLAYICI (Akbay gibi dış linkleri korur, yerel dosyaları gorseller/ klasörüne yönlendirir)
+        // RESİM YOLU TAMAMLAYICI
         function resimYolu(resim) {
             if (!resim) return '';
             if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
@@ -496,7 +491,7 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
         // OTOMATİK CANLI ÇALIŞMA SAATİ KONTROLÜ
         function durumGuncelle() {
             const simdi = new Date();
-            const gun = simdi.getDay(); // 0: Pazar, 1: Pzt, ... 6: Cmt
+            const gun = simdi.getDay();
             const saat = simdi.getHours();
             const rozet = document.getElementById('calisma-durumu');
 
@@ -531,6 +526,130 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
                 .replace(/ö/g, 'o')
                 .replace(/ç/g, 'c')
                 .replace(/[^a-z0-9 ]/g, '');
+        }
+
+        // AKILLI SEPET FONKSİYONLARI
+        function sepeteEkle(urunId) {
+            const tumUrunler = window.urunler || [];
+            const urun = tumUrunler.find(u => u.id === urunId);
+            if (!urun) return;
+
+            const varOlan = sepet.find(item => item.id === urunId);
+            if (varOlan) {
+                varOlan.adet += 1;
+            } else {
+                sepet.push({
+                    id: urun.id,
+                    baslik: urun.baslik,
+                    oem: urun.oem,
+                    arac: urun.arac,
+                    resim: urun.resim,
+                    adet: 1
+                });
+            }
+
+            sepetiKaydet();
+            sepetArayuzunuGuncelle();
+            toastGoster(`${urun.baslik.substring(0, 22)}... sepete eklendi!`);
+        }
+
+        function sepetAdetDegistir(urunId, degisim) {
+            const item = sepet.find(i => i.id === urunId);
+            if (!item) return;
+
+            item.adet += degisim;
+            if (item.adet <= 0) {
+                sepettenCikar(urunId);
+            } else {
+                sepetiKaydet();
+                sepetArayuzunuGuncelle();
+            }
+        }
+
+        function sepettenCikar(urunId) {
+            sepet = sepet.filter(i => i.id !== urunId);
+            sepetiKaydet();
+            sepetArayuzunuGuncelle();
+        }
+
+        function sepetiKaydet() {
+            localStorage.setItem('ozen_sepet', JSON.stringify(sepet));
+        }
+
+        function sepetArayuzunuGuncelle() {
+            const toplamAdet = sepet.reduce((toplam, item) => toplam + item.adet, 0);
+            
+            const headerSayac = document.getElementById('sepet-sayac');
+            if (headerSayac) {
+                headerSayac.textContent = toplamAdet;
+                headerSayac.style.display = toplamAdet > 0 ? 'flex' : 'none';
+            }
+
+            const mobilBar = document.getElementById('mobil-sepet-bar');
+            if (mobilBar) {
+                if (toplamAdet > 0) {
+                    mobilBar.classList.remove('translate-y-full');
+                    document.getElementById('mobil-sepet-adet').textContent = `${toplamAdet} Parça`;
+                } else {
+                    mobilBar.classList.add('translate-y-full');
+                }
+            }
+
+            const sepetListe = document.getElementById('sepet-modal-liste');
+            if (sepetListe) {
+                if (sepet.length === 0) {
+                    sepetListe.innerHTML = `
+                        <div class="text-center py-12 text-gray-400">
+                            <i class="fa-solid fa-cart-flatbed text-5xl mb-3 text-gray-300 dark:text-gray-700"></i>
+                            <p class="font-bold text-sm text-gray-700 dark:text-gray-300">Sepetiniz şu an boş.</p>
+                            <p class="text-xs text-gray-500 mt-1">İhtiyacınız olan parçaları "Sepete Ekle" butonuyla ekleyebilirsiniz.</p>
+                        </div>`;
+                } else {
+                    sepetListe.innerHTML = sepet.map(item => `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 gap-3">
+                            <div class="flex-1 min-w-0">
+                                <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate">${item.baslik}</h5>
+                                <p class="text-[10px] text-gray-500 font-mono mt-0.5">OEM: ${item.oem} | ${item.arac}</p>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button onclick="sepetAdetDegistir('${item.id}', -1)" class="w-7 h-7 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg flex items-center justify-center font-bold text-xs hover:bg-red-500 hover:text-white transition-colors">-</button>
+                                <span class="text-xs font-black w-5 text-center dark:text-white">${item.adet}</span>
+                                <button onclick="sepetAdetDegistir('${item.id}', 1)" class="w-7 h-7 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg flex items-center justify-center font-bold text-xs hover:bg-green-500 hover:text-white transition-colors">+</button>
+                                <button onclick="sepettenCikar('${item.id}')" class="text-red-500 hover:text-red-700 ml-1 text-xs p-1"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function whatsappSiparisGonder() {
+            if (sepet.length === 0) {
+                alert("Sepetinizde ürün bulunmamaktadır.");
+                return;
+            }
+
+            const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
+
+            let mesaj = `🛒 *ÖZEN OTO - SİPARİŞ / FİYAT TEKLİFİ TALEBİ*\n\n`;
+
+            if (kullanici.adSoyad) {
+                mesaj += `👤 *Müşteri:* ${kullanici.adSoyad}\n`;
+                if (kullanici.telefon) mesaj += `📞 *Tel:* ${kullanici.telefon}\n`;
+                if (kullanici.sasi) mesaj += `🚘 *Şasi No (VIN):* ${kullanici.sasi}\n`;
+                if (kullanici.adres) mesaj += `📍 *Adres:* ${kullanici.adres}\n`;
+                mesaj += `-----------------------------------\n`;
+            }
+
+            mesaj += `📦 *TALEP EDİLEN PARÇALAR:*\n`;
+            sepet.forEach((item, index) => {
+                mesaj += `${index + 1}. *${item.baslik}*\n   └ OEM: ${item.oem} | Adet: ${item.adet}\n`;
+            });
+
+            mesaj += `\nBu parçaların stok durumu ve fiyat bilgisi hakkında dönüş yapabilir misiniz?`;
+
+            const encodedMsg = encodeURIComponent(mesaj);
+            window.open(`https://wa.me/905327249417?text=${encodedMsg}`, '_blank');
         }
 
         function sasiModalAc() {
@@ -677,7 +796,6 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
             urunleriYukle();
         }
 
-        // CANLI UFAK ARAMA (INPUT ALTINDA HIZLI AÇILAN PREVIEW)
         function canliAramaYap() {
             const hamGirdi = document.getElementById('arama-girdisi').value.trim();
             const aranan = turkceNormalize(hamGirdi);
@@ -720,7 +838,6 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
             }
         }
 
-        // TAM EKRAN (FULL SCREEN) ARAMA MODALI
         function aramaModalAc() {
             const hamGirdi = document.getElementById('arama-girdisi').value.trim();
             const aranan = turkceNormalize(hamGirdi);
@@ -734,7 +851,6 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
                 return;
             }
 
-            // Canlı önizlemeyi kapat
             document.getElementById('arama-sonuclari').classList.add('hidden');
 
             const eslesenler = tumUrunler.filter(u => {
@@ -790,7 +906,7 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Arka plan kaymasını engelle
+            document.body.style.overflow = 'hidden';
         }
 
         function aramaModalKapat() {
@@ -800,7 +916,6 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
             document.body.style.overflow = 'auto';
         }
 
-        // KLAVYEDEN ESC BASILINCA MODALI KAPAT
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 aramaModalKapat();
@@ -834,12 +949,8 @@ Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.htm
             durumGuncelle();
             temaButonunuGuncelle();
             urunleriYukle();
+            sepetArayuzunuGuncelle();
         };
     </script>
-
-    <!-- SEPET SİSTEMİ BAĞLANTISI -->
-    <script src="sepet.js?v=1.0"></script>
 </body>
 </html>
-
-```
