@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özen Oto - Yönetim Paneli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ÜRÜN VERİTABANI -->
+    <script src="urunler.js?v=7.0"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#0D0D0D', cardDark: '#161616' } } } }
+        }
+    </script>
+    <style>
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .cam-efekt { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-100 min-h-screen p-3 md:p-8 antialiased">
+
+    <!-- ŞİFRE İLE GİRİŞ EKRANI -->
+    <div id="sifre-ekrani" class="fixed inset-0 z-50 bg-black/90 cam-efekt flex items-center justify-center p-4">
+        <div class="bg-brand-cardDark border border-gray-800 w-full max-w-sm p-6 rounded-3xl shadow-2xl text-center space-y-4">
+            <div class="w-14 h-14 bg-yellow-500/10 text-yellow-500 rounded-2xl flex items-center justify-center mx-auto border border-yellow-500/20 text-2xl font-black">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h2 class="text-xl font-black uppercase tracking-tight text-white">Yönetici Girişi</h2>
+            <p class="text-xs text-gray-400">Özen Oto paneline erişmek için yönetim şifrenizi giriniz.</p>
+            
+            <input type="password" id="admin-sifre-girdi" placeholder="Giriş Şifresi..." class="w-full px-4 py-3.5 rounded-xl border border-gray-700 bg-gray-900 text-center font-bold text-sm outline-none focus:border-yellow-500 text-white transition-all">
+            
+            <button onclick="sifreKontrolEt()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95 shadow-lg">
+                Sisteme Giriş Yap
+            </button>
+        </div>
+    </div>
+
+    <!-- PANELLER (GİRİŞ SONRASI) -->
+    <div id="admin-icerik" class="max-w-6xl mx-auto space-y-6 hidden">
+        
+        <!-- HEADER BARI -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-brand-cardDark border border-gray-800 p-4 rounded-2xl shadow-md">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-xl flex items-center justify-center text-yellow-500 font-bold transition-colors">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <div>
+                    <h1 class="text-lg font-black uppercase text-white flex items-center gap-2">
+                        Özen Oto Parça Yönetimi
+                        <span class="text-[10px] bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-md border border-yellow-500/30">Admin v1.0</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Ürün ekle, stok güncelle veya veritabanını indirin.</p>
+                </div>
+            </div>
+            <button onclick="paneliSifirla()" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+                <i class="fa-solid fa-rotate-left"></i> Formu Sıfırla
+            </button>
+        </div>
+
+        <!-- 1. MEVCUT ÜRÜN ARAMA & SEÇME ALANI -->
+        <div class="bg-brand-cardDark border border-gray-800 p-5 rounded-2xl space-y-3">
+            <label class="block text-xs font-black uppercase text-yellow-400 flex items-center gap-2">
+                <i class="fa-solid fa-magnifying-glass"></i> Düzenlemek İstediğiniz Ürünü Arayın / Seçin:
+            </label>
+            <div class="relative">
+                <input type="text" id="admin-arama" oninput="adminUrunAra()" placeholder="Parça adı veya OEM kodu yazın... (Örn: Viraj, 8200...)" class="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                <div id="admin-arama-liste" class="absolute left-0 right-0 top-full mt-1 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl hidden max-h-60 overflow-y-auto z-30"></div>
+            </div>
+        </div>
+
+        <!-- 2. ÜRÜN BİLGİ DÜZENLEME FORMU -->
+        <div class="bg-brand-cardDark border border-gray-800 p-5 md:p-8 rounded-2xl space-y-5">
+            <h3 id="form-baslik" class="text-sm font-black uppercase text-white border-b border-gray-800 pb-3 flex items-center justify-between">
+                <span><i class="fa-solid fa-pen-to-square text-yellow-500 mr-2"></i>Ürün Bilgileri</span>
+                <span id="urun-id-rozet" class="text-[10px] bg-gray-800 text-gray-400 px-2 py-1 rounded font-mono">Yeni Kayıt</span>
+            </h3>
+
+            <input type="hidden" id="p-id">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Parça Başlığı:</label>
+                    <input type="text" id="p-baslik" placeholder="Örn: Megane 4 Viraj Orta Lastiği" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">OEM Parça Kodu:</label>
+                    <input type="text" id="p-oem" placeholder="Örn: 8200123456" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-mono font-bold text-xs uppercase outline-none focus:border-yellow-500 text-white">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Uyumlu Araç Model:</label>
+                    <input type="text" id="p-arac" placeholder="Örn: Megane 4 / Kadjar" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Kategori:</label>
+                    <select id="p-kategori" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                        <option value="motor">Motor & Aksam</option>
+                        <option value="fren">Fren & Direksiyon</option>
+                        <option value="bakim">Filtre & Bakım</option>
+                        <option value="egzoz">Egzoz Sistemi</option>
+                        <option value="yag">Motor & Şanzıman Yağı</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Kalite Rozeti (Etiket):</label>
+                    <select id="p-etiket" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                        <option value="ORİJİNAL MAİS">Orijinal MAİS</option>
+                        <option value="LUK - A KALİTE">LUK (A Kalite Muadil)</option>
+                        <option value="VALEO - A KALİTE">Valeo (A Kalite Muadil)</option>
+                        <option value="BOSCH - A KALİTE">Bosch (A Kalite Muadil)</option>
+                        <option value="SACHS - A KALİTE">Sachs (A Kalite Muadil)</option>
+                        <option value="DELPHI - A KALİTE">Delphi (A Kalite Muadil)</option>
+                        <option value="DAYCO / GATES">Dayco / Gates</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase text-gray-400 mb-1">Görsel Adı / Yolu:</label>
+                    <input type="text" id="p-resim" placeholder="Örn: viraj_lastigi.jpg" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-700 bg-gray-900 font-bold text-xs outline-none focus:border-yellow-500 text-white">
+                </div>
+            </div>
+
+            <!-- DÜĞMELER / AKSİYONLAR -->
+            <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                <button onclick="urunKaydet()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3.5 rounded-xl text-xs uppercase shadow-lg transition-all active:scale-98 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Ürünü Kaydet / Güncelle</span>
+                </button>
+                <button id="btn-sil" onclick="urunSil()" class="hidden bg-red-600 hover:bg-red-700 text-white font-black py-3.5 px-6 rounded-xl text-xs uppercase transition-all active:scale-98">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Sil
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. GÜNCEL KOD JENERATÖRÜ -->
+        <div class="bg-brand-cardDark border border-yellow-500/30 p-5 md:p-8 rounded-2xl space-y-4">
+            <div>
+                <h3 class="text-sm font-black uppercase text-yellow-400 flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i> Güncellenmiş urunler.js Kod Dosyası
+                </h3>
+                <p class="text-xs text-gray-400 mt-1">Yaptığınız değişikliklerin siteye yansıması için aşağıdaki butona basıp kodu kopyalayın ve `urunler.js` dosyanızın içine yapıştırıp kaydedin.</p>
+            </div>
+
+            <textarea id="kod-çıktısı" readonly class="w-full h-40 bg-gray-950 border border-gray-800 rounded-xl p-3 font-mono text-[11px] text-green-400 outline-none select-all"></textarea>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="koduKopyala()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl text-xs uppercase transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i class="fa-regular fa-copy text-base"></i>
+                    <span>Kodu Kopyala</span>
+                </button>
+                <button onclick="koduIndir()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl text-xs uppercase transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-download text-base"></i>
+                    <span>urunler.js Dosyasını İndir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let yerelUrunler = [...(window.urunler || [])];
+
+        function sifreKontrolEt() {
+            const girdi = document.getElementById('admin-sifre-girdi').value;
+            if (girdi === 'ozen2026') {
+                document.getElementById('sifre-ekrani').classList.add('hidden');
+                document.getElementById('admin-icerik').classList.remove('hidden');
+                kodUret();
+            } else {
+                alert("Hatalı şifre! Lütfen tekrar deneyiniz.");
+            }
+        }
+
+        function adminUrunAra() {
+            const girdi = document.getElementById('admin-arama').value.toLowerCase().trim();
+            const liste = document.getElementById('admin-arama-liste');
+
+            if (!girdi) {
+                liste.classList.add('hidden');
+                return;
+            }
+
+            const eslesenler = yerelUrunler.filter(u => 
+                u.baslik.toLowerCase().includes(girdi) || 
+                u.oem.toLowerCase().includes(girdi) || 
+                u.arac.toLowerCase().includes(girdi)
+            );
+
+            if (eslesenler.length > 0) {
+                liste.innerHTML = eslesenler.map(u => `
+                    <div onclick="urunFormaYukle('${u.id}')" class="p-3 border-b border-gray-800 hover:bg-yellow-500/10 cursor-pointer flex items-center justify-between text-xs transition-colors">
+                        <div>
+                            <strong class="text-white block">${u.baslik}</strong>
+                            <span class="text-[10px] text-gray-400">OEM: ${u.oem} | ${u.arac}</span>
+                        </div>
+                        <span class="text-[10px] bg-yellow-500 text-black px-2 py-0.5 rounded font-black uppercase">Düzenle</span>
+                    </div>
+                `).join('');
+                liste.classList.remove('hidden');
+            } else {
+                liste.innerHTML = `<div class="p-3 text-xs text-gray-500 text-center">Eşleşen ürün bulunamadı.</div>`;
+                liste.classList.remove('hidden');
+            }
+        }
+
+        function urunFormaYukle(id) {
+            const u = yerelUrunler.find(item => item.id === id);
+            if (!u) return;
+
+            document.getElementById('p-id').value = u.id;
+            document.getElementById('p-baslik').value = u.baslik;
+            document.getElementById('p-oem').value = u.oem;
+            document.getElementById('p-arac').value = u.arac;
+            document.getElementById('p-kategori').value = u.kategori || 'motor';
+            document.getElementById('p-etiket').value = u.etiket || 'ORİJİNAL MAİS';
+            document.getElementById('p-resim').value = u.resim || '';
+
+            document.getElementById('form-baslik').innerText = "Ürün Düzenleme Modu";
+            document.getElementById('urun-id-rozet').innerText = `ID: ${u.id}`;
+            document.getElementById('btn-sil').classList.remove('hidden');
+            document.getElementById('admin-arama-liste').classList.add('hidden');
+        }
+
+        function urunKaydet() {
+            const id = document.getElementById('p-id').value || 'u_' + Date.now();
+            const baslik = document.getElementById('p-baslik').value.trim();
+            const oem = document.getElementById('p-oem').value.trim().toUpperCase();
+            const arac = document.getElementById('p-arac').value.trim();
+            const kategori = document.getElementById('p-kategori').value;
+            const etiket = document.getElementById('p-etiket').value;
+            const resim = document.getElementById('p-resim').value.trim();
+
+            if (!baslik || !oem) {
+                alert("Lütfen parça başlığını ve OEM kodunu doldurunuz.");
+                return;
+            }
+
+            const varOlanIndex = yerelUrunler.findIndex(item => item.id === id);
+            const yeniObje = { id, baslik, oem, arac, kategori, etiket, resim };
+
+            if (varOlanIndex > -1) {
+                yerelUrunler[varOlanIndex] = yeniObje;
+            } else {
+                yerelUrunler.push(yeniObje);
+            }
+
+            kodUret();
+            paneliSifirla();
+            alert("Ürün başarıyla listeye işlendi! Aşağıdaki güncellenmiş kodu kopyalayıp urunler.js dosyasına yapıştırın.");
+        }
+
+        function urunSil() {
+            const id = document.getElementById('p-id').value;
+            if (!id) return;
+
+            if (confirm("Bu ürünü silmek istediğinize emin misiniz?")) {
+                yerelUrunler = yerelUrunler.filter(item => item.id !== id);
+                kodUret();
+                paneliSifirla();
+                alert("Ürün listeden silindi.");
+            }
+        }
+
+        function paneliSifirla() {
+            document.getElementById('p-id').value = '';
+            document.getElementById('p-baslik').value = '';
+            document.getElementById('p-oem').value = '';
+            document.getElementById('p-arac').value = '';
+            document.getElementById('p-resim').value = '';
+            document.getElementById('admin-arama').value = '';
+            document.getElementById('form-baslik').innerText = "Yeni Ürün Ekle";
+            document.getElementById('urun-id-rozet').innerText = "Yeni Kayıt";
+            document.getElementById('btn-sil').classList.add('hidden');
+        }
+
+        function kodUret() {
+            const kodStr = `window.urunler = ${JSON.stringify(yerelUrunler, null, 4)};`;
+            document.getElementById('kod-çıktısı').value = kodStr;
+        }
+
+        function koduKopyala() {
+            const txt = document.getElementById('kod-çıktısı');
+            txt.select();
+            navigator.clipboard.writeText(txt.value);
+            alert("urunler.js kodu kopyalandı! Bilgisayarınızdaki urunler.js dosyasına yapıştırıp kaydedebilirsiniz.");
+        }
+
+        function koduIndir() {
+            const txt = document.getElementById('kod-çıktısı').value;
+            const blob = new Blob([txt], { type: 'text/javascript' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'urunler.js';
+            a.click();
+        }
+    </script>
+</body>
+</html>
