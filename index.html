@@ -10,25 +10,34 @@
     <meta name="keywords" content="Renault yedek parça Kumluca, Dacia yedek parça Antalya, MAİS orijinal parça, Kumluca oto sanayi, Megane 4 triger, Duster yedek parça, LUK debriyaj, Valeo fren">
     <meta name="author" content="Özen Oto Yedek Parça">
     <meta name="robots" content="index, follow">
+    
+    <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA KODU -->
+    <meta name="google-site-verification" content="Nqj9TyUHW2uT_kmgBTZkaphMY7VWy-q1mGs-LkteevM" />
+
+    <!-- CANONICAL & SOCIAL MEDIA (OPEN GRAPH) -->
     <link rel="canonical" href="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:title" content="Özen Oto | Renault & Dacia Orijinal Yedek Parça">
+    <meta property="og:description" content="Kumluca Antalya'da Orijinal MAİS ve A Kalite Muadil Parça Tedarik Merkezi.">
+    <meta property="og:image" content="https://muhammedozn9801-cell.github.io/ozenoto/dukkan.png">
+    <meta property="og:url" content="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:type" content="website">
 
     <!-- GOOGLE ANALYTICS CANLI SAYAÇ KODU (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0K902SVRH"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-L0K902SVRH');
+      gtag('config', 'G-XXXXXXXXXX');
     </script>
 
-    <!-- PRECONNECT HIZLANDIRMA -->
+    <!-- PRECONNECT -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- KOYU MOD HAFIZA KONTROLÜ -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -37,7 +46,6 @@
         }
     </script>
 
-    <!-- ÜRÜN VERİTABANI BAĞLANTISI -->
     <script src="urunler.js?v=7.0"></script>
 
     <script>
@@ -50,34 +58,17 @@
     <style>
         body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
         .kutu-golge { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05); }
-        
-        @keyframes acilisFade {
-            from { opacity: 0; transform: translateY(12px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .animasyon-acilis { animation: acilisFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animasyon-modal { animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        .kart-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .kart-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
-        }
-        .dark .kart-hover:hover {
-            box-shadow: 0 20px 35px -10px rgba(255, 184, 0, 0.12);
-        }
+        @keyframes acilisFade { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
         
-        .cam-efekt {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+        .kart-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .kart-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12); }
+        .dark .kart-hover:hover { box-shadow: 0 20px 35px -10px rgba(255, 184, 0, 0.12); }
+        
+        .cam-efekt { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
@@ -121,7 +112,7 @@
         </div>
     </div>
 
-    <!-- MÜŞTERİ PROFİLİ VE GİRİŞ MODALI -->
+    <!-- MÜŞTERİ PROFİLİ MODALI -->
     <div id="profil-modal" onclick="profilModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
         <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-md p-6 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
             <button onclick="profilModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
@@ -202,7 +193,7 @@
         </div>
     </div>
 
-    <!-- TAM EKRAN ARAMA SONUÇLARI PENCERESİ -->
+    <!-- ARAMA MODAL -->
     <div id="arama-liste-modal" class="fixed inset-0 z-[150] bg-black/90 cam-efekt hidden flex-col p-3 md:p-6 animasyon-acilis overflow-hidden">
         <div class="max-w-7xl mx-auto w-full h-full flex flex-col bg-white dark:bg-brand-cardDark rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 p-4 md:p-8 relative overflow-hidden">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800 gap-4 flex-shrink-0">
@@ -212,7 +203,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg md:text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tight">Arama Sonuç Kataloğu</h3>
-                        <p id="arama-modal-ozet" class="text-xs text-gray-500 dark:text-gray-400">Arama teriminize uygun tüm parçalar rahat okuma modunda listelenmiştir.</p>
+                        <p id="arama-modal-ozet" class="text-xs text-gray-500 dark:text-gray-400">Arama teriminize uygun tüm parçalar listelenmiştir.</p>
                     </div>
                 </div>
                 
@@ -226,7 +217,7 @@
 
             <div class="pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                 <span><i class="fa-solid fa-keyboard mr-1"></i>Kapatmak için <strong>ESC</strong> tuşuna basabilirsiniz.</span>
-                <span class="font-bold text-yellow-600 dark:text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>Bulamadığınız parçalar için direkt arayın: 0242 887 89 80</span>
+                <span class="font-bold text-yellow-600 dark:text-yellow-400"><i class="fa-solid fa-phone mr-1"></i>Direkt arayın: 0242 887 89 80</span>
             </div>
         </div>
     </div>
@@ -236,7 +227,8 @@
         <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <span class="flex items-center gap-1.5 text-gray-400"><i class="fa-solid fa-location-dot text-yellow-500"></i> Karşıyaka Mah. Kumluca / Antalya</span>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 transition-all shadow-sm hover:scale-105">
+                <!-- YOL TARİFİ LINKI FIX -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 transition-all shadow-sm hover:scale-105">
                     <i class="fa-solid fa-diamond-turn-right"></i> Yol Tarifi Al
                 </a>
             </div>
@@ -247,7 +239,7 @@
         </div>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER (YENİ MODERN LOGOLAR) -->
     <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 kutu-golge border-b dark:border-gray-800/80 sticky top-0 z-50 transition-colors">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             
@@ -256,13 +248,14 @@
                     <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight group-hover:text-yellow-500 transition-colors">ÖZEN OTO</span>
                     <span class="text-[10px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
                 </div>
-                <div class="flex items-center gap-1.5 pl-2 border-l-2 border-gray-300 dark:border-gray-800">
-                    <div class="w-7 h-7 bg-yellow-500 text-black rounded-lg flex items-center justify-center shadow-sm font-black text-xs" title="Renault Uzmanlığı">
-                        <i class="fa-solid fa-diamond"></i>
-                    </div>
-                    <div class="w-7 h-7 bg-gray-900 text-white dark:bg-gray-800 rounded-lg flex items-center justify-center shadow-sm font-black text-[10px]" title="Dacia Uzmanlığı">
-                        DAC
-                    </div>
+                <div class="flex items-center gap-2 pl-3 border-l-2 border-gray-300 dark:border-gray-800">
+                    <svg class="w-6 h-7 text-yellow-500 fill-current" viewBox="0 0 100 120">
+                        <path d="M50 0 L100 30 L100 90 L50 120 L0 90 L0 30 Z M50 15 L15 36 L15 84 L50 105 L85 84 L85 36 Z"/>
+                        <path d="M50 30 L70 42 L70 78 L50 90 L30 78 L30 42 Z" fill="none" stroke="currentColor" stroke-width="6"/>
+                    </svg>
+                    <span class="font-black tracking-widest text-xs text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 px-1.5 py-0.5 rounded">
+                        DɅCIɅ
+                    </span>
                 </div>
             </a>
 
@@ -325,28 +318,35 @@
         </div>
     </div>
 
-    <!-- MARKA GÜVEN BANDI (RENAULT, DACIA, LUK, VALEO, BOSCH, SACHS, DELPHI, DAYCO) -->
-    <div class="bg-gray-900 border-y border-gray-800 py-4 shadow-inner overflow-x-auto">
-        <div class="container mx-auto px-4 flex items-center justify-between min-w-[700px] gap-6 text-gray-400 font-black text-xs uppercase">
-            <div class="flex items-center gap-2 text-yellow-400 font-bold border-r border-gray-800 pr-4">
-                <i class="fa-solid fa-shield-halved text-base"></i>
-                <span>ANLAŞMALI MARKALARIMIZ</span>
+    <!-- MARKA GÜVEN BANDI -->
+    <div class="bg-gray-900 border-y border-gray-800 py-3.5 shadow-inner overflow-x-auto">
+        <div class="container mx-auto px-4 flex items-center justify-between min-w-[750px] gap-6 text-gray-300 font-black text-xs uppercase">
+            
+            <div class="flex items-center gap-2 text-yellow-400 font-bold border-r border-gray-800 pr-4 flex-shrink-0">
+                <i class="fa-solid fa-boxes-packing text-base"></i>
+                <span>SATIŞINI YAPTIĞIMIZ MARKALAR</span>
             </div>
             
-            <span class="flex items-center gap-1.5 hover:text-white transition-colors cursor-default" title="Orijinal MAİS Parça">
-                <i class="fa-solid fa-diamond text-yellow-500"></i> RENAULT MAİS
+            <span class="flex items-center gap-2 hover:text-white transition-colors cursor-default">
+                <svg class="w-4 h-5 text-yellow-500 fill-current" viewBox="0 0 100 120">
+                    <path d="M50 0 L100 30 L100 90 L50 120 L0 90 L0 30 Z M50 18 L18 37 L18 83 L50 102 L82 83 L82 37 Z"/>
+                </svg>
+                <strong class="text-white">RENAULT MAİS</strong>
             </span>
-            <span class="flex items-center gap-1.5 hover:text-white transition-colors cursor-default" title="Dacia Orijinal Tedarik">
-                <span class="text-yellow-500 font-black">DAC</span> DACIA
+
+            <span class="flex items-center gap-1.5 hover:text-white transition-colors cursor-default">
+                <span class="font-black tracking-wider text-yellow-400 text-sm">DɅCIɅ</span>
+                <span class="text-gray-400 text-[10px]">ORİJİNAL</span>
             </span>
-            <span class="bg-yellow-500/10 text-yellow-400 px-2.5 py-1 rounded-md border border-yellow-500/20 font-black" title="LUK Debriyaj ve Oynar Volan">
+
+            <span class="bg-yellow-500/10 text-yellow-400 px-2.5 py-1 rounded border border-yellow-500/20 font-black tracking-wider">
                 LUK
             </span>
-            <span class="hover:text-white transition-colors cursor-default">VALEO</span>
-            <span class="hover:text-white transition-colors cursor-default">BOSCH</span>
-            <span class="hover:text-white transition-colors cursor-default">SACHS</span>
-            <span class="hover:text-white transition-colors cursor-default">DELPHI</span>
-            <span class="hover:text-white transition-colors cursor-default">DAYCO / GATES</span>
+            <span class="hover:text-white transition-colors">VALEO</span>
+            <span class="hover:text-white transition-colors">BOSCH</span>
+            <span class="hover:text-white transition-colors">SACHS</span>
+            <span class="hover:text-white transition-colors">DELPHI</span>
+            <span class="hover:text-white transition-colors">DAYCO / GATES</span>
         </div>
     </div>
 
@@ -381,7 +381,7 @@
         </div>
     </div>
 
-    <!-- GOOGLE MÜŞTERİ YORUMLARI -->
+    <!-- MÜŞTERİ YORUMLARI -->
     <div id="yorumlar" class="bg-gray-50 dark:bg-gray-900/50 py-16 border-t border-b border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-4 max-w-2xl text-center">
             <div class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full shadow-sm mb-4">
@@ -395,7 +395,7 @@
                 Müşterilerimizin Google Haritalar profilimiz üzerinden yaptığı tüm gerçek değerlendirmeleri incelemek veya siz de işletmemiz hakkında yorum yazmak için aşağıdaki butona tıklayabilirsiniz.
             </p>
 
-            <a href="https://www.google.com/maps/place/%C3%96zen+Oto+Baki+%C3%96zen/@36.345617,30.2802085,17z/data=!4m6!3m5!1s0x14c225b301a3ee99:0x8ea1449316f969b!8m2!3d36.345617!4d30.2827972!16s%2Fg%2F11c57m39kn?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-blue-600/30 hover:scale-105 active:scale-95">
+            <a href="https://www.google.com/maps/place/%C3%96zen+Oto+Baki+%C3%96zen/@36.345617,30.2802085,17z/data=!4m6!3m5!1s0x14c225b301a3ee99:0x8ea1449316f969b!8m2!3d36.345617!4d30.2827972!16s%2Fg%2F11c57m39kn" target="_blank" class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-blue-600/30 hover:scale-105 active:scale-95">
                 <i class="fa-brands fa-google text-xl"></i>
                 <span>Google'da Yorum Yaz / Tüm Yorumları Gör</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
@@ -488,7 +488,8 @@
                             </div>
                         </div>
 
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=%C3%96zen+Oto+Baki+%C3%96zen&destination_place_id=ChIJme6jA7M1whQRm2n5FpNEoY8" target="_blank" class="w-full mb-6 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-blue-600/30 transition-all active:scale-98">
+                        <!-- YOL TARİFİ LINKI FIX -->
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="w-full mb-6 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-blue-600/30 transition-all active:scale-98">
                             <i class="fa-solid fa-location-arrow text-base"></i>
                             <span>Google Haritalar'da Dükkana Rota Oluştur</span>
                         </a>
@@ -508,7 +509,7 @@
         <p class="text-[10px] text-gray-500 mt-1">Renault & Dacia Orijinal MAİS Parça Tedarik Merkezi</p>
     </footer>
 
-    <!-- CANLI YÜZEN WHATSAPP BUTONU -->
+    <!-- WHATSAPP BUTONU -->
     <a href="https://wa.me/905327249417" target="_blank" class="fixed bottom-6 right-6 z-[90] bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 group active:scale-95">
         <span class="absolute -top-1 -right-1 flex h-4 w-4">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
@@ -539,7 +540,7 @@
         </div>
     </div>
 
-    <!-- MOBİL PERSISTENT SEPET BARI -->
+    <!-- MOBİL SEPET BARI -->
     <div id="mobil-sepet-bar" class="fixed bottom-0 left-0 right-0 z-[110] bg-gray-900 border-t-2 border-yellow-500 p-3 shadow-2xl transition-transform duration-300 translate-y-full md:hidden flex items-center justify-between">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-yellow-500 text-black rounded-xl flex items-center justify-center font-black">
@@ -560,7 +561,6 @@
         <span id="toast-mesaj">Kopyalandı!</span>
     </div>
 
-    <!-- SCRIPT'LER -->
     <script>
         let mevcutKategori = 'hepsi';
         let goruntulenenSayisi = 8;
@@ -648,18 +648,12 @@
             }
 
             const mevcuttakiler = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
-            const yeniKullanici = {
-                ...mevcuttakiler,
-                adSoyad: adSoyad,
-                telefon: telefon,
-                adres: adres,
-                sasi: sasi
-            };
+            const yeniKullanici = { ...mevcuttakiler, adSoyad, telefon, adres, sasi };
 
             localStorage.setItem('ozen_kullanici', JSON.stringify(yeniKullanici));
             profilArayuzGuncelle();
             profilModalKapat();
-            toastGoster("Profil bilgileriniz kaydedildi!");
+            toastGoster("Profil kaydedildi!");
         }
 
         function cikisYap() {
@@ -743,7 +737,7 @@
 
             sepetiKaydet();
             sepetArayuzunuGuncelle();
-            toastGoster(`${urun.baslik.substring(0, 22)}... sepete eklendi!`);
+            toastGoster(`${urun.baslik.substring(0, 20)}... sepete eklendi!`);
         }
 
         function sepetAdetDegistir(urunId, degisim) {
@@ -910,11 +904,13 @@
         function urunKartHtml(u, isYeniUrun) {
             const yeniRozeti = (u.yeni || isYeniUrun) ? `<span class="absolute top-3 right-3 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded-md shadow-md animate-pulse z-10 uppercase tracking-widest">YENİ</span>` : '';
             const gorselUrl = resimYolu(u.resim);
+            const etiketMetni = u.marka || u.etiket || 'ORİJİNAL MAİS';
+            
             return `
                 <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden kutu-golge flex flex-col justify-between kart-hover group">
                     <div>
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-52 relative flex items-center justify-center overflow-hidden block">
-                            <span class="absolute top-3 left-3 bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded-md uppercase z-10 shadow-sm">${u.etiket}</span>
+                            <span class="absolute top-3 left-3 bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded-md uppercase z-10 shadow-sm">${etiketMetni}</span>
                             ${yeniRozeti}
                             ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<i class="fa-solid fa-gears text-6xl text-gray-300 dark:text-gray-700"></i>`}
                         </a>
@@ -1002,7 +998,7 @@
             const eslesenler = tumUrunler.filter(u => {
                 const b = turkceNormalize(u.baslik);
                 const o = turkceNormalize(u.oem);
-                const a = turkceNormalize(u.arac);
+                const a = turkceNormalize(u.arac || '');
                 const k = turkceNormalize(u.kategori || '');
                 return b.includes(aranan) || o.includes(aranan) || a.includes(aranan) || k.includes(aranan);
             }).slice(0, 5);
@@ -1024,7 +1020,7 @@
                 }).join('');
                 kutu.classList.remove('hidden');
             } else {
-                kutu.innerHTML = `<div class="p-4 text-xs text-gray-500 text-center">Aradığınız kriterlere uygun parça bulunamadı. <br><a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(hamGirdi)}%20par%C3%A7as%C4%B1%20stokta%20var%20m%C4%B1?" target="_blank" class="text-green-600 font-bold underline mt-1 inline-block">WhatsApp'tan Sorgula</a></div>`;
+                kutu.innerHTML = `<div class="p-4 text-xs text-gray-500 text-center">Aradığınız parça bulunamadı. <br><a href="https://wa.me/905327249417?text=Merhaba,%20${encodeURIComponent(hamGirdi)}%20par%C3%A7as%C4%B1%20stokta%20var%20m%C4%B1?" target="_blank" class="text-green-600 font-bold underline mt-1 inline-block">WhatsApp'tan Sorgula</a></div>`;
                 kutu.classList.remove('hidden');
             }
         }
@@ -1047,7 +1043,7 @@
             const eslesenler = tumUrunler.filter(u => {
                 const b = turkceNormalize(u.baslik);
                 const o = turkceNormalize(u.oem);
-                const a = turkceNormalize(u.arac);
+                const a = turkceNormalize(u.arac || '');
                 const k = turkceNormalize(u.kategori || '');
                 return b.includes(aranan) || o.includes(aranan) || a.includes(aranan) || k.includes(aranan);
             });
