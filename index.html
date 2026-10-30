@@ -1,3 +1,8 @@
+Bütün sepet modülleri, butonlar, mobil yüzen çubuk ve WhatsApp entegrasyonu `index.html` dosyana eksiksiz şekilde eklendi.
+
+Aşağıdaki kod bloğunun tamamını kopyalayıp bilgisayarındaki **`index.html`** dosyasının içine yapıştırman yeterlidir:
+
+```html
 <!DOCTYPE html>
 <html lang="tr" class="light scroll-smooth">
 <head>
@@ -223,6 +228,12 @@
                     <span class="hidden sm:inline">Şasi No İle Sorgula</span>
                 </button>
 
+                <!-- SEPET BUTONU & SAYAÇ -->
+                <button onclick="sepetModalAc()" class="relative p-3 rounded-xl border border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center justify-center transition-all active:scale-95" title="Sepetim">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="sepet-sayac" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-brand-dark hidden">0</span>
+                </button>
+
                 <button onclick="temaDegistir()" class="p-3 rounded-xl border border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center gap-2 transition-all active:scale-95">
                     <i id="tema-ikonu" class="fa-solid fa-moon"></i>
                     <span id="tema-yazi" class="hidden sm:inline">Koyu Mod</span>
@@ -423,6 +434,46 @@
         <i class="fa-brands fa-whatsapp text-3xl group-hover:rotate-12 transition-transform"></i>
     </a>
 
+    <!-- SEPET MODALI -->
+    <div id="sepet-modal" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 kutu-golge rounded-2xl animasyon-modal relative flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800">
+                <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-yellow-500"></i> Parça Sepetiniz
+                </h3>
+                <button onclick="sepetModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Ürün Listesi Kaydırma Alanı -->
+            <div id="sepet-modal-liste" class="flex-1 overflow-y-auto py-4 space-y-3 pr-1">
+                <!-- sepet.js burayı dolduracak -->
+            </div>
+
+            <div class="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
+                <button onclick="whatsappSiparisGonder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-98">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Siparişi / Teklifi WhatsApp'a Gönder</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBİL PERSISTENT (YÜZEN) SEPET BARI -->
+    <div id="mobil-sepet-bar" class="fixed bottom-0 left-0 right-0 z-[110] bg-gray-900 border-t-2 border-yellow-500 p-3 shadow-2xl transition-transform duration-300 translate-y-full md:hidden flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-yellow-500 text-black rounded-xl flex items-center justify-center font-black">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <div>
+                <span class="text-[10px] text-gray-400 block font-bold uppercase">Sepet Durumu</span>
+                <span id="mobil-sepet-adet" class="text-xs font-black text-white">0 Parça</span>
+            </div>
+        </div>
+        <button onclick="sepetModalAc()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-black px-4 py-2.5 rounded-xl text-xs uppercase transition-all">
+            Sepeti İncele
+        </button>
+    </div>
+
     <!-- TOAST BİLDİRİM KUTUSU -->
     <div id="toast-bildirim" class="fixed bottom-20 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden transition-all duration-300">
         <span id="toast-mesaj">Kopyalandı!</span>
@@ -492,6 +543,22 @@
             document.getElementById('sasi-modal').classList.remove('flex');
         }
 
+        function sepetModalAc() {
+            const modal = document.getElementById('sepet-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function sepetModalKapat() {
+            const modal = document.getElementById('sepet-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
         function sasiSorgulaWhatsApp() {
             const val = document.getElementById('sasi-girdisi').value.trim();
             if (val.length < 5) {
@@ -552,9 +619,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
-                        <a href="urun.html?id=${u.id}" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-extrabold py-2.5 px-3 text-xs uppercase rounded-xl flex items-center justify-center gap-2 transition-colors active:scale-98">
-                            Parçayı İncele <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <div class="p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex gap-2">
+                        <button onclick="sepeteEkle('${u.id}')" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-2.5 px-2 text-[11px] uppercase rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm">
+                            <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
+                        </button>
+                        <a href="urun.html?id=${u.id}" class="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-bold py-2.5 px-3 text-[11px] rounded-xl flex items-center justify-center transition-colors">
+                            İncele
                         </a>
                     </div>
                 </div>
@@ -734,6 +804,7 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 aramaModalKapat();
+                sepetModalKapat();
             }
         });
 
@@ -765,5 +836,10 @@
             urunleriYukle();
         };
     </script>
+
+    <!-- SEPET SİSTEMİ BAĞLANTISI -->
+    <script src="sepet.js?v=1.0"></script>
 </body>
 </html>
+
+```
