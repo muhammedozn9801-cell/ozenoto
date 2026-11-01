@@ -7,7 +7,7 @@ window.urunler = [
         "kategori": "motor",
         "etiket": "Orijinal MAİS",
         "marka": "Orijinal MAİS",
-        "resim": "https://www.akbayrenault.com/idea/ay/22/myassets/products/561/3saw10h3kbgiwkq6v2nybslibeojrqhkhyn4y9es-2400561.jpg?revision=1792211729"
+        "resim": "https://ibb.co/zhTWxj5M"
     },
     {
         "id": "2",
