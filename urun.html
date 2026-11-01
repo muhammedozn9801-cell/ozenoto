@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="sayfa-baslik">Ürün Detayı | Özen Oto Yedek Parça</title>
-
+    <title>Ürün Detayı | Özen Oto Kumluca</title>
+    <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -16,8 +16,7 @@
         }
     </script>
 
-    <!-- ÜRÜN VERİTABANI -->
-    <script src="urunler.js?v=7.0"></script>
+    <script src="urunler.js?v=8.0"></script>
 
     <script>
         tailwind.config = {
@@ -25,99 +24,66 @@
             theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#0D0D0D', cardDark: '#161616' } } } }
         }
     </script>
-
+    
     <style>
         body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
-        .cam-efekt { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         .kutu-golge { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05); }
+        .cam-efekt { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between antialiased">
+<body class="bg-gray-100 dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col justify-between antialiased selection:bg-yellow-500 selection:text-black">
+
+    <!-- UYARI BANTI -->
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-700 text-white text-xs md:text-sm font-black py-2.5 px-4 text-center border-b border-red-800 tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-yellow-300 text-base"></i>
+        <span>ÖNEMLİ UYARI: Orijinal MAİS logolu ürünlerin paket açılımı sonrası kesinlikle iadesi yoktur!</span>
+    </div>
 
     <!-- HEADER -->
-    <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 border-b dark:border-gray-800 sticky top-0 z-50">
-        <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="index.html" class="flex flex-col group">
-                <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tight group-hover:text-yellow-500 transition-colors">ÖZEN OTO</span>
-                <span class="text-[9px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
+    <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 kutu-golge border-b dark:border-gray-800/80 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">ÖZEN OTO</span>
+                    <span class="text-[9px] font-black text-red-600 tracking-widest uppercase">RENAULT & DACIA YEDEK PARÇA</span>
+                </div>
             </a>
-
-            <div class="flex items-center gap-3">
-                <a href="index.html" class="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-xs font-bold px-3 py-2.5 rounded-xl flex items-center gap-1.5 transition-colors">
-                    <i class="fa-solid fa-arrow-left"></i> Ana Sayfa
-                </a>
-
-                <!-- SEPET BUTONU VE SAYACI -->
-                <button onclick="sepetModalAc()" class="relative p-2.5 rounded-xl border border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-yellow-400 font-bold text-sm flex items-center justify-center transition-all active:scale-95" title="Sepetim">
-                    <i class="fa-solid fa-cart-shopping text-base"></i>
-                    <span id="sepet-sayac" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-brand-dark hidden">0</span>
-                </button>
-            </div>
+            
+            <a href="index.html" class="bg-yellow-500 hover:bg-yellow-600 text-black font-black px-4 py-2.5 rounded-xl text-xs uppercase flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-arrow-left"></i> Kataloğa Dön
+            </a>
         </div>
     </header>
 
-    <!-- ÜRÜN DETAY İÇERİK ALANI -->
-    <main class="container mx-auto px-4 py-8 flex-1">
-        <div id="urun-detay-kapsayici" class="max-w-4xl mx-auto bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-gray-800 rounded-3xl p-6 md:p-10 kutu-golge">
-            <!-- JavaScript burayı dinamik dolduracak -->
+    <!-- KAPSAYICI İÇERİK -->
+    <main class="container mx-auto px-4 py-10 flex-1 flex items-center justify-center">
+        <div id="urun-detay-kapsayici" class="w-full max-w-4xl">
+            <!-- JavaScript ile dinamik dolacak -->
         </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-950 text-gray-400 py-6 text-center text-xs border-t-2 border-yellow-500 mt-12">
+    <footer class="bg-gray-950 text-gray-400 py-6 text-center text-xs border-t-2 border-yellow-500">
         <p class="font-bold text-gray-300">&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
     </footer>
 
-    <!-- SEPET MODALI -->
-    <div id="sepet-modal" onclick="sepetModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
-        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-lg p-6 kutu-golge rounded-2xl relative flex flex-col max-h-[85vh] cursor-default">
-            <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800">
-                <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping text-yellow-500"></i> Parça Sepetiniz
-                </h3>
-                <button onclick="sepetModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div id="sepet-modal-liste" class="flex-1 overflow-y-auto py-4 space-y-3 pr-1">
-            </div>
-
-            <div class="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
-                <button onclick="whatsappSiparisGonder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-98">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Siparişi / Teklifi WhatsApp'a Gönder</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MOBİL PERSISTENT SEPET BARI -->
-    <div id="mobil-sepet-bar" class="fixed bottom-0 left-0 right-0 z-[110] bg-gray-900 border-t-2 border-yellow-500 p-3 shadow-2xl transition-transform duration-300 translate-y-full md:hidden flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-yellow-500 text-black rounded-xl flex items-center justify-center font-black">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-            <div>
-                <span class="text-[10px] text-gray-400 block font-bold uppercase">Sepet Durumu</span>
-                <span id="mobil-sepet-adet" class="text-xs font-black text-white">0 Parça</span>
-            </div>
-        </div>
-        <button onclick="sepetModalAc()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-black px-4 py-2.5 rounded-xl text-xs uppercase transition-all">
-            Sepeti İncele
-        </button>
-    </div>
-
-    <!-- TOAST BİLDİRİM KUTUSU -->
-    <div id="toast-bildirim" class="fixed bottom-20 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden transition-all duration-300">
+    <!-- TOAST BİLDİRİM -->
+    <div id="toast-bildirim" class="fixed bottom-10 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden">
         <span id="toast-mesaj">Kopyalandı!</span>
     </div>
 
-    <!-- JAVASCRIPT KODLARI -->
     <script>
-        let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
-        let aktifUrun = null;
+        // VARSAYILAN YEDEK LOGO ŞABLONU (RENAULT & DACIA)
+        const varsayilanLogoDetay = `
+            <div class="flex items-center justify-center gap-4 w-full h-full min-h-[280px] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 p-8 rounded-2xl select-none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-16 w-auto object-contain drop-shadow">
+                <span class="h-12 border-r-2 border-gray-300 dark:border-gray-700"></span>
+                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" class="h-12 w-auto object-contain rounded shadow-sm">
+            </div>
+        `;
 
         function resimYolu(resim) {
-            if (!resim) return '';
+            if (!resim || resim.trim() === '') return '';
             if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
                 return resim;
             }
@@ -131,223 +97,106 @@
             setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
 
-        function urunDetayiniYukle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urunId = urlParams.get('id');
-            const tumUrunler = window.urunler || [];
-            aktifUrun = tumUrunler.find(u => u.id === urunId);
+        function logoDetayGoster(imgElement) {
+            imgElement.outerHTML = varsayilanLogoDetay;
+        }
 
+        function sepeteEkle(urunId) {
+            const tumUrunler = window.urunler || [];
+            const urun = tumUrunler.find(u => u.id === urunId);
+            if (!urun) return;
+
+            let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
+            const varOlan = sepet.find(item => item.id === urunId);
+            if (varOlan) {
+                varOlan.adet += 1;
+            } else {
+                sepet.push({
+                    id: urun.id,
+                    baslik: urun.baslik,
+                    oem: urun.oem,
+                    arac: urun.arac,
+                    resim: urun.resim,
+                    adet: 1
+                });
+            }
+            localStorage.setItem('ozen_sepet', JSON.stringify(sepet));
+            toastGoster(`${urun.baslik.substring(0, 25)}... sepete eklendi!`);
+        }
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const urunId = params.get('id');
+            const tumUrunler = window.urunler || [];
             const kapsayici = document.getElementById('urun-detay-kapsayici');
 
-            if (!aktifUrun) {
+            const urun = tumUrunler.find(u => u.id === urunId);
+
+            if (!urun) {
                 kapsayici.innerHTML = `
-                    <div class="text-center py-12">
+                    <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-gray-800 rounded-3xl p-10 text-center kutu-golge">
                         <i class="fa-solid fa-triangle-exclamation text-5xl text-yellow-500 mb-4"></i>
-                        <h2 class="text-xl font-black text-gray-800 dark:text-white uppercase">Aradığınız Parça Bulunamadı</h2>
-                        <p class="text-xs text-gray-500 mt-2">Bu parça kaldırılmış veya link hatalı olabilir.</p>
-                        <a href="index.html" class="inline-block mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-3 rounded-xl text-xs uppercase">Kataloğa Geri Dön</a>
+                        <h2 class="text-xl font-black text-gray-900 dark:text-white uppercase mb-2">Aradığınız Ürün Bulunamadı</h2>
+                        <p class="text-xs text-gray-500 mb-6">Aradığınız parça bulunamadı veya bağlantı hatalı olabilir.</p>
+                        <a href="index.html" class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-3 rounded-xl text-xs uppercase shadow">
+                            <i class="fa-solid fa-house"></i> Ana Sayfaya Dön
+                        </a>
                     </div>
                 `;
                 return;
             }
 
-            document.getElementById('sayfa-baslik').textContent = `${aktifUrun.baslik} | Özen Oto`;
+            document.title = `${urun.baslik} - ${urun.oem} | Özen Oto`;
 
-            const gorselUrl = resimYolu(aktifUrun.resim);
-            const waMsg = encodeURIComponent(`Merhaba Özen Oto, ${aktifUrun.baslik} (OEM: ${aktifUrun.oem}) parçası stokta var mı? Güncel fiyat öğrenebilir miyim?`);
+            const gorselUrl = resimYolu(urun.resim);
+            const etiketMetni = urun.marka || urun.etiket || 'ORİJİNAL MAİS';
+            const waMsg = encodeURIComponent(`Merhaba, ${urun.baslik} (OEM: ${urun.oem}) parçası stokta var mı? Fiyat alabilir miyim?`);
 
             kapsayici.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    <!-- Ürün Görseli -->
-                    <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 relative flex items-center justify-center min-h-[320px]">
-                        <span class="absolute top-3 left-3 bg-yellow-500 text-black text-xs font-black px-3 py-1 rounded-md uppercase z-10">${aktifUrun.etiket}</span>
-                        ${gorselUrl ? `<img src="${gorselUrl}" alt="${aktifUrun.baslik}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gears text-7xl text-gray-300 dark:text-gray-700"></i>`}
+                <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-gray-800 rounded-3xl p-6 md:p-8 kutu-golge grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    
+                    <div class="relative bg-gray-50 dark:bg-gray-900/80 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex items-center justify-center min-h-[280px] overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-yellow-500 text-black text-[11px] font-black px-3 py-1 rounded-lg uppercase z-10 shadow-sm">${etiketMetni}</span>
+                        ${gorselUrl ? `
+                            <img src="${gorselUrl}" alt="${urun.baslik}" referrerpolicy="no-referrer" onerror="logoDetayGoster(this)" class="w-full h-auto max-h-[320px] object-contain rounded-xl">
+                        ` : varsayilanLogoDetay}
                     </div>
 
-                    <!-- Ürün Bilgileri -->
-                    <div class="flex flex-col justify-between h-full space-y-6">
+                    <div class="flex flex-col justify-between space-y-5">
                         <div>
-                            <span class="text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${aktifUrun.arac}</span>
-                            <h1 class="text-2xl font-black text-gray-900 dark:text-white leading-tight uppercase">${aktifUrun.baslik}</h1>
-                            
-                            <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 space-y-2">
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-gray-500">OEM Parça Kodu:</span>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-mono font-black text-gray-900 dark:text-white text-sm">${aktifUrun.oem}</span>
-                                        <button onclick="navigator.clipboard.writeText('${aktifUrun.oem}'); toastGoster('OEM Kopyalandı!');" class="text-yellow-500 hover:text-yellow-600 p-1"><i class="fa-regular fa-copy"></i></button>
-                                    </div>
+                            <span class="text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1.5">${urun.arac || 'Renault & Dacia Uyumlu'}</span>
+                            <h1 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white uppercase leading-snug">${urun.baslik}</h1>
+                        </div>
+
+                        <div class="bg-gray-50 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-800/80 rounded-2xl p-4 space-y-2 text-xs">
+                            <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-800 pb-2">
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">OEM Parça Kodu:</span>
+                                <div class="flex items-center gap-2">
+                                    <strong class="font-mono font-black text-sm text-gray-900 dark:text-white">${urun.oem}</strong>
+                                    <button onclick="navigator.clipboard.writeText('${urun.oem}'); toastGoster('OEM Kodu Kopyalandı!');" title="Kopyala" class="text-yellow-600 hover:text-yellow-500 p-1">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
                                 </div>
-                                <div class="flex items-center justify-between text-xs border-t border-gray-200 dark:border-gray-800 pt-2">
-                                    <span class="text-gray-500">Uyumlu Araç Grubu:</span>
-                                    <span class="font-bold text-gray-800 dark:text-gray-200">${aktifUrun.arac}</span>
-                                </div>
+                            </div>
+                            <div class="flex items-center justify-between pt-1">
+                                <span class="text-gray-500 dark:text-gray-400 font-bold">Uyumlu Araç Grubu:</span>
+                                <span class="font-bold text-gray-800 dark:text-gray-200">${urun.arac || 'Genel Parça'}</span>
                             </div>
                         </div>
 
-                        <!-- Butonlar -->
                         <div class="space-y-3 pt-2">
-                            <button onclick="detaydanSepeteEkle()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95">
-                                <i class="fa-solid fa-cart-plus text-base"></i>
-                                <span>Sepete Ekle</span>
+                            <button onclick="sepeteEkle('${urun.id}')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 rounded-xl text-xs uppercase flex items-center justify-center gap-2 shadow-md transition-all active:scale-98">
+                                <i class="fa-solid fa-cart-plus text-base"></i> SEPETE EKLE
                             </button>
 
-                            <a href="https://wa.me/905327249417?text=${waMsg}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>WhatsApp'tan Fiyat & Stok Sor</span>
+                            <a href="https://wa.me/905327249417?text=${waMsg}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl text-xs uppercase flex items-center justify-center gap-2 shadow-md transition-all active:scale-98">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> WHATSAPP'TAN FİYAT & STOK SOR
                             </a>
                         </div>
                     </div>
+
                 </div>
             `;
-        }
-
-        function detaydanSepeteEkle() {
-            if (!aktifUrun) return;
-
-            const varOlan = sepet.find(item => item.id === aktifUrun.id);
-            if (varOlan) {
-                varOlan.adet += 1;
-            } else {
-                sepet.push({
-                    id: aktifUrun.id,
-                    baslik: aktifUrun.baslik,
-                    oem: aktifUrun.oem,
-                    arac: aktifUrun.arac,
-                    resim: aktifUrun.resim,
-                    adet: 1
-                });
-            }
-
-            sepetiKaydet();
-            sepetArayuzunuGuncelle();
-            toastGoster(`${aktifUrun.baslik.substring(0, 22)}... sepete eklendi!`);
-        }
-
-        function sepetAdetDegistir(urunId, degisim) {
-            const item = sepet.find(i => i.id === urunId);
-            if (!item) return;
-
-            item.adet += degisim;
-            if (item.adet <= 0) {
-                sepettenCikar(urunId);
-            } else {
-                sepetiKaydet();
-                sepetArayuzunuGuncelle();
-            }
-        }
-
-        function sepettenCikar(urunId) {
-            sepet = sepet.filter(i => i.id !== urunId);
-            sepetiKaydet();
-            sepetArayuzunuGuncelle();
-        }
-
-        function sepetiKaydet() {
-            localStorage.setItem('ozen_sepet', JSON.stringify(sepet));
-        }
-
-        function sepetArayuzunuGuncelle() {
-            const toplamAdet = sepet.reduce((toplam, item) => toplam + item.adet, 0);
-            
-            const headerSayac = document.getElementById('sepet-sayac');
-            if (headerSayac) {
-                headerSayac.textContent = toplamAdet;
-                headerSayac.style.display = toplamAdet > 0 ? 'flex' : 'none';
-            }
-
-            const mobilBar = document.getElementById('mobil-sepet-bar');
-            if (mobilBar) {
-                if (toplamAdet > 0) {
-                    mobilBar.classList.remove('translate-y-full');
-                    document.getElementById('mobil-sepet-adet').textContent = `${toplamAdet} Parça`;
-                } else {
-                    mobilBar.classList.add('translate-y-full');
-                }
-            }
-
-            const sepetListe = document.getElementById('sepet-modal-liste');
-            if (sepetListe) {
-                if (sepet.length === 0) {
-                    sepetListe.innerHTML = `
-                        <div class="text-center py-12 text-gray-400">
-                            <i class="fa-solid fa-cart-flatbed text-5xl mb-3 text-gray-300 dark:text-gray-700"></i>
-                            <p class="font-bold text-sm text-gray-700 dark:text-gray-300">Sepetiniz şu an boş.</p>
-                            <p class="text-xs text-gray-500 mt-1">İhtiyacınız olan parçaları "Sepete Ekle" butonuyla ekleyebilirsiniz.</p>
-                        </div>`;
-                } else {
-                    sepetListe.innerHTML = sepet.map(item => `
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 gap-3">
-                            <div class="flex-1 min-w-0">
-                                <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate">${item.baslik}</h5>
-                                <p class="text-[10px] text-gray-500 font-mono mt-0.5">OEM: ${item.oem} | ${item.arac}</p>
-                            </div>
-                            <div class="flex items-center gap-2 flex-shrink-0">
-                                <button onclick="sepetAdetDegistir('${item.id}', -1)" class="w-7 h-7 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg flex items-center justify-center font-bold text-xs hover:bg-red-500 hover:text-white transition-colors">-</button>
-                                <span class="text-xs font-black w-5 text-center dark:text-white">${item.adet}</span>
-                                <button onclick="sepetAdetDegistir('${item.id}', 1)" class="w-7 h-7 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg flex items-center justify-center font-bold text-xs hover:bg-green-500 hover:text-white transition-colors">+</button>
-                                <button onclick="sepettenCikar('${item.id}')" class="text-red-500 hover:text-red-700 ml-1 text-xs p-1"><i class="fa-solid fa-trash-can"></i></button>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-            }
-        }
-
-        function whatsappSiparisGonder() {
-            if (sepet.length === 0) {
-                alert("Sepetinizde ürün bulunmamaktadır.");
-                return;
-            }
-
-            const kullanici = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
-
-            let mesaj = `🛒 *ÖZEN OTO - SİPARİŞ / FİYAT TEKLİFİ TALEBİ*\n\n`;
-
-            if (kullanici.adSoyad) {
-                mesaj += `👤 *Müşteri:* ${kullanici.adSoyad}\n`;
-                if (kullanici.telefon) mesaj += `📞 *Tel:* ${kullanici.telefon}\n`;
-                if (kullanici.sasi) mesaj += `🚘 *Şasi No (VIN):* ${kullanici.sasi}\n`;
-                if (kullanici.adres) mesaj += `📍 *Adres:* ${kullanici.adres}\n`;
-                mesaj += `-----------------------------------\n`;
-            }
-
-            mesaj += `📦 *TALEP EDİLEN PARÇALAR:*\n`;
-            sepet.forEach((item, index) => {
-                mesaj += `${index + 1}. *${item.baslik}*\n   └ OEM: ${item.oem} | Adet: ${item.adet}\n`;
-            });
-
-            mesaj += `\nBu parçaların stok durumu ve fiyat bilgisi hakkında dönüş yapabilir misiniz?`;
-
-            const encodedMsg = encodeURIComponent(mesaj);
-            window.open(`https://wa.me/905327249417?text=${encodedMsg}`, '_blank');
-        }
-
-        function sepetModalAc() {
-            const modal = document.getElementById('sepet-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function sepetModalKapat() {
-            const modal = document.getElementById('sepet-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                sepetModalKapat();
-            }
-        });
-
-        window.onload = function() {
-            urunDetayiniYukle();
-            sepetArayuzunuGuncelle();
         };
     </script>
 </body>
