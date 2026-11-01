@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muhammedozn9801-cell.github.io/ozenoto/sitemap.xml
+Sitemap: https://www.ozenoto.com/sitemap.xml
