@@ -15,11 +15,11 @@
     <meta name="google-site-verification" content="Nqj9TyUHW2uT_kmgBTZkaphMY7VWy-q1mGs-LkteevM" />
 
     <!-- CANONICAL & SOCIAL MEDIA (OPEN GRAPH) -->
-    <link rel="canonical" href="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <link rel="canonical" href="https://www.ozenoto.com/">
     <meta property="og:title" content="Özen Oto | Renault & Dacia Orijinal Yedek Parça">
     <meta property="og:description" content="Kumluca Antalya'da Orijinal MAİS ve A Kalite Muadil Parça Tedarik Merkezi.">
-    <meta property="og:image" content="https://muhammedozn9801-cell.github.io/ozenoto/dukkan.png">
-    <meta property="og:url" content="https://muhammedozn9801-cell.github.io/ozenoto/">
+    <meta property="og:image" content="https://www.ozenoto.com/dukkan.png">
+    <meta property="og:url" content="https://www.ozenoto.com/">
     <meta property="og:type" content="website">
 
     <!-- GOOGLE ANALYTICS CANLI SAYAÇ KODU (GA4) -->
@@ -590,7 +590,7 @@
         `;
 
         function resimYolu(resim) {
-            if (!resim) return '';
+            if (!resim || resim.trim() === '') return '';
             if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
                 return resim;
             }
@@ -935,7 +935,7 @@
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-52 relative flex items-center justify-center overflow-hidden block">
                             <span class="absolute top-3 left-3 bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded-md uppercase z-10 shadow-sm">${etiketMetni}</span>
                             ${yeniRozeti}
-                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : varsayilanLogoKart}
+                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanLogoKart" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : varsayilanLogoKart}
                         </a>
                         <div class="p-5">
                             <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
@@ -1032,7 +1032,7 @@
                     return `
                         <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-800 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
                             <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover">` : varsayilanKucukLogo}
+                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanKucukLogo" loading="lazy" class="w-full h-full object-cover">` : varsayilanKucukLogo}
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h4 class="text-xs font-bold text-gray-900 dark:text-white truncate">${u.baslik}</h4>
@@ -1081,7 +1081,7 @@
                         <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 hover:shadow-lg group">
                             <div class="flex items-start gap-4">
                                 <div class="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                    ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform">` : varsayilanOrtaLogo}
+                                    ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanOrtaLogo" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform">` : varsayilanOrtaLogo}
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-[10px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
@@ -1117,6 +1117,13 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
+        }
+
+        function aramaModalKapat() {
+            const modal = document.getElementById('arama-liste-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
         }
 
         document.addEventListener('keydown', function(e) {
