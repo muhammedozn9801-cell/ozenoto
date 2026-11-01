@@ -22,15 +22,6 @@
     <meta property="og:url" content="https://www.ozenoto.com/">
     <meta property="og:type" content="website">
 
-    <!-- GOOGLE ANALYTICS CANLI SAYAÇ KODU (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-
     <!-- PRECONNECT -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -38,7 +29,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- KURŞUN GEÇİRMEZ RESİM HATA YÖNETİCİSİ (GLOBAL IMAGE ERROR INTERCEPTOR) -->
     <script>
+        // Renault & Dacia Vektörel SVG Logosu (Network bağımsız, direkt bellekten yüklenir)
+        window.RENAULT_DACIA_FALLBACK_SVG = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+          <defs>
+            <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#111827"/>
+              <stop offset="100%" stop-color="#1f2937"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#bg)"/>
+          <g transform="translate(140, 35)">
+            <path d="M60 0 L120 35 L120 105 L60 140 L0 105 L0 35 Z M60 20 L20 43 L20 97 L60 120 L100 97 L100 43 Z" fill="#FFB800"/>
+          </g>
+          <text x="200" y="215" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="22" letter-spacing="3">ÖZEN OTO</text>
+          <text x="200" y="242" text-anchor="middle" fill="#FFB800" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="12" letter-spacing="2">RENAULT &amp; DACIA Orijinal Parça</text>
+        </svg>
+        `)}`;
+
+        // Sitedeki tüm resim yükleme ve 404 hatalarını anında yakalar ve logoyla değiştirir
+        window.addEventListener('error', function (e) {
+            if (e.target && e.target.tagName === 'IMG') {
+                const img = e.target;
+                if (!img.dataset.hasFallback) {
+                    img.dataset.hasFallback = "true";
+                    img.src = window.RENAULT_DACIA_FALLBACK_SVG;
+                    img.classList.add('object-cover');
+                }
+            }
+        }, true);
+
+        // Tema tercihini yükle
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
@@ -227,7 +250,6 @@
         <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <span class="flex items-center gap-1.5 text-gray-400"><i class="fa-solid fa-location-dot text-yellow-500"></i> Karşıyaka Mah. Kumluca / Antalya</span>
-                <!-- YOL TARİFİ LINKI FIX -->
                 <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md flex items-center gap-1 transition-all shadow-sm hover:scale-105">
                     <i class="fa-solid fa-diamond-turn-right"></i> Yol Tarifi Al
                 </a>
@@ -239,7 +261,7 @@
         </div>
     </div>
 
-    <!-- HEADER (YENİ MODERN LOGOLAR) -->
+    <!-- HEADER -->
     <header class="bg-white/90 dark:bg-brand-dark/90 cam-efekt py-4 kutu-golge border-b dark:border-gray-800/80 sticky top-0 z-50 transition-colors">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             
@@ -488,7 +510,6 @@
                             </div>
                         </div>
 
-                        <!-- YOL TARİFİ LINKI FIX -->
                         <a href="https://www.google.com/maps/dir/?api=1&destination=36.345617,30.2827972" target="_blank" class="w-full mb-6 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-blue-600/30 transition-all active:scale-98">
                             <i class="fa-solid fa-location-arrow text-base"></i>
                             <span>Google Haritalar'da Dükkana Rota Oluştur</span>
@@ -566,31 +587,8 @@
         let goruntulenenSayisi = 8;
         let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
 
-        // VARSAYILAN YEDEK LOGO ŞABLONLARI (RENAULT & DACIA)
-        const varsayilanLogoKart = `
-            <div class="flex items-center justify-center gap-3 w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 p-4 select-none">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-10 w-auto object-contain drop-shadow">
-                <span class="h-8 border-r-2 border-gray-300 dark:border-gray-700"></span>
-                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" class="h-7 w-auto object-contain rounded shadow-sm">
-            </div>
-        `;
-
-        const varsayilanKucukLogo = `
-            <div class="flex items-center justify-center gap-1 w-full h-full bg-gray-200 dark:bg-gray-800 p-1 select-none">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-4 w-auto object-contain">
-            </div>
-        `;
-
-        const varsayilanOrtaLogo = `
-            <div class="flex items-center justify-center gap-1.5 w-full h-full bg-gray-100 dark:bg-gray-800 p-2 select-none">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-6 w-auto object-contain">
-                <span class="h-5 border-r border-gray-300 dark:border-gray-700"></span>
-                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" class="h-4 w-auto object-contain rounded">
-            </div>
-        `;
-
         function resimYolu(resim) {
-            if (!resim || resim.trim() === '') return '';
+            if (!resim || resim.trim() === '') return window.RENAULT_DACIA_FALLBACK_SVG;
             if (resim.startsWith('http://') || resim.startsWith('https://') || resim.startsWith('data:')) {
                 return resim;
             }
@@ -666,7 +664,7 @@
             const sasi = document.getElementById('prof-sasi').value.trim().toUpperCase();
 
             if (!adSoyad) {
-                alert("Lütfen adınızı ve soyadınızı giriniz.");
+                toastGoster("Lütfen adınızı ve soyadınızı giriniz.");
                 return;
             }
 
@@ -835,7 +833,7 @@
 
         function whatsappSiparisGonder() {
             if (sepet.length === 0) {
-                alert("Sepetinizde ürün bulunmamaktadır.");
+                toastGoster("Sepetinizde ürün bulunmamaktadır.");
                 return;
             }
 
@@ -891,7 +889,7 @@
         function sasiSorgulaWhatsApp() {
             const val = document.getElementById('sasi-girdisi').value.trim();
             if (val.length < 5) {
-                alert("Lütfen geçerli bir şasi numarası giriniz.");
+                toastGoster("Lütfen geçerli bir şasi numarası giriniz.");
                 return;
             }
             const msg = encodeURIComponent(`Merhaba, Şasi Numarası: ${val.toUpperCase()} olan aracım için yedek parça sorgulamak istiyorum.`);
@@ -935,7 +933,7 @@
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-52 relative flex items-center justify-center overflow-hidden block">
                             <span class="absolute top-3 left-3 bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded-md uppercase z-10 shadow-sm">${etiketMetni}</span>
                             ${yeniRozeti}
-                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanLogoKart" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : varsayilanLogoKart}
+                            <img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </a>
                         <div class="p-5">
                             <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
@@ -995,8 +993,10 @@
                 btn.classList.remove('active', 'bg-yellow-500', 'text-black', 'font-black');
                 btn.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'font-bold');
             });
-            event.target.classList.add('active', 'bg-yellow-500', 'text-black', 'font-black');
-            event.target.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+            if (event && event.target) {
+                event.target.classList.add('active', 'bg-yellow-500', 'text-black', 'font-black');
+                event.target.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+            }
 
             urunleriYukle();
         }
@@ -1032,7 +1032,7 @@
                     return `
                         <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-800 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
                             <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanKucukLogo" loading="lazy" class="w-full h-full object-cover">` : varsayilanKucukLogo}
+                                <img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h4 class="text-xs font-bold text-gray-900 dark:text-white truncate">${u.baslik}</h4>
@@ -1057,7 +1057,7 @@
             const tumUrunler = window.urunler || [];
 
             if (aranan.length === 0) {
-                alert("Lütfen aramak istediğiniz parçanın adını veya OEM kodunu yazın.");
+                toastGoster("Lütfen aramak istediğiniz parçanın adını veya OEM kodunu yazın.");
                 return;
             }
 
@@ -1081,7 +1081,7 @@
                         <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 hover:shadow-lg group">
                             <div class="flex items-start gap-4">
                                 <div class="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                    ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" onerror="this.outerHTML=varsayilanOrtaLogo" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform">` : varsayilanOrtaLogo}
+                                    <img src="${gorselUrl}" alt="${u.baslik}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-[10px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
