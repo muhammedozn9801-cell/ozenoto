@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
     
     <!-- SEO METATAGLARI -->
     <title>Özen Oto | Renault & Dacia Orijinal Yedek Parça Kumluca Antalya</title>
@@ -15,15 +14,6 @@
     <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA KODU -->
     <meta name="google-site-verification" content="Nqj9TyUHW2uT_kmgBTZkaphMY7VWy-q1mGs-LkteevM" />
 
-    <!-- GOOGLE ANALYTICS (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
-
     <!-- CANONICAL & SOCIAL MEDIA (OPEN GRAPH) -->
     <link rel="canonical" href="https://www.ozenoto.com/">
     <meta property="og:title" content="Özen Oto | Renault & Dacia Orijinal Yedek Parça">
@@ -32,14 +22,22 @@
     <meta property="og:url" content="https://www.ozenoto.com/">
     <meta property="og:type" content="website">
 
-    <!-- PRECONNECT & FONTS -->
+    <!-- GOOGLE ANALYTICS (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- PRECONNECT -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- TEMA TERCİHİ YÜKLEME -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -48,24 +46,12 @@
         }
     </script>
 
-    <!-- ÜRÜN VERİ TABANI -->
     <script src="urunler.js?v=8.0"></script>
 
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: { 
-                extend: { 
-                    colors: { 
-                        brand: { 
-                            yellow: '#FFB800', 
-                            dark: '#0D0D0D', 
-                            cardDark: '#161616',
-                            cardBorderDark: '#262626'
-                        } 
-                    } 
-                } 
-            }
+            theme: { extend: { colors: { brand: { yellow: '#FFB800', dark: '#0D0D0D', cardDark: '#161616' } } } }
         }
     </script>
     
@@ -121,7 +107,7 @@
             </div>
             
             <button onclick="guvenlikKapat()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 uppercase rounded-xl tracking-wider transition-all duration-200 shadow-lg hover:shadow-red-600/30 active:scale-98">
-                Okudum, Anladım ve Kapat
+                Okudum, Kapat
             </button>
         </div>
     </div>
@@ -137,17 +123,6 @@
                 </div>
                 <h3 id="profil-baslik" class="text-xl font-black text-gray-900 dark:text-white uppercase">Müşteri Profili</h3>
                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bilgilerinizi kaydedin, WhatsApp siparişleriniz saniyeler içinde hazırlansın.</p>
-            </div>
-
-            <div id="google-giris-alani" class="mb-5">
-                <button onclick="googleIleGirisYap()" class="w-full bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-white font-bold py-3.5 px-4 rounded-xl border border-gray-300 dark:border-gray-700 text-xs flex items-center justify-center gap-3 shadow-sm transition-all active:scale-98">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                    <span>Google ile Tek Tıkla Giriş Yap</span>
-                </button>
-                <div class="relative my-4">
-                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200 dark:border-gray-800"></div></div>
-                    <div class="relative flex justify-center text-[10px] uppercase"><span class="bg-white dark:bg-brand-cardDark px-2 text-gray-400 font-bold">Veya Bilgilerini Elle Gir</span></div>
-                </div>
             </div>
 
             <div class="space-y-3">
@@ -320,7 +295,7 @@
 
     <!-- VİDEO BANTI -->
     <div class="relative w-full h-[360px] md:h-[460px] bg-black overflow-hidden">
-        <video id="arka-plan-video" autoplay muted playsinline loop poster="dukkan.png" preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-75 transition-opacity duration-700" src="renault1.mp4">
+        <video id="arka-plan-video" autoplay muted playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-75 transition-opacity duration-700" src="renault1.mp4">
         </video>
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end">
             <div class="container mx-auto px-4 pb-10 text-white">
@@ -473,7 +448,7 @@
                 <div>
                     <h3 class="text-xl font-black border-l-4 border-yellow-500 pl-3 mb-4 uppercase text-gray-900 dark:text-white">Mağazamız</h3>
                     <div class="border-2 border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-900">
-                        <img src="dukkan.png" alt="Özen Oto Yedek Parça Dükkanı Kumluca" referrerpolicy="no-referrer" loading="lazy" decoding="async" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500" onerror="logoKartGoster(this)">
+                        <img src="dukkan.png" alt="Özen Oto Yedek Parça Dükkanı Kumluca" loading="lazy" decoding="async" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
                     </div>
                 </div>
 
@@ -568,6 +543,24 @@
         </button>
     </div>
 
+    <!-- KVKK & ÇEREZ ONAY ŞERİDİ (COOKIE BANNER) -->
+    <div id="cerez-bandi" class="fixed bottom-0 left-0 right-0 z-[170] bg-gray-900/95 text-white border-t border-yellow-500 p-4 cam-efekt hidden transition-all duration-300 shadow-2xl">
+        <div class="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 text-xs leading-relaxed text-gray-300">
+                <i class="fa-solid fa-cookie-bite text-yellow-500 text-2xl flex-shrink-0"></i>
+                <p>
+                    Sitemizde müşteri deneyimini iyileştirmek, şasi sorgularınızı kolaylaştırmak ve tercihlerinizi hatırlamak için çerezler (cookies) kullanılmaktadır. 
+                    <span class="text-gray-400 font-normal hidden md:inline">Detaylı bilgi için KVKK Çerez Politikamızı inceleyebilirsiniz.</span>
+                </p>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto">
+                <button onclick="cerezKabulEt()" class="flex-1 sm:flex-none bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-2.5 rounded-xl text-xs uppercase transition-all shadow-md active:scale-95">
+                    Kabul Et
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST BİLDİRİM KUTUSU -->
     <div id="toast-bildirim" class="fixed bottom-20 right-6 z-[100] bg-gray-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border border-yellow-500 hidden transition-all duration-300">
         <span id="toast-mesaj">Kopyalandı!</span>
@@ -578,21 +571,28 @@
         let goruntulenenSayisi = 8;
         let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
 
-        // BEĞENİLEN TEMİZ YAN YANA RENAULT & DACIA LOGO ŞABLONU
+        // VARSAYILAN YEDEK LOGO ŞABLONLARI (RENAULT & DACIA)
         const varsayilanLogoKart = `
             <div class="flex items-center justify-center gap-3 w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 p-4 select-none">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" referrerpolicy="no-referrer" class="h-10 w-auto object-contain drop-shadow">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-10 w-auto object-contain drop-shadow">
                 <span class="h-8 border-r-2 border-gray-300 dark:border-gray-700"></span>
-                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" referrerpolicy="no-referrer" class="h-7 w-auto object-contain rounded shadow-sm">
+                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" class="h-7 w-auto object-contain rounded shadow-sm">
             </div>
         `;
 
-        // HATA OLUŞTUĞUNDA VEYA GÖRSEL BULUNAMADIĞINDA OTOMATİK DEVREYE GİREN FONKSİYON
-        function logoKartGoster(imgElement) {
-            if (imgElement && imgElement.parentElement) {
-                imgElement.parentElement.innerHTML = varsayilanLogoKart;
-            }
-        }
+        const varsayilanKucukLogo = `
+            <div class="flex items-center justify-center gap-1 w-full h-full bg-gray-200 dark:bg-gray-800 p-1 select-none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-4 w-auto object-contain">
+            </div>
+        `;
+
+        const varsayilanOrtaLogo = `
+            <div class="flex items-center justify-center gap-1.5 w-full h-full bg-gray-100 dark:bg-gray-800 p-2 select-none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" alt="Renault" class="h-6 w-auto object-contain">
+                <span class="h-5 border-r border-gray-300 dark:border-gray-700"></span>
+                <img src="https://1000logos.net/wp-content/uploads/2021/10/Dacia-logo.jpg" alt="Dacia" class="h-4 w-auto object-contain rounded">
+            </div>
+        `;
 
         function resimYolu(resim) {
             if (!resim || resim.trim() === '') return '';
@@ -600,6 +600,31 @@
                 return resim;
             }
             return 'gorseller/' + resim;
+        }
+
+        function logoKartGoster(imgElement) {
+            imgElement.outerHTML = varsayilanLogoKart;
+        }
+
+        function logoKucukGoster(imgElement) {
+            imgElement.outerHTML = varsayilanKucukLogo;
+        }
+
+        function logoOrtaGoster(imgElement) {
+            imgElement.outerHTML = varsayilanOrtaLogo;
+        }
+
+        function cerezKontrol() {
+            if (!localStorage.getItem('ozen_cerez_onay')) {
+                const band = document.getElementById('cerez-bandi');
+                if (band) band.classList.remove('hidden');
+            }
+        }
+
+        function cerezKabulEt() {
+            localStorage.setItem('ozen_cerez_onay', 'true');
+            const band = document.getElementById('cerez-bandi');
+            if (band) band.classList.add('hidden');
         }
 
         function guvenlikKontrol() {
@@ -631,12 +656,7 @@
             if (kullanici && kullanici.adSoyad) {
                 headerYazi.textContent = kullanici.adSoyad.split(' ')[0];
                 cikisBtn.classList.remove('hidden');
-                
-                if (kullanici.foto) {
-                    avatar.innerHTML = `<img src="${kullanici.foto}" referrerpolicy="no-referrer" class="w-full h-full rounded-full object-cover">`;
-                } else {
-                    avatar.innerHTML = `<i class="fa-solid fa-user-check text-green-500"></i>`;
-                }
+                avatar.innerHTML = `<i class="fa-solid fa-user-check text-green-500"></i>`;
                 baslik.textContent = `Hoş Geldin, ${kullanici.adSoyad.split(' ')[0]}`;
 
                 document.getElementById('prof-ad').value = kullanici.adSoyad || '';
@@ -671,7 +691,7 @@
             const sasi = document.getElementById('prof-sasi').value.trim().toUpperCase();
 
             if (!adSoyad) {
-                toastGoster("Lütfen adınızı ve soyadınızı giriniz.");
+                alert("Lütfen adınızı ve soyadınızı giriniz.");
                 return;
             }
 
@@ -693,16 +713,6 @@
             profilArayuzGuncelle();
             profilModalKapat();
             toastGoster("Çıkış yapıldı.");
-        }
-
-        function googleIleGirisYap() {
-            const ornekAd = prompt("Google Hesabınızdaki Adınız Soyadınız:", "Müşteri");
-            if (ornekAd) {
-                const kul = { adSoyad: ornekAd, telefon: "", adres: "", sasi: "" };
-                localStorage.setItem('ozen_kullanici', JSON.stringify(kul));
-                profilArayuzGuncelle();
-                toastGoster("Google ile giriş başarılı!");
-            }
         }
 
         function durumGuncelle() {
@@ -840,7 +850,7 @@
 
         function whatsappSiparisGonder() {
             if (sepet.length === 0) {
-                toastGoster("Sepetinizde ürün bulunmamaktadır.");
+                alert("Sepetinizde ürün bulunmamaktadır.");
                 return;
             }
 
@@ -896,7 +906,7 @@
         function sasiSorgulaWhatsApp() {
             const val = document.getElementById('sasi-girdisi').value.trim();
             if (val.length < 5) {
-                toastGoster("Lütfen geçerli bir şasi numarası giriniz.");
+                alert("Lütfen geçerli bir şasi numarası giriniz.");
                 return;
             }
             const msg = encodeURIComponent(`Merhaba, Şasi Numarası: ${val.toUpperCase()} olan aracım için yedek parça sorgulamak istiyorum.`);
@@ -907,7 +917,7 @@
         function temaButonunuGuncelle() {
             const isDark = document.documentElement.classList.contains('dark');
             const ikonav = document.getElementById('tema-ikonu');
-            if (ikonav) ikonav.className = isDark ? "fa-solid fa-sun text-yellow-400" : "fa-solid fa-moon";
+            if (ikonav) ikonav.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
         }
 
         function temaDegistir() {
@@ -929,40 +939,23 @@
             setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
 
-        function stokRozetiGetir(stokDurumu) {
-            if (stokDurumu === 'sinirli') {
-                return `<span class="text-[10px] font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">🟡 Sınırlı Stok</span>`;
-            } else if (stokDurumu === 'siparis') {
-                return `<span class="text-[10px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800">🔴 Sipariş Üzerine</span>`;
-            }
-            return `<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">🟢 Stokta Var</span>`;
-        }
-
         function urunKartHtml(u, isYeniUrun) {
             const yeniRozeti = (u.yeni || isYeniUrun) ? `<span class="absolute top-3 right-3 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded-md shadow-md animate-pulse z-10 uppercase tracking-widest">YENİ</span>` : '';
             const gorselUrl = resimYolu(u.resim);
             const etiketMetni = u.marka || u.etiket || 'ORİJİNAL MAİS';
-            const stokBadge = stokRozetiGetir(u.stok);
-
+            
             return `
-                <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-brand-cardBorderDark rounded-2xl overflow-hidden kutu-golge flex flex-col justify-between kart-hover group">
+                <div class="bg-white dark:bg-brand-cardDark border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden kutu-golge flex flex-col justify-between kart-hover group">
                     <div>
-                        <!-- YAN YANA EFSANE LOGOLU VE HOTLINK ENGELLENMİŞ KART YÜZEYİ -->
                         <a href="urun.html?id=${u.id}" class="bg-gray-100 dark:bg-gray-900 h-52 relative flex items-center justify-center overflow-hidden block">
                             <span class="absolute top-3 left-3 bg-yellow-500 text-black text-[10px] font-black px-2.5 py-1 rounded-md uppercase z-10 shadow-sm">${etiketMetni}</span>
                             ${yeniRozeti}
-                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="logoKartGoster(this)">` : varsayilanLogoKart}
+                            ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" onerror="logoKartGoster(this)" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : varsayilanLogoKart}
                         </a>
-                        
-                        <div class="p-4 md:p-5">
-                            <div class="flex items-center justify-between mb-1.5 gap-2">
-                                <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest truncate">${u.arac}</span>
-                                ${stokBadge}
-                            </div>
-
-                            <a href="urun.html?id=${u.id}" class="font-bold text-sm text-gray-900 dark:text-white line-clamp-2 group-hover:text-yellow-500 transition-colors block leading-snug min-h-[2.5rem]">${u.baslik}</a>
-                            
-                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-gray-800/80 text-xs text-gray-500 dark:text-gray-400">
+                        <div class="p-5">
+                            <span class="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
+                            <a href="urun.html?id=${u.id}" class="font-bold text-sm text-gray-900 dark:text-white line-clamp-2 group-hover:text-yellow-500 transition-colors block leading-snug">${u.baslik}</a>
+                            <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
                                 <span>OEM: <strong class="text-gray-800 dark:text-gray-200 font-mono font-bold">${u.oem}</strong></span>
                                 <button onclick="navigator.clipboard.writeText('${u.oem}'); toastGoster('OEM Kodu Kopyalandı!');" title="OEM Kodu Kopyala" class="hover:text-yellow-500 p-1">
                                     <i class="fa-regular fa-copy"></i>
@@ -970,7 +963,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-3.5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex gap-2">
+                    <div class="p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex gap-2">
                         <button onclick="sepeteEkle('${u.id}')" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-2.5 px-2 text-[11px] uppercase rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm">
                             <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
                         </button>
@@ -1017,10 +1010,8 @@
                 btn.classList.remove('active', 'bg-yellow-500', 'text-black', 'font-black');
                 btn.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'font-bold');
             });
-            if (event && event.target) {
-                event.target.classList.add('active', 'bg-yellow-500', 'text-black', 'font-black');
-                event.target.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
-            }
+            event.target.classList.add('active', 'bg-yellow-500', 'text-black', 'font-black');
+            event.target.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
 
             urunleriYukle();
         }
@@ -1055,8 +1046,8 @@
                     const gorselUrl = resimYolu(u.resim);
                     return `
                         <a href="urun.html?id=${u.id}" class="p-3 border-b border-gray-100 dark:border-gray-800 hover:bg-yellow-500/10 cursor-pointer flex items-center gap-3 transition-colors block">
-                            <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" loading="lazy" class="w-full h-full object-contain p-0.5" onerror="logoKartGoster(this)">` : varsayilanLogoKart}
+                            <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
+                                ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" onerror="logoKucukGoster(this)" loading="lazy" class="w-full h-full object-cover">` : varsayilanKucukLogo}
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h4 class="text-xs font-bold text-gray-900 dark:text-white truncate">${u.baslik}</h4>
@@ -1081,7 +1072,7 @@
             const tumUrunler = window.urunler || [];
 
             if (aranan.length === 0) {
-                toastGoster("Lütfen aramak istediğiniz parçanın adını veya OEM kodunu yazın.");
+                alert("Lütfen aramak istediğiniz parçanın adını veya OEM kodunu yazın.");
                 return;
             }
 
@@ -1105,7 +1096,7 @@
                         <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 hover:shadow-lg group">
                             <div class="flex items-start gap-4">
                                 <div class="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                    ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" loading="lazy" class="w-full h-full object-contain p-1" onerror="logoKartGoster(this)">` : varsayilanLogoKart}
+                                    ${gorselUrl ? `<img src="${gorselUrl}" alt="${u.baslik}" referrerpolicy="no-referrer" onerror="logoOrtaGoster(this)" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform">` : varsayilanOrtaLogo}
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-[10px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest block mb-1">${u.arac}</span>
@@ -1161,8 +1152,7 @@
 
         document.addEventListener('click', function(e) {
             if (!e.target.closest('#arama-girdisi') && !e.target.closest('#arama-sonuclari')) {
-                const kutu = document.getElementById('arama-sonuclari');
-                if (kutu) kutu.classList.add('hidden');
+                document.getElementById('arama-sonuclari').classList.add('hidden');
             }
         });
 
@@ -1171,7 +1161,6 @@
         const videoElement = document.getElementById('arka-plan-video');
 
         function sonrakiVideoyaGec() {
-            if (!videoElement) return;
             videoIndex = (videoIndex + 1) % videolar.length;
             videoElement.src = videolar[videoIndex];
             videoElement.play().catch(() => {});
@@ -1189,6 +1178,7 @@
             sepetArayuzunuGuncelle();
             guvenlikKontrol();
             profilArayuzGuncelle();
+            cerezKontrol();
         };
     </script>
 </body>
