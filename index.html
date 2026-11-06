@@ -11,7 +11,7 @@
     <meta name="author" content="Özen Oto Yedek Parça">
     <meta name="robots" content="index, follow">
     
-    <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA KODU -->
+    <!-- GOOGLE SEARCH CONSOLE -->
     <meta name="google-site-verification" content="Nqj9TyUHW2uT_kmgBTZkaphMY7VWy-q1mGs-LkteevM" />
 
     <!-- CANONICAL & SOCIAL MEDIA (OPEN GRAPH) -->
@@ -21,6 +21,45 @@
     <meta property="og:image" content="https://www.ozenoto.com/dukkan.png">
     <meta property="og:url" content="https://www.ozenoto.com/">
     <meta property="og:type" content="website">
+
+    <!-- SCHEMA.ORG LOCAL BUSINESS & AUTO PARTS STORE SEO METASI -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoPartsStore",
+      "name": "Özen Oto Yedek Parça",
+      "image": "https://www.ozenoto.com/dukkan.png",
+      "@id": "https://www.ozenoto.com",
+      "url": "https://www.ozenoto.com",
+      "telephone": "+902428878980",
+      "priceRange": "₺₺",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Karşıyaka Mah. Kocakesik Sok. No: 509",
+        "addressLocality": "Kumluca",
+        "addressRegion": "Antalya",
+        "postalCode": "07300",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 36.345617,
+        "longitude": 30.2827972
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00",
+        "closes": "19:00"
+      },
+      "sameAs": [
+        "https://www.google.com/maps/place/%C3%96zen+Oto+Baki+%C3%96zen/@36.345617,30.2802085,17z"
+      ]
+    }
+    </script>
+
+    <!-- GOOGLE IDENTITY SERVICES (GIS OAUTH 2.0) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <!-- GOOGLE ANALYTICS (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -46,7 +85,7 @@
         }
     </script>
 
-    <script src="urunler.js?v=8.0"></script>
+    <script src="urunler.js?v=9.0"></script>
 
     <script>
         tailwind.config = {
@@ -112,17 +151,26 @@
         </div>
     </div>
 
-    <!-- MÜŞTERİ PROFİLİ MODALI -->
+    <!-- MÜŞTERİ PROFİLİ & OAUTH MODALI -->
     <div id="profil-modal" onclick="profilModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
         <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-md p-6 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
             <button onclick="profilModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="text-center mb-6">
-                <div id="profil-avatar" class="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 border border-yellow-500/20 text-2xl font-black">
+                <div id="profil-avatar" class="w-16 h-16 bg-yellow-500/10 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3 border border-yellow-500/20 text-2xl font-black overflow-hidden shadow-inner">
                     <i class="fa-solid fa-user"></i>
                 </div>
                 <h3 id="profil-baslik" class="text-xl font-black text-gray-900 dark:text-white uppercase">Müşteri Profili</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bilgilerinizi kaydedin, WhatsApp siparişleriniz saniyeler içinde hazırlansın.</p>
+                <p id="profil-alt-yazi" class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bilgilerinizi kaydedin, WhatsApp siparişleriniz saniyeler içinde hazırlansın.</p>
+            </div>
+
+            <!-- GERÇEK GOOGLE ONE-TAP & OAUTH BUTONU -->
+            <div id="google-giris-alani" class="mb-5">
+                <div id="google-btn-container" class="w-full flex justify-center"></div>
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200 dark:border-gray-800"></div></div>
+                    <div class="relative flex justify-center text-[10px] uppercase"><span class="bg-white dark:bg-brand-cardDark px-2 text-gray-400 font-bold">Veya Bilgilerini Elle Gir</span></div>
+                </div>
             </div>
 
             <div class="space-y-3">
@@ -151,6 +199,56 @@
                         Çıkış
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÇOKLU WHATSAPP TEMSİLCİ SEÇİMİ MODALI -->
+    <div id="whatsapp-temsilci-modal" onclick="temsilciModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-green-500 w-full max-w-md p-6 kutu-golge rounded-2xl animasyon-modal relative cursor-default">
+            <button onclick="temsilciModalKapat()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-3 border border-green-500/20 text-3xl font-black">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-900 dark:text-white uppercase">WhatsApp Danışma Hattı</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Görüşmek istediğiniz uzlan temsilcimizi seçerek direkt iletişime geçebilirsiniz.</p>
+            </div>
+
+            <div class="space-y-3">
+                <a href="https://wa.me/905327249417?text=Merhaba,%20yedek%20par%C3%A7a%20sorgulamak%20istiyorum." target="_blank" class="flex items-center justify-between p-3.5 bg-gray-50 dark:bg-gray-900 hover:bg-green-500/10 rounded-xl border border-gray-200 dark:border-gray-800 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 text-black font-black rounded-lg flex items-center justify-center text-sm">BÖ</div>
+                        <div>
+                            <strong class="block text-xs font-black text-gray-900 dark:text-white group-hover:text-green-500 transition-colors">Baki Özen</strong>
+                            <span class="text-[10px] text-gray-500 dark:text-gray-400 font-mono">0532 724 94 17</span>
+                        </div>
+                    </div>
+                    <i class="fa-brands fa-whatsapp text-green-500 text-xl group-hover:scale-110 transition-transform"></i>
+                </a>
+
+                <a href="https://wa.me/905339251933?text=Merhaba,%20yedek%20par%C3%A7a%20sorgulamak%20istiyorum." target="_blank" class="flex items-center justify-between p-3.5 bg-gray-50 dark:bg-gray-900 hover:bg-green-500/10 rounded-xl border border-gray-200 dark:border-gray-800 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 text-black font-black rounded-lg flex items-center justify-center text-sm">HÖ</div>
+                        <div>
+                            <strong class="block text-xs font-black text-gray-900 dark:text-white group-hover:text-green-500 transition-colors">Hüseyin Özen</strong>
+                            <span class="text-[10px] text-gray-500 dark:text-gray-400 font-mono">0533 925 19 33</span>
+                        </div>
+                    </div>
+                    <i class="fa-brands fa-whatsapp text-green-500 text-xl group-hover:scale-110 transition-transform"></i>
+                </a>
+
+                <a href="https://wa.me/905398779807?text=Merhaba,%20yedek%20par%C3%A7a%20sorgulamak%20istiyorum." target="_blank" class="flex items-center justify-between p-3.5 bg-gray-50 dark:bg-gray-900 hover:bg-green-500/10 rounded-xl border border-gray-200 dark:border-gray-800 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 text-black font-black rounded-lg flex items-center justify-center text-sm">MA</div>
+                        <div>
+                            <strong class="block text-xs font-black text-gray-900 dark:text-white group-hover:text-green-500 transition-colors">Muhammed Ali</strong>
+                            <span class="text-[10px] text-gray-500 dark:text-gray-400 font-mono">0539 877 98 07</span>
+                        </div>
+                    </div>
+                    <i class="fa-brands fa-whatsapp text-green-500 text-xl group-hover:scale-110 transition-transform"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -491,19 +589,29 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-950 text-gray-400 py-8 text-center text-xs border-t-2 border-yellow-500">
+    <footer class="bg-gray-950 text-gray-400 py-8 text-center text-xs border-t-2 border-yellow-500 space-y-2">
         <p class="font-bold text-gray-300">&copy; 2026 Özen Oto Yedek Parça - Kumluca / Antalya</p>
-        <p class="text-[10px] text-gray-500 mt-1">Renault & Dacia Orijinal MAİS Parça Tedarik Merkezi</p>
+        <p class="text-[10px] text-gray-500">Renault & Dacia Orijinal MAİS Parça Tedarik Merkezi</p>
+        <div class="pt-2 flex items-center justify-center gap-4 text-[11px]">
+            <button onclick="kvkkModalAc()" class="hover:text-yellow-500 underline transition-colors">KVKK Aydınlatma Metni</button>
+            <span>•</span>
+            <button onclick="cerezModalAc()" class="hover:text-yellow-500 underline transition-colors">Çerez Tercihleri</button>
+        </div>
     </footer>
 
-    <!-- WHATSAPP BUTONU -->
-    <a href="https://wa.me/905327249417" target="_blank" class="fixed bottom-6 right-6 z-[90] bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 group active:scale-95">
+    <!-- WHATSAPP ÇOKLU MÜŞTERİ HATTINI AÇAN BUTON -->
+    <button onclick="temsilciModalAc()" class="fixed bottom-6 right-6 z-[90] bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 group active:scale-95" title="WhatsApp Temsilci Seçin">
         <span class="absolute -top-1 -right-1 flex h-4 w-4">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-4 w-4 bg-green-400"></span>
         </span>
         <i class="fa-brands fa-whatsapp text-3xl group-hover:rotate-12 transition-transform"></i>
-    </a>
+    </button>
+
+    <!-- SOL ALTA SABİT ÇEREZ TERCİH İKONU (HER ZAMAN TIKLANABİLİR) -->
+    <button onclick="cerezModalAc()" class="fixed bottom-6 left-6 z-[90] bg-gray-900 dark:bg-gray-800 text-yellow-500 w-11 h-11 rounded-full flex items-center justify-center shadow-xl border border-yellow-500/40 hover:scale-110 transition-all active:scale-95" title="Çerez Tercihlerini Yönet">
+        <i class="fa-solid fa-cookie-bite text-xl"></i>
+    </button>
 
     <!-- SEPET MODALI -->
     <div id="sepet-modal" onclick="sepetModalKapat()" class="fixed inset-0 z-[160] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
@@ -543,20 +651,95 @@
         </button>
     </div>
 
-    <!-- KVKK & ÇEREZ ONAY ŞERİDİ (COOKIE BANNER) -->
+    <!-- KVKK AYDINLATMA METNİ MODALI -->
+    <div id="kvkk-modal" onclick="kvkkModalKapat()" class="fixed inset-0 z-[180] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-2xl p-6 md:p-8 kutu-golge rounded-2xl animasyon-modal max-h-[85vh] flex flex-col cursor-default">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-800">
+                <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-file-contract text-yellow-500"></i> KVKK Kişisel Veriler Aydınlatma Metni
+                </h3>
+                <button onclick="kvkkModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto py-4 space-y-4 text-xs leading-relaxed text-gray-700 dark:text-gray-300 pr-2">
+                <p><strong>1. Veri Sorumlusu:</strong> 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, Karşıyaka Mah. Kocakesik Sok. No:509 Kumluca / Antalya adresinde mukim <strong>Özen Oto Yedek Parça</strong> veri sorumlusu sıfatıyla hareket etmektedir.</p>
+                <p><strong>2. İşlenen Kişisel Verileriniz:</strong> Sitemizi ziyaret ettiğinizde, WhatsApp üzerinden parça sorguladığınızda veya şasi sorgulama alanını kullandığınızda; Ad-Soyad, Telefon Numarası, Teslimat Adresi ve Araç Şasi Numarası (VIN) verileriniz işlenmektedir.</p>
+                <p><strong>3. Verilerin İşlenme Amacı:</strong> Kişisel verileriniz; doğru yedek parçanın (OEM uyumu) tespiti, siparişlerin adrese kargolanması, fatura düzenlenmesi ve müşteri memnuniyetinin sağlanması amaçlarıyla sınırlı olarak işlenir.</p>
+                <p><strong>4. Verilerin Aktarımı:</strong> Verileriniz, yasal zorunluluklar haricinde 3. şahıslarla paylaşılmaz; yalnızca sipariş teslimatı için anlaşmalı kargo şirketlerine aktarılır.</p>
+                <p><strong>5. Haklarınız:</strong> KVKK'nın 11. maddesi uyarınca firmamıza başvurarak verilerinizin silinmesini, güncellenmesini veya hangi amaçla işlendiğini bilgi alma hakkına sahipsiniz.</p>
+            </div>
+            <div class="pt-3 border-t border-gray-200 dark:border-gray-800 text-right">
+                <button onclick="kvkkModalKapat()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-2.5 rounded-xl text-xs uppercase">Anladım</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KURUMSAL ÇEREZ YÖNETİM MODALI (GELİŞMİŞ COOKIE PANELİ) -->
+    <div id="cerez-modal" onclick="cerezModalKapat()" class="fixed inset-0 z-[180] bg-black/80 cam-efekt hidden items-center justify-center p-4 cursor-pointer">
+        <div onclick="event.stopPropagation()" class="bg-white dark:bg-brand-cardDark border-t-4 border-yellow-500 w-full max-w-xl p-6 kutu-golge rounded-2xl animasyon-modal max-h-[85vh] flex flex-col cursor-default">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-800">
+                <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-cookie-bite text-yellow-500"></i> Çerez (Cookie) Tercih Yönetimi
+                </h3>
+                <button onclick="cerezModalKapat()" class="text-gray-400 hover:text-red-500 text-xl font-bold transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-4 space-y-4 text-xs pr-1">
+                <p class="text-gray-600 dark:text-gray-400">Sitemizde daha iyi bir deneyim sunabilmek amacıyla çerezler kullanılmaktadır. İsteğinize bağlı olarak çerez kategorilerini yönetebilirsiniz.</p>
+
+                <!-- ZORUNLU ÇEREZLER -->
+                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                    <div>
+                        <strong class="block text-sm font-bold text-gray-900 dark:text-white">Zorunlu Çerezler</strong>
+                        <span class="text-gray-500 text-[10px]">Sepetiniz, tema tercihiniz ve güvenlik oturumunuz için şarttır. (Kapatılamaz)</span>
+                    </div>
+                    <span class="text-[10px] font-black bg-green-500/20 text-green-600 dark:text-green-400 px-2.5 py-1 rounded-md">ZORUNLU</span>
+                </div>
+
+                <!-- ANALİTİK ÇEREZLER -->
+                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                    <div>
+                        <strong class="block text-sm font-bold text-gray-900 dark:text-white">Performans & Analiz Çerezleri</strong>
+                        <span class="text-gray-500 text-[10px]">Site trafiğini ve en çok aranan yedek parçaları anonim olarak analiz eder.</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" id="cerez-analitik" class="sr-only peer" checked>
+                      <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500"></div>
+                    </label>
+                </div>
+
+                <!-- PAZARLAMA ÇEREZLERİ -->
+                <div class="p-3.5 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                    <div>
+                        <strong class="block text-sm font-bold text-gray-900 dark:text-white">Pazarlama & İletişim Çerezleri</strong>
+                        <span class="text-gray-500 text-[10px]">WhatsApp siparişlerinizin hızlı iletilmesini sağlar.</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" id="cerez-pazarlama" class="sr-only peer" checked>
+                      <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-yellow-500"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-gray-200 dark:border-gray-800 flex gap-2">
+                <button onclick="cerezTumunuKabulEt()" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-black font-black py-3 rounded-xl text-xs uppercase">Tümünü Kabul Et</button>
+                <button onclick="cerezTercihKaydet()" class="flex-1 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-white font-bold py-3 rounded-xl text-xs uppercase">Tercihleri Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KVKK ALT BANT BANNER -->
     <div id="cerez-bandi" class="fixed bottom-0 left-0 right-0 z-[170] bg-gray-900/95 text-white border-t border-yellow-500 p-4 cam-efekt hidden transition-all duration-300 shadow-2xl">
         <div class="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3 text-xs leading-relaxed text-gray-300">
                 <i class="fa-solid fa-cookie-bite text-yellow-500 text-2xl flex-shrink-0"></i>
                 <p>
-                    Sitemizde müşteri deneyimini iyileştirmek, şasi sorgularınızı kolaylaştırmak ve tercihlerinizi hatırlamak için çerezler (cookies) kullanılmaktadır. 
-                    <span class="text-gray-400 font-normal hidden md:inline">Detaylı bilgi için KVKK Çerez Politikamızı inceleyebilirsiniz.</span>
+                    Sitemizde müşteri deneyimini iyileştirmek, şasi sorgularınızı kolaylaştırmak ve tercihlerinizi hatırlamak için çerezler kullanılmaktadır. 
+                    <button onclick="kvkkModalAc()" class="text-yellow-400 font-bold underline ml-1">KVKK Aydınlatma Metnini oku.</button>
                 </p>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto">
-                <button onclick="cerezKabulEt()" class="flex-1 sm:flex-none bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-2.5 rounded-xl text-xs uppercase transition-all shadow-md active:scale-95">
-                    Kabul Et
-                </button>
+                <button onclick="cerezModalAc()" class="flex-1 sm:flex-none bg-gray-800 hover:bg-gray-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase border border-gray-700">Tercihler</button>
+                <button onclick="cerezTumunuKabulEt()" class="flex-1 sm:flex-none bg-yellow-500 hover:bg-yellow-600 text-black font-black px-6 py-2.5 rounded-xl text-xs uppercase shadow-md active:scale-95">Kabul Et</button>
             </div>
         </div>
     </div>
@@ -567,9 +750,12 @@
     </div>
 
     <script>
-        let mevcutKategori = 'hepsi';
+        let mevcuttKategori = 'hepsi';
         let goruntulenenSayisi = 8;
         let sepet = JSON.parse(localStorage.getItem('ozen_sepet')) || [];
+
+        // GOOGLE OAUTH CLIENT ID CONFIGURATION
+        const GOOGLE_CLIENT_ID = "189761452081-ng5tqv4hh8ahiq88j1imaedeeqntesga.apps.googleusercontent.com";
 
         // VARSAYILAN YEDEK LOGO ŞABLONLARI (RENAULT & DACIA)
         const varsayilanLogoKart = `
@@ -602,18 +788,60 @@
             return 'gorseller/' + resim;
         }
 
-        function logoKartGoster(imgElement) {
-            imgElement.outerHTML = varsayilanLogoKart;
+        function logoKartGoster(imgElement) { imgElement.outerHTML = varsayilanLogoKart; }
+        function logoKucukGoster(imgElement) { imgElement.outerHTML = varsayilanKucukLogo; }
+        function logoOrtaGoster(imgElement) { imgElement.outerHTML = varsayilanOrtaLogo; }
+
+        /* GOOGLE IDENTITY (GIS OAUTH 2.0) EKLENTİSİ */
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
         }
 
-        function logoKucukGoster(imgElement) {
-            imgElement.outerHTML = varsayilanKucukLogo;
+        function handleGoogleCredentialResponse(response) {
+            const data = parseJwt(response.credential);
+            if (data) {
+                const mevcuttakiler = JSON.parse(localStorage.getItem('ozen_kullanici')) || {};
+                const yeniKullanici = {
+                    ...mevcuttakiler,
+                    adSoyad: data.name || `${data.given_name} ${data.family_name}`,
+                    email: data.email,
+                    foto: data.picture
+                };
+                localStorage.setItem('ozen_kullanici', JSON.stringify(yeniKullanici));
+                profilArayuzGuncelle();
+                profilModalKapat();
+                toastGoster(`Hoş geldin, ${data.given_name || data.name}!`);
+            }
         }
 
-        function logoOrtaGoster(imgElement) {
-            imgElement.outerHTML = varsayilanOrtaLogo;
+        function googleInit() {
+            if (window.google && window.google.accounts) {
+                window.google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleGoogleCredentialResponse
+                });
+                const container = document.getElementById("google-btn-container");
+                if (container) {
+                    window.google.accounts.id.renderButton(container, {
+                        theme: "outline",
+                        size: "large",
+                        width: "280",
+                        text: "continue_with"
+                    });
+                }
+            }
         }
 
+        /* KVKK VE ÇEREZ YÖNETİMİ */
         function cerezKontrol() {
             if (!localStorage.getItem('ozen_cerez_onay')) {
                 const band = document.getElementById('cerez-bandi');
@@ -621,10 +849,51 @@
             }
         }
 
-        function cerezKabulEt() {
+        function cerezTumunuKabulEt() {
             localStorage.setItem('ozen_cerez_onay', 'true');
-            const band = document.getElementById('cerez-bandi');
-            if (band) band.classList.add('hidden');
+            localStorage.setItem('ozen_cerez_analitik', 'true');
+            localStorage.setItem('ozen_cerez_pazarlama', 'true');
+            document.getElementById('cerez-bandi')?.classList.add('hidden');
+            cerezModalKapat();
+            toastGoster("Çerez tercihleriniz kaydedildi.");
+        }
+
+        function cerezTercihKaydet() {
+            const analitik = document.getElementById('cerez-analitik').checked;
+            const pazarlama = document.getElementById('cerez-pazarlama').checked;
+            localStorage.setItem('ozen_cerez_onay', 'true');
+            localStorage.setItem('ozen_cerez_analitik', analitik);
+            localStorage.setItem('ozen_cerez_pazarlama', pazarlama);
+            document.getElementById('cerez-bandi')?.classList.add('hidden');
+            cerezModalKapat();
+            toastGoster("Çerez ayarlarınız güncellendi.");
+        }
+
+        function cerezModalAc() {
+            document.getElementById('cerez-modal')?.classList.remove('hidden');
+            document.getElementById('cerez-modal')?.classList.add('flex');
+        }
+        function cerezModalKapat() {
+            document.getElementById('cerez-modal')?.classList.add('hidden');
+            document.getElementById('cerez-modal')?.classList.remove('flex');
+        }
+
+        function kvkkModalAc() {
+            document.getElementById('kvkk-modal')?.classList.remove('hidden');
+            document.getElementById('kvkk-modal')?.classList.add('flex');
+        }
+        function kvkkModalKapat() {
+            document.getElementById('kvkk-modal')?.classList.add('hidden');
+            document.getElementById('kvkk-modal')?.classList.remove('flex');
+        }
+
+        function temsilciModalAc() {
+            document.getElementById('whatsapp-temsilci-modal')?.classList.remove('hidden');
+            document.getElementById('whatsapp-temsilci-modal')?.classList.add('flex');
+        }
+        function temsilciModalKapat() {
+            document.getElementById('whatsapp-temsilci-modal')?.classList.add('hidden');
+            document.getElementById('whatsapp-temsilci-modal')?.classList.remove('flex');
         }
 
         function guvenlikKontrol() {
@@ -653,11 +922,17 @@
             const avatar = document.getElementById('profil-avatar');
             const baslik = document.getElementById('profil-baslik');
 
-            if (kullanici && kullanici.adSoyad) {
-                headerYazi.textContent = kullanici.adSoyad.split(' ')[0];
+            if (kullanici && (kullanici.adSoyad || kullanici.email)) {
+                const gorunenAd = kullanici.adSoyad || kullanici.email;
+                headerYazi.textContent = gorunenAd.split(' ')[0];
                 cikisBtn.classList.remove('hidden');
-                avatar.innerHTML = `<i class="fa-solid fa-user-check text-green-500"></i>`;
-                baslik.textContent = `Hoş Geldin, ${kullanici.adSoyad.split(' ')[0]}`;
+                
+                if (kullanici.foto) {
+                    avatar.innerHTML = `<img src="${kullanici.foto}" referrerpolicy="no-referrer" class="w-full h-full rounded-full object-cover">`;
+                } else {
+                    avatar.innerHTML = `<i class="fa-solid fa-user-check text-green-500"></i>`;
+                }
+                baslik.textContent = `Hoş Geldin, ${gorunenAd.split(' ')[0]}`;
 
                 document.getElementById('prof-ad').value = kullanici.adSoyad || '';
                 document.getElementById('prof-tel').value = kullanici.telefon || '';
@@ -676,6 +951,7 @@
             const modal = document.getElementById('profil-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            googleInit();
         }
 
         function profilModalKapat() {
@@ -858,8 +1134,8 @@
 
             let mesaj = `🛒 *ÖZEN OTO - SİPARİŞ / FİYAT TEKLİFİ TALEBİ*\n\n`;
 
-            if (kullanici.adSoyad) {
-                mesaj += `👤 *Müşteri:* ${kullanici.adSoyad}\n`;
+            if (kullanici.adSoyad || kullanici.email) {
+                mesaj += `👤 *Müşteri:* ${kullanici.adSoyad || kullanici.email}\n`;
                 if (kullanici.telefon) mesaj += `📞 *Tel:* ${kullanici.telefon}\n`;
                 if (kullanici.sasi) mesaj += `🚘 *Şasi No (VIN):* ${kullanici.sasi}\n`;
                 if (kullanici.adres) mesaj += `📍 *Adres:* ${kullanici.adres}\n`;
@@ -982,8 +1258,8 @@
             const terstenUrunler = [...tumUrunler].reverse();
 
             let suzulenler = terstenUrunler;
-            if (mevcutKategori !== 'hepsi') {
-                suzulenler = terstenUrunler.filter(u => u.kategori === mevcutKategori);
+            if (mevcuttKategori !== 'hepsi') {
+                suzulenler = terstenUrunler.filter(u => u.kategori === mevcuttKategori);
             }
 
             const gosterilecekler = suzulenler.slice(0, goruntulenenSayisi);
@@ -1003,7 +1279,7 @@
         }
 
         function kategoriFiltrele(kat) {
-            mevcutKategori = kat;
+            mevcuttKategori = kat;
             goruntulenenSayisi = 8;
             
             document.querySelectorAll('.kategori-btn').forEach(btn => {
@@ -1147,12 +1423,15 @@
                 sepetModalKapat();
                 sasiModalKapat();
                 profilModalKapat();
+                cerezModalKapat();
+                kvkkModalKapat();
+                temsilciModalKapat();
             }
         });
 
         document.addEventListener('click', function(e) {
             if (!e.target.closest('#arama-girdisi') && !e.target.closest('#arama-sonuclari')) {
-                document.getElementById('arama-sonuclari').classList.add('hidden');
+                document.getElementById('arama-sonuclari')?.classList.add('hidden');
             }
         });
 
